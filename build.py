@@ -118,7 +118,10 @@ def search_index():
 # ------------------------------------------------------------------ render ---
 env = Environment(loader=FileSystemLoader(os.path.join(ROOT, 'src', 'templates')),
                   autoescape=select_autoescape(['html']), trim_blocks=True, lstrip_blocks=True)
-env.globals.update(drive_id=drive_id, site=site, streams=STREAMS, views=views, SYSTEMS=SYSTEMS,
+import hashlib
+ASSET_VER = hashlib.md5(b''.join(open(os.path.join(ROOT, 'src', 'assets', f), 'rb').read()
+                                 for f in ('style.css', 'app.js'))).hexdigest()[:8]   # cache-buster
+env.globals.update(ver=ASSET_VER, drive_id=drive_id, site=site, streams=STREAMS, views=views, SYSTEMS=SYSTEMS,
                    total_files=total_files, total_words=total_words, total_videos=total_videos, HUES=HUES, all_years=all_years, content=content)
 pages = []
 

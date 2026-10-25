@@ -17,7 +17,7 @@
 <link rel="icon" href="{{ root }}assets/icon.svg" type="image/svg+xml">
 <link rel="preload" href="{{ root }}assets/fonts/plex-arabic-Regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="{{ root }}assets/fonts/readex-pro-var.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="{{ root }}assets/style.css">
+<link rel="stylesheet" href="{{ root }}assets/style.css?v={{ ver }}">
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body data-page="{{ page }}" data-root="{{ root }}">
@@ -142,6 +142,6 @@
   <iframe id="vframe" title="معاينة الملف" allow="autoplay" referrerpolicy="no-referrer"></iframe>
 </dialog>
 
-<script src="{{ root }}assets/app.js" defer></script>
+<script src="{{ root }}assets/app.js?v={{ ver }}" defer></script>
 </body>
 </html>
