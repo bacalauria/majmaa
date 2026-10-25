@@ -1,19 +1,17 @@
-# Builds the site with build.py and publishes it to GitHub Pages on every push to main.
-# One-time setup: repository Settings → Pages → Source: "GitHub Actions".
+# Rebuilds the site with build.py on every push to main and publishes the result
+# to the gh-pages branch (GitHub Pages serves that branch).
 name: Build and deploy site
 on:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 concurrency:
   group: pages
   cancel-in-progress: true
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,15 +20,9 @@ jobs:
           python-version: '3.12'
       - run: pip install jinja2
       - run: python build.py
-      - uses: actions/upload-pages-artifact@v3
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          path: _site
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          force_orphan: true

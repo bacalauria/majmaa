@@ -32,7 +32,7 @@ migration/apply_drive_map.py            rewrites data/ to the new Drive links
 ## 2. Put it on GitHub (once)
 
 1. Create a repository (e.g. `baccalauria`) and upload the content of this folder.
-2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
+2. **Settings → Pages → Source: "Deploy from a branch", branch **gh-pages** (the workflow rebuilds it on every push).**
 3. `data/site.json` → `"url"` is `https://bacalauria.github.io/majmaa/`; change it if
    you add a custom domain (it only affects SEO tags, the sitemap and the 404 page).
 4. Push. The *Build and deploy site* action publishes the site in ~1 minute.
