@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
 {% set title = a.title %}
 {% block main %}
-<section class="pagehead">
-  <div class="wrap">
-    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><a href="{{ root }}articles/">مقالات</a></nav>
-    <h1 class="pagehead__title">{{ a.title }}</h1>
-  </div>
-</section>
+{{ pagehead(a.title, [('articles/', 'مقالات')] if page == 'articles' else [], root, None, 'scroll', 175) }}
 <div class="wrap">
   <article class="prose">{{ a.html|safe }}</article>
 </div>

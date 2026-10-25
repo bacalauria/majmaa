@@ -51,7 +51,7 @@
     if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
     if (document.documentElement.dataset.preview) return;   // artifact preview host blocks the Drive iframe
     if (!isDrive(a.href) || !driveId(a.href)) return;
-    if (!(a.matches('.f, [data-drive-url]'))) return;
+    if (!(a.matches('.fc, [data-drive-url]'))) return;
     e.preventDefault();
     openViewer(a.href, a.dataset.title || a.textContent.trim());
   });
@@ -105,8 +105,10 @@
     return score + r[1] / 10000;   // newer first on ties
   }
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  function fileLinks(list, role, label, title) {
-    return list.map(([kind, url]) => `<a class="f f--${role}" href="${esc(url)}" target="_blank" rel="noopener" data-title="${esc(title + ' — ' + label)}"><span class="f__role">${label}</span>${kind !== 'PDF' ? `<span class="f__fmt">${esc(kind)}</span>` : ''}</a>`).join('');
+  const ICON = { PDF: '<svg viewBox="0 0 24 24"><use href="#i-pdf"/></svg>', Word: 'W', FR: 'FR' };
+  const LBL = { PDF: 'PDF', Word: 'Word', FR: 'ع/ف' };
+  function fileLinks(list, title) {
+    return list.map(([kind, url]) => `<a class="fc fc--${kind === 'Word' ? 'word' : kind === 'FR' ? 'fr' : 'pdf'}" href="${esc(url)}" target="_blank" rel="noopener" data-title="${esc(title)}"><i aria-hidden="true">${ICON[kind] || ICON.PDF}</i><span>${LBL[kind] || esc(kind)}</span></a>`).join('');
   }
   function run() {
     const toks = tokens(q.value);
@@ -122,8 +124,11 @@
         const st = d.streams[r[0]], sub = d.subjects[r[3]], sess = d.sessions[r[2]];
         const ctx = `بكالوريا ${r[1]}${sess ? ' ' + sess : ''} — ${st[0]}`;
         const anchor = `y${r[1]}${r[2] === 'main' ? '' : '-' + r[2]}`;
-        return `<li><span class="sr__main"><span class="sr__subject">${esc(sub)}</span><span class="sr__ctx"><a href="${ROOT}bac/${r[0]}/#${anchor}">${esc(ctx)}</a></span></span>` +
-          `<span class="sr__files">${fileLinks(r[4], 'sujet', 'الموضوع', sub + ' — ' + ctx)}${fileLinks(r[5], 'solution', 'الحل', sub + ' — ' + ctx)}</span></li>`;
+        const t = sub + ' — ' + ctx;
+        return `<li><span class="sr__main" style="--h:${d.hues[r[3]] || 235}"><b class="dot" aria-hidden="true"></b><span class="sr__txt"><span class="sr__subject">${esc(sub)}</span><span class="sr__ctx"><a href="${ROOT}bac/${r[0]}/#${anchor}">${esc(ctx)}</a></span></span></span>` +
+          `<span class="sr__files">${r[4].length ? '<span class="sr__lbl">الموضوع</span>' + fileLinks(r[4], t + ' — الموضوع') : ''}` +
+          `<span class="sr__files sr__sol">${r[5].length ? '<span class="sr__lbl">الحل</span>' + fileLinks(r[5], t + ' — الحل') : ''}</span>` +
+          `${r[6] ? `<a class="vb" href="${esc(r[6])}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg><span>فيديو</span></a>` : ''}</span></li>`;
       }).join('');
       active = -1;
     });
@@ -141,7 +146,7 @@
       e.preventDefault(); active = (active + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
       items.forEach((li, i) => li.classList.toggle('is-active', i === active)); items[active].scrollIntoView({ block: 'nearest' });
     } else if (e.key === 'Enter' && active >= 0) {
-      e.preventDefault(); const a = $('.f', items[active]) || $('a', items[active]); a && a.click();
+      e.preventDefault(); const a = $('.fc', items[active]) || $('a', items[active]); a && a.click();
     }
   });
   document.addEventListener('keydown', (e) => {
@@ -189,7 +194,7 @@
       sheets.forEach((sh) => {
         let n = 0;
         let last = null;
-        $$('.row', sh).forEach((r) => { const show = subj === '*' || r.dataset.subject === subj; r.hidden = !show; n += show; r.classList.remove('is-last'); if (show) last = r; });
+        $$('.xr', sh).forEach((r) => { const show = subj === '*' || r.dataset.subject === subj; r.hidden = !show; n += show; r.classList.remove('is-last'); if (show) last = r; });
         if (last) last.classList.add('is-last');
         $('.sheet__empty', sh).hidden = n > 0;
         sh.classList.toggle('is-empty', n === 0);

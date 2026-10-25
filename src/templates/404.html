@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% set title = 'الصفحة غير موجودة' %}
 {% block main %}
-<section class="pagehead pagehead--center">
-  <div class="wrap">
-    <h1 class="pagehead__title">هذه الصفحة غير موجودة</h1>
-    <p class="pagehead__meta">ربما تغير الرابط بعد انتقال الموقع. ابحث عن الموضوع الذي تريده أو ابدأ من قائمة الشعب.</p>
-    <p class="actions"><button class="btn" type="button" data-open-search>ابحث في المواضيع</button><a class="btn btn--quiet" href="{{ root }}">الصفحة الرئيسية</a></p>
+<section class="section">
+  <div class="wrap empty">
+    <p class="empty__code">404</p>
+    <h1 class="section__title">هذه الصفحة غير موجودة</h1>
+    <p class="empty__text">ربما تغير الرابط بعد انتقال الموقع. ابحث عن الموضوع الذي تريده أو ابدأ من قائمة الشعب.</p>
+    <p class="actions"><button class="btn" type="button" data-open-search>ابحث في المواضيع</button><a class="btn btn--soft" href="{{ root }}bac/">قائمة الشعب</a></p>
   </div>
 </section>
 {% endblock %}

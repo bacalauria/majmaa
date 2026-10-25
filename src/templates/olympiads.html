@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
 {% set title = 'أولمبياد الرياضيات و الفيزياء' %}
 {% block main %}
-<section class="pagehead">
-  <div class="wrap">
-    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><span>أولمبياد</span></nav>
-    <h1 class="pagehead__title">أولمبياد الرياضيات و الفيزياء</h1>
-    <p class="pagehead__meta">للتلاميذ الذين يريدون الذهاب أبعد من البرنامج.</p>
-  </div>
-</section>
+{{ pagehead('أولمبياد الرياضيات و الفيزياء', [(None, 'أولمبياد')], root, 'للتلاميذ الذين يريدون الذهاب أبعد من البرنامج.', 'pi', 265) }}
 <div class="wrap world">
   <section class="sheet">
     <header class="sheet__head"><h2><span class="sheet__year">الرياضيات</span><span class="sheet__session">IMO</span></h2></header>

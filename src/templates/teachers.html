@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set title = 'للأساتذة: مواضيع البكالوريا بصيغة Word' %}
+{% set description = 'مواضيع البكالوريا الجزائرية بصيغة Word قابلة للتعديل لبناء الفروض و الاختبارات، و فيديوهات حل المواضيع.' %}
+{% block main %}
+{{ pagehead('للأساتذة', [(None, 'للأساتذة')], root, 'مواضيع البكالوريا بصيغة Word قابلة للتعديل، لبناء فروضكم و اختباراتكم و أوراق تمارينكم.', 'board', 220) }}
+<div class="wrap section">
+  <div class="features">
+    <article class="feature" style="--h:220">
+      <span class="feature__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-edit"/></svg></span>
+      <h3>نسخ Word نظيفة</h3>
+      <p>كل موضوع يعاد كتابته بالكامل: نص عربي سليم، معادلات Word حقيقية قابلة للتعديل، و أشكال واضحة. ليست نسخا ممسوحة ضوئيا.</p>
+    </article>
+    <article class="feature" style="--h:150">
+      <span class="feature__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-board"/></svg></span>
+      <h3>جاهزة لفروضكم</h3>
+      <p>انسخ تمرينا، غير المعطيات، أضف سؤالا. كل ملف مقسم حسب التمارين ليسهل اقتطاعه.</p>
+    </article>
+    <article class="feature" style="--h:350">
+      <span class="feature__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg></span>
+      <h3>فيديو الحل</h3>
+      <p>حلول مشروحة بالفيديو لكل مادة علمية، تشاركونها مع تلاميذكم للمراجعة في البيت.</p>
+    </article>
+  </div>
+
+  <section class="plan">
+    <h2 class="section__title">خطة العمل</h2>
+    <ol class="steps">
+      <li><b>المرحلة 1</b><span>الرياضيات و العلوم الفيزيائية و علوم الطبيعة و الحياة، من 2026 رجوعا إلى 2016، لجميع الشعب العلمية.</span></li>
+      <li><b>المرحلة 2</b><span>بقية سنوات النظام الجديد (2008 – 2015) و مواد التسيير و الاقتصاد و الهندسة.</span></li>
+      <li><b>المرحلة 3</b><span>المواد الأدبية و اللغات، ثم النظام القديم.</span></li>
+    </ol>
+    <p class="plan__now">متوفر الآن: <b>{{ total_words }}</b> ملف Word · <b>{{ total_videos }}</b> فيديو. في جداول المواضيع، الخانات الباهتة «قريبا» هي الملفات التي لم تجهز بعد.</p>
+  </section>
+
+  <aside class="note">
+    <span class="note__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-people"/></svg></span>
+    <p>عندك موضوع مكتوب بصيغة Word أو حل مفصل و تريد مشاركته؟ أرسله و سيضاف باسمك.</p>
+    <a class="btn" href="mailto:{{ site.email }}?subject=مساهمة في مجمع البكالوريا">أرسل مساهمتك</a>
+  </aside>
+</div>
+{% endblock %}

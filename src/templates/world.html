@@ -1,27 +1,22 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import pagehead, fc %}
 {% set title = 'مواضيع البكالوريا في دول أخرى' %}
 {% set description = 'مواضيع و حلول البكالوريا التونسية و المغربية و السورية و الفرنسية.' %}
 {% block main %}
-<section class="pagehead">
-  <div class="wrap">
-    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><span>دول أخرى</span></nav>
-    <h1 class="pagehead__title">بكالوريا دول أخرى</h1>
-    <p class="pagehead__meta">مواضيع للتدرب من أنظمة قريبة من البكالوريا الجزائرية.</p>
-    <nav class="jump" aria-label="الدول"><a href="#tn">تونس</a><a href="#ma">المغرب</a><a href="#sy">سوريا</a><a href="#fr">فرنسا</a></nav>
-  </div>
-</section>
+{% call pagehead('بكالوريا دول أخرى', [(None, 'دول أخرى')], root, 'مواضيع للتدرب من أنظمة قريبة من البكالوريا الجزائرية.', 'globe', 200) %}
+<nav class="jump" aria-label="الدول"><a href="#tn">تونس</a><a href="#ma">المغرب</a><a href="#sy">سوريا</a><a href="#fr">فرنسا</a></nav>
+{% endcall %}
 <div class="wrap world">
   <section class="sheet" id="tn">
     <header class="sheet__head"><h2><span class="sheet__year">تونس</span></h2></header>
     <ul class="links">{% for a in content.tunisia.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}</ul>
+    <div class="xh xh--2" aria-hidden="true"><span>الشعبة</span><span class="xh__g">الموضوع</span><span class="xh__g xh__g--sol">الحل</span></div>
     <ol class="rows">
       {% for s in content.tunisia.streams %}{% for r in s.rows %}
-      <li class="row">
-        <span class="row__subject">{{ s.stream|replace('شعبة ','') }} <small>{{ r.year }}</small></span>
-        <span class="row__files">
-          {% if r.sujet %}<a class="f f--sujet" href="{{ r.sujet }}" target="_blank" rel="noopener" data-drive-url data-title="تونس {{ r.year }} — {{ s.stream }} — الموضوع"><span class="f__role">الموضوع</span></a>{% endif %}
-          {% if r.solution %}<a class="f f--solution" href="{{ r.solution }}" target="_blank" rel="noopener" data-drive-url data-title="تونس {{ r.year }} — {{ s.stream }} — الحل"><span class="f__role">الحل</span></a>{% endif %}
-        </span>
+      <li class="xr xr--2" style="--h:200">
+        <span class="xr__sub"><b class="dot" aria-hidden="true"></b>{{ s.stream|replace('شعبة ','') }} <small>{{ r.year }}</small></span>
+        <span class="xr__grp xr__grp--paper" data-label="الموضوع">{{ fc({'url': r.sujet, 'drive': drive_id(r.sujet)} if r.sujet else None, 'pdf', 'تونس ' ~ r.year ~ ' — ' ~ s.stream ~ ' — الموضوع') }}</span>
+        <span class="xr__grp xr__grp--sol" data-label="الحل">{{ fc({'url': r.solution, 'drive': drive_id(r.solution)} if r.solution else None, 'pdf', 'تونس ' ~ r.year ~ ' — ' ~ s.stream ~ ' — الحل') }}</span>
       </li>
       {% endfor %}{% endfor %}
     </ol>

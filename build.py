@@ -40,6 +40,16 @@ SHORT = {  # short names used in search results and tiles
     'lsh': 'آداب و علوم إنسانية'}
 for k, v in SHORT.items(): STREAMS[k]['short'] = v
 
+# Colour (HSL hue) of every subject and stream: used for dots, chips and card accents.
+HUES = {'ar': 350, 'math': 235, 'phys': 200, 'svt': 145, 'isl': 170, 'shar': 170, 'hg': 30, 'en': 265,
+        'fr': 215, 'philo': 290, 'tz': 48, 'compta': 22, 'eco': 12, 'ecolaw': 5, 'law': 330, 'ge_el': 190,
+        'ge_mec': 205, 'ge_civ': 25, 'ge_proc': 160, 'de': 275, 'es': 15, 'it': 130, 'arts': 315}
+STREAM_STYLE = {  # hue + icon id (see the <symbol>s in base.html)
+    'math': (235, 'sigma'), 'se': (155, 'flask'), 'mt': (200, 'compass'), 'ge': (28, 'chart'),
+    'lph': (290, 'book'), 'lang': (265, 'globe'), 'arts': (330, 'brush'), 'sx': (235, 'pi'),
+    'snv': (145, 'leaf'), 'oge': (28, 'chart'), 'lsi': (175, 'scroll'), 'lsh': (300, 'people')}
+for k, (h, ic) in STREAM_STYLE.items(): STREAMS[k].update(hue=h, icon=ic)
+
 # ------------------------------------------------------------ link helpers ---
 def drive_id(url):
     m = re.search(r'/d/([\w-]{10,})|[?&]id=([\w-]{10,})', url or '')
@@ -56,13 +66,14 @@ def link(url, kind):
 by_stream = collections.OrderedDict((s['id'], collections.OrderedDict()) for s in meta['streams'])
 for r in rows:
     key = (int(r['year']), r['session'])
+    c = dict(sp=link(r['sujet_pdf'], 'PDF'), sw=link(r['sujet_docx'], 'Word'), sf=link(r['sujet_pdf_fr'], 'FR'),
+             cp=link(r['solution_pdf'], 'PDF'), cw=link(r['solution_docx'], 'Word'), cf=link(r['solution_pdf_fr'], 'FR'),
+             v=link(r['video'], 'Video'))
     by_stream[r['stream']].setdefault(key, []).append(dict(
-        subject=r['subject'], name=SUBJECTS.get(r['subject'], r['subject']),
-        sujet=[x for x in (link(r['sujet_pdf'], 'PDF'), link(r['sujet_docx'], 'Word'),
-                           link(r['sujet_pdf_fr'], 'عربي-فرنسي')) if x],
-        solution=[x for x in (link(r['solution_pdf'], 'PDF'), link(r['solution_docx'], 'Word'),
-                              link(r['solution_pdf_fr'], 'عربي-فرنسي')) if x],
-        video=link(r['video'], 'فيديو')))
+        subject=r['subject'], name=SUBJECTS.get(r['subject'], r['subject']), hue=HUES.get(r['subject'], 230), c=c,
+        sujet=[x for x in (c['sp'], c['sw'], c['sf']) if x],
+        solution=[x for x in (c['cp'], c['cw'], c['cf']) if x],
+        video=c['v']))
 
 def stream_view(sid):
     s = STREAMS[sid]; years = []
@@ -74,14 +85,18 @@ def stream_view(sid):
         for it in y['rows']:
             if it['subject'] not in subj_order: subj_order.append(it['subject'])
     files = sum(len(it['sujet']) + len(it['solution']) for y in years for it in y['rows'])
+    words = sum(bool(it['c']['sw']) + bool(it['c']['cw']) for y in years for it in y['rows'])
+    videos = sum(bool(it['c']['v']) for y in years for it in y['rows'])
     ys = [y['year'] for y in years]
     return dict(s, system_name=SYSTEMS[s['system']], years=years,
                 subjects=[(k, SUBJECTS[k]) for k in subj_order],
-                first=min(ys), last=max(ys), files=files,
+                first=min(ys), last=max(ys), files=files, words=words, videos=videos,
                 decades=sorted({y // 10 * 10 for y in ys}, reverse=True))
 
 views = {sid: stream_view(sid) for sid in by_stream}
 total_files = sum(v['files'] for v in views.values())
+total_words = sum(v['words'] for v in views.values())
+total_videos = sum(v['videos'] for v in views.values())
 all_years = sorted({y['year'] for v in views.values() for y in v['years']}, reverse=True)
 year_streams = {y: [sid for sid, v in views.items() if any(x['year'] == y for x in v['years'])]
                 for y in all_years}
@@ -98,13 +113,13 @@ def search_index():
                             [[l['kind'], l['url']] for l in it['solution']],
                             it['video']['url'] if it['video'] else ''])
     return dict(streams={k: [v['short'], v['name'], v['system']] for k, v in STREAMS.items()},
-                subjects=SUBJECTS, sessions=SESSIONS, rows=idx)
+                subjects=SUBJECTS, sessions=SESSIONS, hues=HUES, rows=idx)
 
 # ------------------------------------------------------------------ render ---
 env = Environment(loader=FileSystemLoader(os.path.join(ROOT, 'src', 'templates')),
                   autoescape=select_autoescape(['html']), trim_blocks=True, lstrip_blocks=True)
-env.globals.update(site=site, streams=STREAMS, views=views, SYSTEMS=SYSTEMS,
-                   total_files=total_files, all_years=all_years, content=content)
+env.globals.update(drive_id=drive_id, site=site, streams=STREAMS, views=views, SYSTEMS=SYSTEMS,
+                   total_files=total_files, total_words=total_words, total_videos=total_videos, HUES=HUES, all_years=all_years, content=content)
 pages = []
 
 def render(tpl, path, **ctx):
@@ -134,6 +149,7 @@ def build():
     render('bac_index.html', 'bac/index.html', page='bac')
     for sid, v in views.items():
         render('stream.html', f'bac/{sid}/index.html', page='bac', v=v)
+    render('teachers.html', 'teachers/index.html', page='teachers')
     render('lessons.html', 'lessons/index.html', page='lessons')
     render('world.html', 'world/index.html', page='world')
     render('olympiads.html', 'olympiads/index.html', page='olympiads')

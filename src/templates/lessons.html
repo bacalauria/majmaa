@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set meta_html %}مراجع مختارة لكل مادة. الكتب المدرسية للسنة الثالثة ثانوي لجميع الشعب متوفرة <a href="{{ content.lessons.books }}" target="_blank" rel="noopener">على موقع الدراسة الجزائري</a>.{% endset %}
 {% set title = 'دروس و ملخصات للسنة الثالثة ثانوي' %}
 {% set description = 'ملخصات و كتب و قنوات شرح لمواد البكالوريا الجزائرية: الرياضيات، الفيزياء، العلوم الطبيعية، اللغات و الفلسفة.' %}
 {% block main %}
-<section class="pagehead">
-  <div class="wrap">
-    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><span>دروس و ملخصات</span></nav>
-    <h1 class="pagehead__title">دروس و ملخصات</h1>
-    <p class="pagehead__meta">مراجع مختارة لكل مادة. الكتب المدرسية للسنة الثالثة ثانوي لجميع الشعب متوفرة <a href="{{ content.lessons.books }}" target="_blank" rel="noopener">على موقع الدراسة الجزائري</a>.</p>
-  </div>
-</section>
+{{ pagehead('دروس و ملخصات', [(None, 'دروس و ملخصات')], root, meta_html, 'book', 235) }}
 <div class="wrap">
   <div class="lessons">
     {% for r in content.lessons.rows %}

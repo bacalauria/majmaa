@@ -1,27 +1,65 @@
-{# One file button. role: 'sujet' (blue ink) or 'solution' (red pen). #}
-{% macro filebtn(l, role, label, title) -%}
-<a class="f f--{{ role }}" href="{{ l.url }}" target="_blank" rel="noopener"
-   {% if l.drive %}data-drive="{{ l.drive }}"{% endif %} data-title="{{ title }}">
-  <span class="f__role">{{ label }}</span>{% if l.kind != 'PDF' %}<span class="f__fmt">{{ l.kind }}</span>{% endif %}
-</a>
+{# ---------------------------------------------------------------------------
+   One file cell.  l = link dict (or None), fmt = 'pdf' | 'word' | 'fr'.
+   A missing file is drawn as a faint "coming soon" placeholder so the columns
+   always line up (PDF · Word for the paper, PDF · Word for the solution, video).
+--------------------------------------------------------------------------- #}
+{% macro fc(l, fmt, title) -%}
+{% set label = {'pdf': 'PDF', 'word': 'Word', 'fr': 'ع/ف'}[fmt] %}
+{% if l -%}
+<a class="fc fc--{{ fmt }}" href="{{ l.url }}" target="_blank" rel="noopener"
+   {% if l.drive %}data-drive="{{ l.drive }}"{% endif %} data-title="{{ title }}{{ ' (Word)' if fmt == 'word' else ' (عربي-فرنسي)' if fmt == 'fr' else '' }}"
+   aria-label="{{ title }} — {{ label }}"><i aria-hidden="true">{% if fmt == 'word' %}W{% elif fmt == 'fr' %}FR{% else %}<svg viewBox="0 0 24 24"><use href="#i-pdf"/></svg>{% endif %}</i><span>{{ label }}</span></a>
+{%- else -%}
+<span class="fc fc--none" title="{{ 'قريبا' if fmt == 'word' else 'غير متوفر' }}"><i aria-hidden="true">{% if fmt == 'word' %}W{% else %}<svg viewBox="0 0 24 24"><use href="#i-pdf"/></svg>{% endif %}</i><span>{{ 'قريبا' if fmt == 'word' else '—' }}</span></span>
+{%- endif %}
 {%- endmacro %}
 
 {% macro examrow(it, ctx) -%}
-<li class="row" data-subject="{{ it.subject }}">
-  <span class="row__subject">{{ it.name }}</span>
-  <span class="row__files">
-    {% for l in it.sujet %}{{ filebtn(l, 'sujet', 'الموضوع', it.name ~ ' — ' ~ ctx ~ ' — الموضوع') }}{% endfor %}
-    {% for l in it.solution %}{{ filebtn(l, 'solution', 'الحل', it.name ~ ' — ' ~ ctx ~ ' — الحل') }}{% endfor %}
-    {% if it.video %}<a class="f f--video" href="{{ it.video.url }}" target="_blank" rel="noopener"><span class="f__role">فيديو</span></a>{% endif %}
-    {% if not it.sujet and not it.solution %}<span class="f f--none">غير متوفر حاليا</span>{% endif %}
+{% set c = it.c %}
+<li class="xr" data-subject="{{ it.subject }}" style="--h:{{ it.hue }}">
+  <span class="xr__sub"><b class="dot" aria-hidden="true"></b>{{ it.name }}</span>
+  <span class="xr__grp xr__grp--paper" data-label="الموضوع">
+    {{ fc(c.sp, 'pdf', it.name ~ ' — ' ~ ctx ~ ' — الموضوع') }}{{ fc(c.sw, 'word', it.name ~ ' — ' ~ ctx ~ ' — الموضوع') }}{% if c.sf %}{{ fc(c.sf, 'fr', it.name ~ ' — ' ~ ctx ~ ' — الموضوع') }}{% endif %}
+  </span>
+  <span class="xr__grp xr__grp--sol" data-label="الحل">
+    {{ fc(c.cp, 'pdf', it.name ~ ' — ' ~ ctx ~ ' — الحل') }}{{ fc(c.cw, 'word', it.name ~ ' — ' ~ ctx ~ ' — الحل') }}{% if c.cf %}{{ fc(c.cf, 'fr', it.name ~ ' — ' ~ ctx ~ ' — الحل') }}{% endif %}
+  </span>
+  <span class="xr__vid">
+    {% if c.v %}<a class="vb" href="{{ c.v.url }}" target="_blank" rel="noopener" aria-label="فيديو الحل — {{ it.name }}"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg><span>شاهد</span></a>
+    {% else %}<span class="vb vb--none" title="فيديو الحل قريبا"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg><span>قريبا</span></span>{% endif %}
   </span>
 </li>
 {%- endmacro %}
 
+{% macro xhead() -%}
+<div class="xh" aria-hidden="true">
+  <span>المادة</span><span class="xh__g">الموضوع</span><span class="xh__g xh__g--sol">الحل</span><span>فيديو الحل</span>
+</div>
+{%- endmacro %}
+
 {% macro streamtile(v, root) -%}
-<a class="tile" href="{{ root }}bac/{{ v.id }}/" data-stream="{{ v.id }}">
-  <span class="tile__name">{{ v.name|replace('شعبة ','') }}</span>
-  <span class="tile__years">{{ v.first }} – {{ v.last }}</span>
-  <span class="tile__count">{{ v.years|length }} دورة</span>
+<a class="tile" href="{{ root }}bac/{{ v.id }}/" data-stream="{{ v.id }}" style="--h:{{ v.hue }}">
+  <span class="tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ v.icon }}"/></svg></span>
+  <span class="tile__body">
+    <span class="tile__name">{{ v.name|replace('شعبة ','') }}</span>
+    <span class="tile__meta">{{ v.first }} – {{ v.last }} · {{ v.years|length }} دورة</span>
+  </span>
+  <svg class="tile__go" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
 </a>
+{%- endmacro %}
+
+{% macro pagehead(title, crumbs, root, meta=None, icon=None, hue=235) -%}
+<section class="pagehead" style="--h:{{ hue }}">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a>{% for href, label in crumbs %}<span aria-hidden="true">›</span>{% if href %}<a href="{{ root }}{{ href }}">{{ label }}</a>{% else %}<span>{{ label }}</span>{% endif %}{% endfor %}</nav>
+    <div class="pagehead__row">
+      {% if icon %}<span class="pagehead__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ icon }}"/></svg></span>{% endif %}
+      <div>
+        <h1 class="pagehead__title">{{ title }}</h1>
+        {% if meta %}<p class="pagehead__meta">{{ meta|safe }}</p>{% endif %}
+      </div>
+    </div>
+    {{ caller() if caller else '' }}
+  </div>
+</section>
 {%- endmacro %}

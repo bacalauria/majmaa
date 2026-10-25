@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
 {% set title = 'الثلاثة الأوائل في بكالوريا الجزائر' %}
 {% block main %}
-<section class="pagehead">
-  <div class="wrap">
-    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><a href="{{ root }}articles/">مقالات</a></nav>
-    <h1 class="pagehead__title">الأوائل في البكالوريا</h1>
-    <p class="pagehead__meta">أعلى ثلاثة معدلات على المستوى الوطني في كل دورة.</p>
-  </div>
-</section>
+{{ pagehead('الأوائل في البكالوريا', [('articles/', 'مقالات')], root, 'أعلى ثلاثة معدلات على المستوى الوطني في كل دورة.', 'trophy', 38) }}
 <div class="wrap">
   <div class="laureates">
     {% for t in content.toppers %}

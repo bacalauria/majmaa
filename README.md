@@ -32,7 +32,7 @@ migration/apply_drive_map.py            rewrites data/ to the new Drive links
 ## 2. Put it on GitHub (once)
 
 1. Create a repository (e.g. `baccalauria`) and upload the content of this folder.
-2. **Settings → Pages → Source: "Deploy from a branch", branch **gh-pages** (the workflow rebuilds it on every push).**
+2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
 3. `data/site.json` → `"url"` is `https://bacalauria.github.io/majmaa/`; change it if
    you add a custom domain (it only affects SEO tags, the sitemap and the 404 page).
 4. Push. The *Build and deploy site* action publishes the site in ~1 minute.
@@ -110,9 +110,15 @@ Save as CSV (UTF-8), push. Done. New laureates go in `data/content.json` → `to
 
 ## 6. Design notes
 
-The visual idea is the Algerian school copybook (cahier Seyès): ruled paper and a
-red margin line, exam papers in **blue ink**, solutions in **red pen**. Titles use
-*Aref Ruqaa* (handwritten Ruqʿa), everything else *IBM Plex Sans Arabic*; both are
-self-hosted under the SIL Open Font License. Light and dark themes follow the
-device, with a toggle. Google Drive files open in an in-page viewer with
-download and "open in Drive" buttons. Press `/` anywhere to search.
+Modern ed-tech look: white surfaces, an indigo → violet brand gradient and a
+colour per subject and stream (`HUES` / `STREAM_STYLE` in `build.py`). Titles use
+*Readex Pro*, text *IBM Plex Sans Arabic*; both are self-hosted under the SIL Open
+Font License. Light and dark themes follow the device, with a toggle.
+
+Every exam row keeps the old site's columns:
+**الموضوع (PDF · Word) | الحل (PDF · Word) | فيديو الحل**. A file that is not ready
+yet shows as a faint dashed “قريبا” chip; fill the `sujet_docx`, `solution_docx` or
+`video` cell in `data/exams.csv` and the chip turns into a live button. The
+**للأساتذة** page explains the Word project and counts what is available.
+Google Drive files open in an in-page viewer with download and "open in Drive"
+buttons. Press `/` anywhere to search.

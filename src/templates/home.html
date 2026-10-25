@@ -1,28 +1,63 @@
 {% extends 'base.html' %}
 {% from '_macros.html' import streamtile %}
 {% block main %}
-<section class="hero paper">
-  <div class="hero__in">
-    <h1 class="hero__title">مواضيع البكالوريا و حلولها<span class="hero__span">من {{ all_years[-1] }} إلى {{ all_years[0] }}</span></h1>
-    <p class="hero__lede">كل الشعب، كل المواد، {{ "{:,}".format(total_files) }} ملفا بين موضوع و حل. اختر السنة ثم شعبتك، أو ابحث مباشرة.</p>
-    <button class="hero__search" type="button" data-open-search>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
-      <span>ابحث عن مادة أو سنة أو شعبة</span>
-    </button>
+<section class="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="wrap hero__in">
+    <div class="hero__text">
+      <p class="eyebrow"><span class="eyebrow__dot"></span>بكالوريا {{ all_years[0] }} متوفرة الآن</p>
+      <h1 class="hero__title">كل مواضيع البكالوريا الجزائرية<br><span class="grad">و حلولها، في مكان واحد</span></h1>
+      <p class="hero__lede">{{ "{:,}".format(total_files) }} ملفا لجميع الشعب و المواد من {{ all_years[-1] }} إلى {{ all_years[0] }}. للمراجعة و التدريب، و للأساتذة نسخ Word قابلة للتعديل.</p>
+      <button class="hero__search" type="button" data-open-search>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg>
+        <span>ابحث: مادة، سنة، شعبة…</span>
+        <kbd>/</kbd>
+      </button>
+      <p class="quick" aria-label="بحث سريع">
+        {% for qy in [('رياضيات', all_years[0]), ('فيزياء', all_years[0]), ('علوم طبيعية', all_years[1]), ('فلسفة', all_years[0]), ('إنجليزية', all_years[1])] %}
+        <a href="{{ root }}?q={{ qy[0] }}+{{ qy[1] }}">{{ qy[0] }} {{ qy[1] }}</a>
+        {% endfor %}
+      </p>
+    </div>
+    <div class="hero__card" aria-hidden="true">
+      <div class="mock">
+        <div class="mock__head"><span class="mock__year">{{ all_years[0] }}</span><span class="mock__stream">شعبة الرياضيات</span></div>
+        {% for n, h, w in [('الرياضيات', 235, true), ('العلوم الفيزيائية', 200, true), ('علوم الطبيعة و الحياة', 145, false), ('الفلسفة', 290, false)] %}
+        <div class="mock__row" style="--h:{{ h }}">
+          <span class="mock__sub"><b class="dot"></b>{{ n }}</span>
+          <span class="mock__chips"><i class="m-pdf">PDF</i><i class="m-word{{ '' if w else ' is-soon' }}">Word</i><i class="m-vid{{ '' if loop.first else ' is-soon' }}">▶</i></span>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="hero__float hero__float--a"><b>{{ views|length }}</b> شعبة</div>
+      <div class="hero__float hero__float--b"><b>{{ all_years[0] - all_years[-1] + 1 }}</b> سنة من الامتحانات</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <dl class="stats">
+      <div><dt>ملف PDF</dt><dd>{{ "{:,}".format(total_files) }}</dd></div>
+      <div><dt>دورة امتحان</dt><dd>{{ views.values()|map(attribute='years')|map('length')|sum }}</dd></div>
+      <div><dt>سنة</dt><dd>{{ all_years|length }}</dd></div>
+      <div><dt>مجاني</dt><dd>100%</dd></div>
+    </dl>
   </div>
 </section>
 
-<section class="picker" aria-labelledby="pick-title">
+<section class="picker section" aria-labelledby="pick-title">
   <div class="wrap">
-    <h2 class="sec-title" id="pick-title">اختر السنة</h2>
+    <header class="section__head">
+      <div>
+        <p class="kicker">ابدأ من هنا</p>
+        <h2 class="section__title" id="pick-title">اختر السنة ثم شعبتك</h2>
+      </div>
+      <p class="section__aside" id="pick-year-label">بكالوريا {{ all_years[0] }}</p>
+    </header>
     <div class="years" role="radiogroup" aria-label="السنة" id="yearpick">
       {% for y in all_years %}
       <button type="button" role="radio" class="year{% if loop.first %} is-on{% endif %}" aria-checked="{{ 'true' if loop.first else 'false' }}"
               data-year="{{ y }}" data-streams="{{ year_streams[y]|join(' ') }}">{{ y }}</button>
       {% endfor %}
     </div>
-
-    <h2 class="sec-title">ثم الشعبة <span class="sec-title__aside" id="pick-year-label">بكالوريا {{ all_years[0] }}</span></h2>
     {% for sys in ('new', 'old') %}
     <div class="system">
       <h3 class="system__name">{{ SYSTEMS[sys] }} <span>{{ '2008 و ما بعدها' if sys=='new' else '1995 – 2007' }}</span></h3>
@@ -35,17 +70,62 @@
   </div>
 </section>
 
-<section class="more">
+<section class="section section--tint">
   <div class="wrap">
-    <h2 class="sec-title">للمراجعة و أكثر</h2>
-    <dl class="index">
-      <div><dt><a href="{{ root }}lessons/">دروس و ملخصات</a></dt><dd>ملخصات الأساتذة و كتب و قنوات شرح لكل مادة.</dd></div>
-      <div><dt><a href="{{ root }}world/">بكالوريا دول أخرى</a></dt><dd>تونس، المغرب، سوريا و فرنسا.</dd></div>
-      <div><dt><a href="{{ root }}olympiads/">أولمبياد الرياضيات و الفيزياء</a></dt><dd>المواقع الرسمية و كتاب الأولمبياد الدولية مترجما.</dd></div>
-      <div><dt><a href="{{ root }}articles/laureates/">الأوائل في البكالوريا</a></dt><dd>الثلاثة الأوائل وطنيا كل سنة منذ 2004.</dd></div>
-      <div><dt><a href="{{ root }}articles/keys-to-success/">مفاتيح النجاح</a></dt><dd>نصائح في التنظيم و المراجعة قبل الامتحان.</dd></div>
-      <div><dt><a href="{{ site.youtube }}" target="_blank" rel="noopener">احتراف الآلة الحاسبة</a></dt><dd>سلسلة فيديو لحل مواضيع الرياضيات و الفيزياء بسرعة.</dd></div>
-    </dl>
+    <header class="section__head">
+      <div>
+        <p class="kicker">أكثر من أرشيف</p>
+        <h2 class="section__title">لكل موضوع ثلاث صيغ</h2>
+      </div>
+    </header>
+    <div class="features">
+      <article class="feature" style="--h:0">
+        <span class="feature__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pdf"/></svg></span>
+        <h3>PDF للمراجعة</h3>
+        <p>الموضوع و الحل الرسميان كما وزعا يوم الامتحان، يفتحان مباشرة في الصفحة دون تحميل.</p>
+        <p class="feature__stat">{{ "{:,}".format(total_files) }} ملفا</p>
+      </article>
+      <article class="feature" style="--h:220">
+        <span class="feature__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-edit"/></svg></span>
+        <h3>Word للأساتذة</h3>
+        <p>نسخ قابلة للتعديل بمعادلات حقيقية، لبناء الفروض و الاختبارات و أوراق التمارين من تمارين البكالوريا.</p>
+        <p class="feature__stat"><span class="pill">قيد الإعداد</span> نبدأ بالرياضيات و الفيزياء و العلوم</p>
+        <a class="feature__link" href="{{ root }}teachers/">اعرف المزيد<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="feature" style="--h:350">
+        <span class="feature__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg></span>
+        <h3>فيديو الحل</h3>
+        <p>شرح الحل خطوة بخطوة على يوتيوب، مع استعمال الآلة الحاسبة للتحقق السريع من النتائج.</p>
+        <p class="feature__stat"><span class="pill">قريبا</span> لكل مادة علمية</p>
+        <a class="feature__link" href="{{ site.youtube }}" target="_blank" rel="noopener">القناة على يوتيوب<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <header class="section__head">
+      <div>
+        <p class="kicker">للمراجعة و أكثر</p>
+        <h2 class="section__title">موارد أخرى</h2>
+      </div>
+    </header>
+    <div class="cards">
+      {% for href, ic, h, t, d, ext in [
+        ('lessons/', 'book', 235, 'دروس و ملخصات', 'ملخصات الأساتذة و كتب و قنوات شرح لكل مادة.', false),
+        ('world/', 'globe', 200, 'بكالوريا دول أخرى', 'تونس، المغرب، سوريا و فرنسا للتدرب أكثر.', false),
+        ('olympiads/', 'pi', 265, 'أولمبياد الرياضيات و الفيزياء', 'المواقع الرسمية و كتاب الأولمبياد الدولية مترجما.', false),
+        ('articles/laureates/', 'trophy', 38, 'الأوائل في البكالوريا', 'الثلاثة الأوائل وطنيا كل سنة منذ 2004.', false),
+        ('articles/keys-to-success/', 'key', 150, 'مفاتيح النجاح', 'نصائح في التنظيم و المراجعة قبل الامتحان.', false),
+        (site.youtube, 'calc', 350, 'احتراف الآلة الحاسبة', 'سلسلة فيديو لحل مواضيع الرياضيات و الفيزياء بسرعة.', true)] %}
+      <a class="card" style="--h:{{ h }}" href="{{ href if ext else root ~ href }}"{% if ext %} target="_blank" rel="noopener"{% endif %}>
+        <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ ic }}"/></svg></span>
+        <span class="card__t">{{ t }}</span>
+        <span class="card__d">{{ d }}</span>
+      </a>
+      {% endfor %}
+    </div>
   </div>
 </section>
 {% endblock %}
