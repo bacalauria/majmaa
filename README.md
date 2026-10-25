@@ -33,9 +33,8 @@ migration/apply_drive_map.py            rewrites data/ to the new Drive links
 
 1. Create a repository (e.g. `baccalauria`) and upload the content of this folder.
 2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
-3. Edit `data/site.json` → `"url"` to the address GitHub shows you, e.g.
-   `https://<your-user>.github.io/baccalauria/` (this only affects SEO tags, the
-   sitemap and the 404 page; every other link is relative and works anywhere).
+3. `data/site.json` → `"url"` is `https://bacalauria.github.io/majmaa/`; change it if
+   you add a custom domain (it only affects SEO tags, the sitemap and the 404 page).
 4. Push. The *Build and deploy site* action publishes the site in ~1 minute.
 
 Custom domain (e.g. `baccalauria.dz`): put it in `data/site.json` → `"cname"` and
@@ -43,46 +42,35 @@ Custom domain (e.g. `baccalauria.dz`): put it in `data/site.json` → `"cname"` 
 
 Preview locally: `pip install jinja2 && python3 build.py --serve` → http://localhost:8000
 
-## 3. Move the old files from WordPress to Google Drive
+## 3. Files on Google Drive
 
-Years **2018 → 2026** are already on Drive. Everything older — new system
-2008 → 2017 and the whole old system 1995 → 2007, **2,247 files**, plus 53 BAC
-papers that sit in the WordPress media library without being linked — is still
-on WordPress. The migration runs inside the Drive account itself:
-
-1. Sign in to Google as **bacalauria@gmail.com**.
-2. Upload `migration/bac_migration_manifest.json` to Google Drive (anywhere).
-3. Open <https://script.google.com> → **New project**. Replace the code with the
-   content of `migration/Code.gs`. Save.
-4. Choose the function **`start`** → **Run** → accept the permissions.
-5. Close the tab. The script works in 4½-minute slices and re-schedules itself;
-   ~2,300 files take roughly 30–45 minutes. You get an e-mail when it is done.
-   Run **`status`** at any time to see progress.
-
-Result in Drive:
+All papers live in the Drive of **bacalauria@gmail.com** under
 
 ```
-مجمع البكالوريا - أرشيف/
-  النظام الجديد/  شعبة الرياضيات/  2012/  BAC2012_math_math_sujet.pdf, …_corrige.pdf …
-  النظام القديم/  شعبة العلوم الدقيقة/  1999/ …
-  ملفات غير مرتبطة بالموقع/   (unlinked BAC papers found in the media library)
-  bac_drive_map.json           (old URL → Drive id)
+بكالوريا الجزائر/
+  النظام الجديد/<الشعبة>/<السنة>/bac_<year>_<code>_<Subject>[_s].pdf     (2008 → today)
+  النظام الجديد/<الشعبة>/2017/دورة-1 | دورة-2                            (two sessions)
+  النظام القديم/<الشعبة>/<السنة>/…                                       (1995 → 2007)
+  ملفات من ووردبريس غير مرتبطة/                                          (media-library extras)
 ```
 
-Every file is shared *anyone with the link can view*, like the recent years.
-The script is idempotent: re-running never duplicates a file.
+Codes: `m se mt ge lp le art` (new system), `sx snv ge si l` (old system).
+Every file is shared *anyone with the link can view*.
 
-6. Download `bac_drive_map.json` from that folder, then:
+**The October 2026 migration.** Years 2018+ were already on Drive. Everything older
+was still on WordPress; it was copied by the Apps Script project **“BAClaude”** in
+the bacalauria account (`migration/Migrate.gs` + the compact job list
+`migration/manifest_compact.tsv`). The script downloads in parallel, renames to the
+convention above, re-uses files already in Drive, resumes itself every minute and
+writes `majmaa_drive_map.json` (old URL → Drive id) to My Drive when done. Then:
 
 ```bash
-python3 migration/apply_drive_map.py ~/Downloads/bac_drive_map.json
-git commit -am "Files moved to Google Drive" && git push
+python3 migration/apply_drive_map.py majmaa_drive_map.json   # rewrites data/ to Drive links
+python3 build.py                                             # or just push: Actions rebuilds
 ```
 
-`apply_drive_map.py` swaps every WordPress link for its Drive link, removes
-links whose file no longer exists on WordPress (the site then shows
-"غير متوفر حاليا"), and writes `migration/missing_files.csv`: the papers to find
-and upload by hand.
+`migration/missing_files.csv` lists the papers WordPress could no longer serve; they
+are restored from the local archive (`D:\Teaching\BAC\BACAlgeria`).
 
 ## 4. Adding a new session (e.g. BAC 2027)
 
