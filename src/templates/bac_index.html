@@ -2,7 +2,7 @@
 {% from '_macros.html' import streamtile, pagehead %}
 {% set title = 'مواضيع و حلول البكالوريا الجزائرية لجميع الشعب' %}
 {% block main %}
-{{ pagehead('مواضيع البكالوريا الجزائرية', [(None, 'المواضيع و الحلول')], root, 'مواضيع و حلول امتحان شهادة البكالوريا لجميع الشعب، من ' ~ all_years[-1] ~ ' إلى ' ~ all_years[0] ~ '.', 'cap') }}
+{{ pagehead('مواضيع البكالوريا الجزائرية', [(None, 'بكالوريا الجزائر')], root, 'مواضيع و حلول امتحان شهادة البكالوريا لجميع الشعب، من ' ~ all_years[-1] ~ ' إلى ' ~ all_years[0] ~ '.', 'cap') }}
 <div class="wrap section">
   {% for sys in ('new', 'old') %}
   <section class="system">

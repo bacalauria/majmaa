@@ -13,8 +13,11 @@
 <meta property="og:description" content="{{ description or site.description }}">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0A0F1E" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#08110D" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="{{ root }}assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ root }}assets/apple-touch-icon.png">
+<meta property="og:image" content="{{ site.url }}assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="{{ root }}assets/fonts/plex-arabic-Regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="{{ root }}assets/fonts/readex-pro-var.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="{{ root }}assets/style.css?v={{ ver }}">
@@ -56,14 +59,14 @@
 <header class="topbar">
   <div class="topbar__in">
     <a class="brand" href="{{ root }}" aria-label="{{ site.title }} — الصفحة الرئيسية">
-      <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-cap"/></svg></span>
+      <span class="brand__mark" aria-hidden="true"><img src="{{ root }}assets/icon.svg" alt="" width="42" height="42"></span>
       <span class="brand__name">{{ site.title }}<small>بكالوريا الجزائر منذ {{ site.since }}</small></span>
     </a>
     <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
-      <a href="{{ root }}bac/" {% if page=='bac' %}aria-current="page"{% endif %}>المواضيع و الحلول</a>
+      <a href="{{ root }}bac/" {% if page=='bac' %}aria-current="page"{% endif %}>بكالوريا الجزائر</a>
       <a href="{{ root }}lessons/" {% if page=='lessons' %}aria-current="page"{% endif %}>دروس و ملخصات</a>
       <a href="{{ root }}teachers/" {% if page=='teachers' %}aria-current="page"{% endif %}>للأساتذة</a>
-      <a href="{{ root }}world/" {% if page=='world' %}aria-current="page"{% endif %}>دول أخرى</a>
+      <a href="{{ root }}world/" {% if page=='world' %}aria-current="page"{% endif %}>بكالوريا أجنبية</a>
       <a href="{{ root }}olympiads/" {% if page=='olympiads' %}aria-current="page"{% endif %}>أولمبياد</a>
       <a href="{{ root }}articles/" {% if page in ('articles','platforms') %}aria-current="page"{% endif %}>مقالات</a>
     </nav>
@@ -91,16 +94,16 @@
   <div class="footer__in">
     <div class="footer__about">
       <a class="brand brand--footer" href="{{ root }}">
-        <span class="brand__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-cap"/></svg></span>
+        <span class="brand__mark" aria-hidden="true"><img src="{{ root }}assets/icon.svg" alt="" width="42" height="42"></span>
         <span class="brand__name">{{ site.title }}</span>
       </a>
       <p>{{ site.tagline }}. أرشيف مجاني و مفتوح لمواضيع البكالوريا الجزائرية و حلولها، للتلاميذ و الأساتذة، منذ {{ site.since }}.</p>
     </div>
     <nav class="footer__col" aria-label="الأرشيف">
       <p class="footer__h">الأرشيف</p>
-      <a href="{{ root }}bac/">المواضيع و الحلول</a>
+      <a href="{{ root }}bac/">بكالوريا الجزائر</a>
       <a href="{{ root }}lessons/">دروس و ملخصات</a>
-      <a href="{{ root }}world/">بكالوريا دول أخرى</a>
+      <a href="{{ root }}world/">بكالوريا أجنبية</a>
       <a href="{{ root }}olympiads/">أولمبياد</a>
     </nav>
     <nav class="footer__col" aria-label="المزيد">
@@ -108,7 +111,7 @@
       <a href="{{ root }}teachers/">للأساتذة</a>
       <a href="{{ root }}articles/laureates/">الأوائل في البكالوريا</a>
       <a href="{{ root }}platforms/">المنصات التعليمية</a>
-      <a href="{{ site.youtube }}" target="_blank" rel="noopener">قناة يوتيوب</a>
+      <a href="{{ site.channel }}" target="_blank" rel="noopener">قناة يوتيوب</a>
     </nav>
     <div class="footer__col">
       <p class="footer__h">تواصل</p>

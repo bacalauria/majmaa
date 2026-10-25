@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% from '_macros.html' import pagehead, fc %}
-{% set title = 'مواضيع البكالوريا في دول أخرى' %}
+{% set title = 'مواضيع البكالوريا الأجنبية' %}
 {% set description = 'مواضيع و حلول البكالوريا التونسية و المغربية و السورية و الفرنسية.' %}
 {% block main %}
-{% call pagehead('بكالوريا دول أخرى', [(None, 'دول أخرى')], root, 'مواضيع للتدرب من أنظمة قريبة من البكالوريا الجزائرية.', 'globe', 200) %}
+{% call pagehead('بكالوريا أجنبية', [(None, 'بكالوريا أجنبية')], root, 'مواضيع للتدرب من أنظمة قريبة من البكالوريا الجزائرية.', 'globe', 200) %}
 <nav class="jump" aria-label="الدول"><a href="#tn">تونس</a><a href="#ma">المغرب</a><a href="#sy">سوريا</a><a href="#fr">فرنسا</a></nav>
 {% endcall %}
 <div class="wrap world">

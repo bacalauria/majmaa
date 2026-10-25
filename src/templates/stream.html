@@ -4,7 +4,7 @@
 {% set description = 'جميع مواضيع البكالوريا الجزائرية مع الحلول، ' ~ v.name ~ ' (' ~ v.system_name ~ ')، من ' ~ v.first ~ ' إلى ' ~ v.last ~ '، بصيغة PDF و Word.' %}
 {% set meta = v.system_name ~ ' · من ' ~ v.first ~ ' إلى ' ~ v.last ~ ' · ' ~ v.years|length ~ ' دورة · ' ~ v.files ~ ' ملفا' %}
 {% block main %}
-{% call pagehead(v.name, [('bac/', 'المواضيع و الحلول'), (None, v.system_name)], root, meta, v.icon, v.hue) %}
+{% call pagehead(v.name, [('bac/', 'بكالوريا الجزائر'), (None, v.system_name)], root, meta, v.icon, v.hue) %}
 <div class="filter" role="group" aria-label="تصفية حسب المادة">
   <button type="button" class="chip is-on" data-subject="*" aria-pressed="true">كل المواد</button>
   {% for k, n in v.subjects %}<button type="button" class="chip" data-subject="{{ k }}" aria-pressed="false" style="--h:{{ HUES.get(k, 230) }}"><b class="dot" aria-hidden="true"></b>{{ n }}</button>{% endfor %}
