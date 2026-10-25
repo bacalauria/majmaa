@@ -12,7 +12,7 @@
       <h2 class="lesson__subject">{{ r.subject }}</h2>
       <dl class="lesson__groups">
         {% for g, items in r.groups.items() if items %}
-        <div><dt>{{ g }}</dt><dd>{% for it in items %}<a href="{{ it.href }}" target="_blank" rel="noopener" {% if 'drive.google' in it.href %}data-drive-url{% endif %}>{{ it.label|replace('(pdf قزوري)','ملخص قزوري') }}</a>{% endfor %}</dd></div>
+        <div><dt>{{ g }}</dt><dd>{% for it in items %}<a href="{{ it.href }}" target="_blank" rel="noopener" {% if 'drive.google' in it.href %}data-drive-url{% endif %}>{{ it.label }}</a>{% endfor %}</dd></div>
         {% endfor %}
       </dl>
     </section>
