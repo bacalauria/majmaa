@@ -4,7 +4,8 @@
 {% set description = a.desc or '' %}
 {% block main %}
 {% set meta %}{% if a.kind %}<span class="pill">{{ a.kind }}</span> {% endif %}{% if a.minutes %}{{ a.minutes }} دقائق قراءة{% endif %}{% if a.updated %} · حدث في {{ a.updated|ardate }}{% elif a.date %} · {{ a.date|ardate }}{% endif %}{% endset %}
-{{ pagehead(a.title, [('articles/', 'مقالات')] if page == 'articles' else [(None, a.title)], root, meta, {'olympiads': 'pi', 'platforms': 'globe'}.get(page, 'scroll'), {'olympiads': 265, 'platforms': 200}.get(page, 150)) }}
+{% set crumbs = a.crumbs if a.crumbs else ([('articles/', 'مقالات')] if page == 'articles' else [(None, a.title)]) %}
+{{ pagehead(a.title, crumbs, root, meta, a.icon or {'olympiads': 'pi', 'platforms': 'globe'}.get(page, 'scroll'), a.hue or {'olympiads': 265, 'platforms': 200}.get(page, 150)) }}
 <div class="wrap article">
   {% if a.toc and a.toc|length > 2 %}
   <nav class="toc" aria-label="محتوى المقال">

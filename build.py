@@ -47,8 +47,15 @@ for a in content['articles']: load_article(a)
 content['platforms'].update(slug='platforms', title='المنصات التعليمية', kind='دليل',
     desc='أفضل المنصات التعليمية المجانية لتلميذ البكالوريا و أستاذه: الرسمية الجزائرية، العربية، العالمية، و الأدوات.')
 load_article(content['platforms'])
-OLYMP = load_article(dict(slug='olympiads', title='أولمبياد الرياضيات و الفيزياء', kind='دليل',
-    desc='كل ما يحتاجه تلميذ جزائري عن الأولمبياد: IMO و IPhO، نتائج الجزائر، الأولمبياد الجزائرية و شروطها، و مراجع التحضير.'))
+OLYMP = load_article(dict(slug='olympiads', title='الأولمبياد العلمية', kind='دليل', icon='trophy', hue=265,
+    crumbs=[(None, 'أولمبياد')],
+    desc='أولمبياد الرياضيات و الفيزياء للتلاميذ الجزائريين: المسابقات الوطنية، الدولية، و كيف تشارك.'))
+OLYMP_MATH = load_article(dict(slug='olympiads-math', title='أولمبياد الرياضيات', kind='دليل', icon='sigma', hue=235,
+    crumbs=[('olympiads/', 'أولمبياد'), (None, 'الرياضيات')],
+    desc='الأولمبياد الجزائرية للرياضيات و شروطها، IMO و نتائج الجزائر منذ 1977، PAMO و العربية، امتحانات الترشيح الجزائرية و مسائل IMO بالعربية، و مراجع التحضير.'))
+OLYMP_PHYS = load_article(dict(slug='olympiads-physics', title='أولمبياد الفيزياء', kind='دليل', icon='flask', hue=200,
+    crumbs=[('olympiads/', 'أولمبياد'), (None, 'الفيزياء')],
+    desc='المسابقة الوطنية المؤهلة لأولمبياد علم الفلك IOAA، الأولمبياد الدولية للفيزياء IPhO و برنامجها، Physics Cup، و مراجع التحضير.'))
 
 STREAMS = {s['id']: s for s in meta['streams']}
 SUBJECTS = meta['subjects']
@@ -179,6 +186,8 @@ def build():
     render('lessons.html', 'lessons/index.html', page='lessons')
     render('world.html', 'world/index.html', page='world')
     render('article.html', 'olympiads/index.html', page='olympiads', a=OLYMP)
+    render('article.html', 'olympiads/math/index.html', page='olympiads', a=OLYMP_MATH)
+    render('article.html', 'olympiads/physics/index.html', page='olympiads', a=OLYMP_PHYS)
     render('article.html', 'platforms/index.html', page='platforms', a=content['platforms'])
     render('articles.html', 'articles/index.html', page='articles')
     for a in content['articles']:
