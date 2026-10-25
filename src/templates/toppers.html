@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
 {% from '_macros.html' import pagehead %}
-{% set title = 'الثلاثة الأوائل في بكالوريا الجزائر' %}
+{% set title = 'الأوائل في البكالوريا الجزائرية' %}
+{% set description = 'أعلى ثلاثة معدلات على المستوى الوطني في شهادة البكالوريا الجزائرية سنة بعد سنة، منذ 2004.' %}
 {% block main %}
-{{ pagehead('الأوائل في البكالوريا', [('articles/', 'مقالات')], root, 'أعلى ثلاثة معدلات على المستوى الوطني في كل دورة.', 'trophy', 38) }}
+{{ pagehead('الأوائل في البكالوريا', [('articles/', 'مقالات'), (None, 'الأوائل')], root, 'أعلى ثلاثة معدلات على المستوى الوطني في كل دورة.', 'trophy', 38) }}
 <div class="wrap">
+  <div class="laureates-intro prose">
+    <p>منذ دورة 2008 صار الإعلان عن الأوائل وطنيا تقليدا سنويا يكرمهم فيه رئيس الجمهورية، و في السنة نفسها تجاوز المعدل 18 من 20 لأول مرة منذ الاستقلال. أعلى معدل مسجل إلى اليوم هو <strong>19.70</strong> (رونق زاني، تقني رياضي، سوق أهراس، 2025).</p>
+    <aside class="callout"><b>قبل 2004</b><p>لم تكن نتائج الأوائل وطنيا تنشر بانتظام قبل منتصف العقد الأول من هذا القرن، و الصحافة القديمة كانت تكتفي بنسب النجاح. بحثنا في أرشيف الصحف الجزائرية بالعربية و الفرنسية فلم نجد أسماء موثقة قبل 2004، و لا لدورتي 2005 و 2006. إن كنت تعرف الأول وطنيا في إحدى هذه السنوات (أو كنت أنت!)، راسلنا مع مصدر على <span dir="ltr">{{ site.email }}</span>.</p></aside>
+  </div>
   <div class="laureates">
     {% for t in content.toppers %}
-    <section class="laureate">
+    {% set known = t.rows|rejectattr(1, 'equalto', '-')|list %}
+    <section class="laureate{% if not known %} laureate--empty{% endif %}">
       <h2 class="laureate__year">{{ t.year }}</h2>
+      {% if known %}
       <ol>
-        {% for r in t.rows %}
-        <li><span class="laureate__rank">{{ r[0] }}</span><span class="laureate__name">{{ r[1] }}</span><span class="laureate__avg">{{ r[2] }}</span><span class="laureate__meta">{{ r[3] }}، {{ r[4] }}</span></li>
+        {% for r in known %}
+        <li><span class="laureate__rank">{{ r[0] }}</span><span class="laureate__name">{{ r[1] }}</span><span class="laureate__avg">{{ r[2] }}</span><span class="laureate__meta">{% if r[3] and r[3] != '-' %}{{ r[3] }}، {% endif %}{{ r[4] }}</span></li>
         {% endfor %}
       </ol>
+      {% else %}
+      <p class="laureate__none">لم نعثر على أسماء موثقة لهذه الدورة.</p>
+      {% endif %}
     </section>
     {% endfor %}
   </div>

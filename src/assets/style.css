@@ -568,3 +568,6 @@ dialog::backdrop { background: rgb(4 16 10 / .55); backdrop-filter: blur(4px); }
 .res--years b { font-size: 20px; }
 .res--years span { font-size: 12px; }
 @media (max-width: 640px) { .olymp { grid-template-columns: minmax(0, 1fr); } }
+.laureates-intro { max-width: 860px; margin: 32px 0 0; padding: 0; background: none; border: 0; box-shadow: none; }
+.laureate--empty { background: transparent; box-shadow: none; border-style: dashed; }
+.laureate__none { color: var(--ink-3); font-size: 14px; }
