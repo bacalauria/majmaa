@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% set full_title = (title ~ ' | ' ~ site.title) if title else (site.title ~ ' | مواضيع و حلول البكالوريا الجزائرية') %}
+<title>{{ full_title }}</title>
+<meta name="description" content="{{ description or site.description }}">
+<link rel="canonical" href="{{ site.url }}{{ path|replace('index.html','') }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_DZ">
+<meta property="og:title" content="{{ full_title }}">
+<meta property="og:description" content="{{ description or site.description }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta name="theme-color" content="#FBFCFE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D1322" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="{{ root }}assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="{{ root }}assets/fonts/plex-arabic-Regular.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="{{ root }}assets/fonts/aref-ruqaa-Bold.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="{{ root }}assets/style.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body data-page="{{ page }}" data-root="{{ root }}">
+<a class="skip" href="#main">انتقل إلى المحتوى</a>
+<header class="topbar">
+  <div class="topbar__in">
+    <a class="brand" href="{{ root }}" aria-label="{{ site.title }} — الصفحة الرئيسية">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" rx="5" class="m-paper"/><path d="M8 11h16M8 16h16M8 21h11" class="m-rule"/><path d="M24.5 3v26" class="m-margin"/></svg>
+      <span class="brand__name">{{ site.title }}</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
+      <a href="{{ root }}bac/" {% if page=='bac' %}aria-current="page"{% endif %}>مواضيع البكالوريا</a>
+      <a href="{{ root }}lessons/" {% if page=='lessons' %}aria-current="page"{% endif %}>دروس و ملخصات</a>
+      <a href="{{ root }}world/" {% if page=='world' %}aria-current="page"{% endif %}>دول أخرى</a>
+      <a href="{{ root }}olympiads/" {% if page=='olympiads' %}aria-current="page"{% endif %}>أولمبياد</a>
+      <a href="{{ root }}articles/" {% if page in ('articles','platforms') %}aria-current="page"{% endif %}>مقالات</a>
+    </nav>
+    <div class="topbar__tools">
+      <button class="iconbtn searchbtn" type="button" data-open-search aria-label="بحث">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+        <span class="searchbtn__label">بحث</span><kbd>/</kbd>
+      </button>
+      <button class="iconbtn" type="button" id="theme" aria-label="تبديل الوضع الليلي">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="iconbtn menubtn" type="button" aria-controls="nav" aria-expanded="false" aria-label="القائمة">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+{% block main %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="footer__in">
+    <div class="footer__about">
+      <p class="footer__brand">{{ site.title }}</p>
+      <p>{{ site.tagline }}. أرشيف مجاني لمواضيع البكالوريا الجزائرية و حلولها منذ {{ site.since }}.</p>
+    </div>
+    <nav class="footer__links" aria-label="روابط">
+      <a href="{{ root }}bac/">مواضيع البكالوريا</a>
+      <a href="{{ root }}lessons/">دروس و ملخصات</a>
+      <a href="{{ root }}world/">بكالوريا دول أخرى</a>
+      <a href="{{ root }}olympiads/">أولمبياد</a>
+      <a href="{{ root }}platforms/">المنصات التعليمية</a>
+      <a href="{{ root }}articles/laureates/">الأوائل في البكالوريا</a>
+    </nav>
+    <div class="footer__contact">
+      <p>رابط لا يعمل أو اقتراح؟</p>
+      <a class="footer__mail" href="mailto:{{ site.email }}?subject=مجمع البكالوريا">{{ site.email }}</a>
+    </div>
+  </div>
+</footer>
+
+<dialog class="search" id="search" aria-label="بحث في المواضيع">
+  <form method="dialog" class="search__bar" role="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+    <input id="q" type="search" autocomplete="off" placeholder="مثال: رياضيات 2019 تقني رياضي" aria-label="كلمات البحث">
+    <button class="search__close" value="close" aria-label="إغلاق">Esc</button>
+  </form>
+  <div class="search__hint" id="qhint">اكتب المادة أو السنة أو الشعبة، أو كلها معا.</div>
+  <ol class="search__results" id="qres"></ol>
+</dialog>
+
+<dialog class="viewer" id="viewer" aria-label="معاينة الملف">
+  <div class="viewer__bar">
+    <p class="viewer__title" id="vtitle"></p>
+    <div class="viewer__actions">
+      <a class="btn btn--quiet" id="vdl" href="#" target="_blank" rel="noopener">تحميل</a>
+      <a class="btn btn--quiet" id="vopen" href="#" target="_blank" rel="noopener">فتح في Drive</a>
+      <button class="btn" type="button" id="vclose">إغلاق</button>
+    </div>
+  </div>
+  <p class="viewer__loading">جار تحميل المعاينة…</p>
+  <iframe id="vframe" title="معاينة الملف" allow="autoplay" referrerpolicy="no-referrer"></iframe>
+</dialog>
+
+<script src="{{ root }}assets/app.js" defer></script>
+</body>
+</html>

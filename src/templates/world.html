@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% set title = 'مواضيع البكالوريا في دول أخرى' %}
+{% set description = 'مواضيع و حلول البكالوريا التونسية و المغربية و السورية و الفرنسية.' %}
+{% block main %}
+<section class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><span>دول أخرى</span></nav>
+    <h1 class="pagehead__title">بكالوريا دول أخرى</h1>
+    <p class="pagehead__meta">مواضيع للتدرب من أنظمة قريبة من البكالوريا الجزائرية.</p>
+    <nav class="jump" aria-label="الدول"><a href="#tn">تونس</a><a href="#ma">المغرب</a><a href="#sy">سوريا</a><a href="#fr">فرنسا</a></nav>
+  </div>
+</section>
+<div class="wrap world">
+  <section class="sheet" id="tn">
+    <header class="sheet__head"><h2><span class="sheet__year">تونس</span></h2></header>
+    <ul class="links">{% for a in content.tunisia.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}</ul>
+    <ol class="rows">
+      {% for s in content.tunisia.streams %}{% for r in s.rows %}
+      <li class="row">
+        <span class="row__subject">{{ s.stream|replace('شعبة ','') }} <small>{{ r.year }}</small></span>
+        <span class="row__files">
+          {% if r.sujet %}<a class="f f--sujet" href="{{ r.sujet }}" target="_blank" rel="noopener" data-drive-url data-title="تونس {{ r.year }} — {{ s.stream }} — الموضوع"><span class="f__role">الموضوع</span></a>{% endif %}
+          {% if r.solution %}<a class="f f--solution" href="{{ r.solution }}" target="_blank" rel="noopener" data-drive-url data-title="تونس {{ r.year }} — {{ s.stream }} — الحل"><span class="f__role">الحل</span></a>{% endif %}
+        </span>
+      </li>
+      {% endfor %}{% endfor %}
+    </ol>
+  </section>
+  <section class="sheet" id="ma">
+    <header class="sheet__head"><h2><span class="sheet__year">المغرب</span></h2></header>
+    <ul class="links">{% for a in content.morocco.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}</ul>
+  </section>
+  <section class="sheet" id="sy">
+    <header class="sheet__head"><h2><span class="sheet__year">سوريا</span></h2></header>
+    <ul class="links">
+      {% for a in content.syria.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}
+      {% for a in content.syria.files %}<li><a href="{{ a.href }}" target="_blank" rel="noopener" data-drive-url>{{ a.label }}</a></li>{% endfor %}
+    </ul>
+  </section>
+  <section class="sheet" id="fr">
+    <header class="sheet__head"><h2><span class="sheet__year">فرنسا</span></h2></header>
+    <ul class="links">{% for a in content.france.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}</ul>
+  </section>
+</div>
+{% endblock %}

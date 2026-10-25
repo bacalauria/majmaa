@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import streamtile %}
+{% block main %}
+<section class="hero paper">
+  <div class="hero__in">
+    <h1 class="hero__title">مواضيع البكالوريا و حلولها<span class="hero__span">من {{ all_years[-1] }} إلى {{ all_years[0] }}</span></h1>
+    <p class="hero__lede">كل الشعب، كل المواد، {{ "{:,}".format(total_files) }} ملفا بين موضوع و حل. اختر السنة ثم شعبتك، أو ابحث مباشرة.</p>
+    <button class="hero__search" type="button" data-open-search>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+      <span>ابحث عن مادة أو سنة أو شعبة</span>
+    </button>
+  </div>
+</section>
+
+<section class="picker" aria-labelledby="pick-title">
+  <div class="wrap">
+    <h2 class="sec-title" id="pick-title">اختر السنة</h2>
+    <div class="years" role="radiogroup" aria-label="السنة" id="yearpick">
+      {% for y in all_years %}
+      <button type="button" role="radio" class="year{% if loop.first %} is-on{% endif %}" aria-checked="{{ 'true' if loop.first else 'false' }}"
+              data-year="{{ y }}" data-streams="{{ year_streams[y]|join(' ') }}">{{ y }}</button>
+      {% endfor %}
+    </div>
+
+    <h2 class="sec-title">ثم الشعبة <span class="sec-title__aside" id="pick-year-label">بكالوريا {{ all_years[0] }}</span></h2>
+    {% for sys in ('new', 'old') %}
+    <div class="system">
+      <h3 class="system__name">{{ SYSTEMS[sys] }} <span>{{ '2008 و ما بعدها' if sys=='new' else '1995 – 2007' }}</span></h3>
+      <div class="tiles">
+        {% for sid, v in views.items() if v.system == sys %}{{ streamtile(v, root) }}{% endfor %}
+      </div>
+      <p class="system__off" hidden>لا توجد دورات من {{ SYSTEMS[sys] }} في هذه السنة.</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="more">
+  <div class="wrap">
+    <h2 class="sec-title">للمراجعة و أكثر</h2>
+    <dl class="index">
+      <div><dt><a href="{{ root }}lessons/">دروس و ملخصات</a></dt><dd>ملخصات الأساتذة و كتب و قنوات شرح لكل مادة.</dd></div>
+      <div><dt><a href="{{ root }}world/">بكالوريا دول أخرى</a></dt><dd>تونس، المغرب، سوريا و فرنسا.</dd></div>
+      <div><dt><a href="{{ root }}olympiads/">أولمبياد الرياضيات و الفيزياء</a></dt><dd>المواقع الرسمية و كتاب الأولمبياد الدولية مترجما.</dd></div>
+      <div><dt><a href="{{ root }}articles/laureates/">الأوائل في البكالوريا</a></dt><dd>الثلاثة الأوائل وطنيا كل سنة منذ 2004.</dd></div>
+      <div><dt><a href="{{ root }}articles/keys-to-success/">مفاتيح النجاح</a></dt><dd>نصائح في التنظيم و المراجعة قبل الامتحان.</dd></div>
+      <div><dt><a href="{{ site.youtube }}" target="_blank" rel="noopener">احتراف الآلة الحاسبة</a></dt><dd>سلسلة فيديو لحل مواضيع الرياضيات و الفيزياء بسرعة.</dd></div>
+    </dl>
+  </div>
+</section>
+{% endblock %}

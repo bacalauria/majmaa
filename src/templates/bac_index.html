@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import streamtile %}
+{% set title = 'مواضيع و حلول البكالوريا الجزائرية لجميع الشعب' %}
+{% block main %}
+<section class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><span>مواضيع البكالوريا</span></nav>
+    <h1 class="pagehead__title">مواضيع البكالوريا الجزائرية</h1>
+    <p class="pagehead__meta">مواضيع و حلول امتحان شهادة البكالوريا لجميع الشعب، من {{ all_years[-1] }} إلى {{ all_years[0] }}.</p>
+  </div>
+</section>
+<div class="wrap">
+  {% for sys in ('new', 'old') %}
+  <section class="system system--page">
+    <h2 class="system__name">{{ SYSTEMS[sys] }} <span>{{ '2008 و ما بعدها' if sys=='new' else '1995 – 2007' }}</span></h2>
+    <div class="tiles">
+      {% for sid, v in views.items() if v.system == sys %}{{ streamtile(v, root) }}{% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+  <aside class="note">
+    <p>حوليات البكالوريا من 1995 إلى 2007 كما نشرها الديوان الوطني للامتحانات و المسابقات متوفرة أيضا في ملف واحد.</p>
+    <a class="btn btn--quiet" href="{{ content.archive_onec }}" target="_blank" rel="noopener">تحميل نسخة الديوان</a>
+  </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{
+ "streams": [
+  {
+   "system": "new",
+   "id": "math",
+   "name": "شعبة الرياضيات",
+   "fr": "Mathématiques"
+  },
+  {
+   "system": "new",
+   "id": "se",
+   "name": "شعبة العلوم التجريبية",
+   "fr": "Sciences expérimentales"
+  },
+  {
+   "system": "new",
+   "id": "mt",
+   "name": "شعبة التقني رياضي",
+   "fr": "Technique mathématiques"
+  },
+  {
+   "system": "new",
+   "id": "ge",
+   "name": "شعبة التسيير و الاقتصاد",
+   "fr": "Gestion et économie"
+  },
+  {
+   "system": "new",
+   "id": "lph",
+   "name": "شعبة الآداب و الفلسفة",
+   "fr": "Lettres et philosophie"
+  },
+  {
+   "system": "new",
+   "id": "lang",
+   "name": "شعبة اللغات الأجنبية",
+   "fr": "Langues étrangères"
+  },
+  {
+   "system": "new",
+   "id": "arts",
+   "name": "شعبة الفنون",
+   "fr": "Arts"
+  },
+  {
+   "system": "old",
+   "id": "sx",
+   "name": "شعبة العلوم الدقيقة",
+   "fr": "Sciences exactes"
+  },
+  {
+   "system": "old",
+   "id": "snv",
+   "name": "شعبة علوم الطبيعة و الحياة",
+   "fr": "Sciences de la nature et de la vie"
+  },
+  {
+   "system": "old",
+   "id": "oge",
+   "name": "شعبة التسيير و الاقتصاد",
+   "fr": "Gestion et économie"
+  },
+  {
+   "system": "old",
+   "id": "lsi",
+   "name": "شعبة الآداب و العلوم الشرعية",
+   "fr": "Lettres et sciences islamiques"
+  },
+  {
+   "system": "old",
+   "id": "lsh",
+   "name": "شعبة الآداب و العلوم الإنسانية",
+   "fr": "Lettres et sciences humaines"
+  }
+ ],
+ "subjects": {
+  "ar": "اللغة العربية و آدابها",
+  "math": "الرياضيات",
+  "phys": "العلوم الفيزيائية",
+  "svt": "علوم الطبيعة و الحياة",
+  "isl": "العلوم الإسلامية",
+  "shar": "علوم الشريعة",
+  "hg": "التاريخ و الجغرافيا",
+  "en": "اللغة الإنجليزية",
+  "fr": "اللغة الفرنسية",
+  "philo": "الفلسفة",
+  "tz": "اللغة الأمازيغية",
+  "compta": "التسيير المحاسبي و المالي",
+  "eco": "الاقتصاد و المناجمنت",
+  "ecolaw": "الاقتصاد و القانون",
+  "law": "القانون",
+  "ge_el": "هندسة كهربائية",
+  "ge_mec": "هندسة ميكانيكية",
+  "ge_civ": "هندسة مدنية",
+  "ge_proc": "هندسة الطرائق",
+  "de": "اللغة الألمانية",
+  "es": "اللغة الإسبانية",
+  "it": "اللغة الإيطالية",
+  "arts": "الفنون"
+ },
+ "sessions": {
+  "main": "",
+  "s1": "الدورة الأولى",
+  "s2": "الدورة الثانية",
+  "exc": "الدورة الاستثنائية"
+ }
+}

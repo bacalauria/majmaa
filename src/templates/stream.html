@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import examrow %}
+{% set title = 'مواضيع و حلول بكالوريا ' ~ v.name ~ ' ' ~ v.first ~ ' – ' ~ v.last %}
+{% set description = 'جميع مواضيع البكالوريا الجزائرية مع الحلول، ' ~ v.name ~ ' (' ~ v.system_name ~ ')، من ' ~ v.first ~ ' إلى ' ~ v.last ~ '، بصيغة PDF.' %}
+{% block main %}
+<section class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><a href="{{ root }}bac/">مواضيع البكالوريا</a><span aria-hidden="true">/</span><span>{{ v.system_name }}</span></nav>
+    <h1 class="pagehead__title">{{ v.name }}</h1>
+    <p class="pagehead__meta">{{ v.system_name }}، من {{ v.first }} إلى {{ v.last }}، {{ v.years|length }} دورة و {{ v.files }} ملفا.</p>
+    <div class="filter" role="group" aria-label="تصفية حسب المادة">
+      <button type="button" class="chip is-on" data-subject="*" aria-pressed="true">كل المواد</button>
+      {% for k, n in v.subjects %}<button type="button" class="chip" data-subject="{{ k }}" aria-pressed="false">{{ n }}</button>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<div class="wrap stream">
+  <nav class="rail" aria-label="السنوات">
+    <ol class="rail__list">
+      {% for y in v.years %}
+      <li><a href="#{{ y.anchor }}" data-anchor="{{ y.anchor }}">{{ y.year }}{% if y.session_label %}<small>{{ y.session_label|replace('الدورة ','') }}</small>{% endif %}</a></li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  <div class="sheets">
+    {% for y in v.years %}
+    {% set ctx = 'بكالوريا ' ~ y.year ~ ((' ' ~ y.session_label) if y.session_label else '') ~ ' — ' ~ v.short %}
+    <section class="sheet" id="{{ y.anchor }}" aria-labelledby="h-{{ y.anchor }}">
+      <header class="sheet__head">
+        <h2 id="h-{{ y.anchor }}"><span class="sheet__year">{{ y.year }}</span>{% if y.session_label %}<span class="sheet__session">{{ y.session_label }}</span>{% endif %}</h2>
+      </header>
+      <ol class="rows">
+        {% for it in y.rows %}{{ examrow(it, ctx) }}{% endfor %}
+      </ol>
+      <p class="sheet__empty" hidden>لا توجد هذه المادة في دورة {{ y.year }}.</p>
+    </section>
+    {% endfor %}
+  </div>
+</div>
+
+<section class="siblings">
+  <div class="wrap">
+    <h2 class="sec-title">شعب أخرى في {{ v.system_name }}</h2>
+    <ul class="siblings__list">
+      {% for sid, o in views.items() if o.system == v.system and sid != v.id %}
+      <li><a href="{{ root }}bac/{{ sid }}/">{{ o.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

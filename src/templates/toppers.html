@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% set title = 'الثلاثة الأوائل في بكالوريا الجزائر' %}
+{% block main %}
+<section class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><a href="{{ root }}articles/">مقالات</a></nav>
+    <h1 class="pagehead__title">الأوائل في البكالوريا</h1>
+    <p class="pagehead__meta">أعلى ثلاثة معدلات على المستوى الوطني في كل دورة.</p>
+  </div>
+</section>
+<div class="wrap">
+  <div class="laureates">
+    {% for t in content.toppers %}
+    <section class="laureate">
+      <h2 class="laureate__year">{{ t.year }}</h2>
+      <ol>
+        {% for r in t.rows %}
+        <li><span class="laureate__rank">{{ r[0] }}</span><span class="laureate__name">{{ r[1] }}</span><span class="laureate__avg">{{ r[2] }}</span><span class="laureate__meta">{{ r[3] }}، {{ r[4] }}</span></li>
+        {% endfor %}
+      </ol>
+    </section>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

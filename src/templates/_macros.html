@@ -1,0 +1,27 @@
+{# One file button. role: 'sujet' (blue ink) or 'solution' (red pen). #}
+{% macro filebtn(l, role, label, title) -%}
+<a class="f f--{{ role }}" href="{{ l.url }}" target="_blank" rel="noopener"
+   {% if l.drive %}data-drive="{{ l.drive }}"{% endif %} data-title="{{ title }}">
+  <span class="f__role">{{ label }}</span>{% if l.kind != 'PDF' %}<span class="f__fmt">{{ l.kind }}</span>{% endif %}
+</a>
+{%- endmacro %}
+
+{% macro examrow(it, ctx) -%}
+<li class="row" data-subject="{{ it.subject }}">
+  <span class="row__subject">{{ it.name }}</span>
+  <span class="row__files">
+    {% for l in it.sujet %}{{ filebtn(l, 'sujet', 'الموضوع', it.name ~ ' — ' ~ ctx ~ ' — الموضوع') }}{% endfor %}
+    {% for l in it.solution %}{{ filebtn(l, 'solution', 'الحل', it.name ~ ' — ' ~ ctx ~ ' — الحل') }}{% endfor %}
+    {% if it.video %}<a class="f f--video" href="{{ it.video.url }}" target="_blank" rel="noopener"><span class="f__role">فيديو</span></a>{% endif %}
+    {% if not it.sujet and not it.solution %}<span class="f f--none">غير متوفر حاليا</span>{% endif %}
+  </span>
+</li>
+{%- endmacro %}
+
+{% macro streamtile(v, root) -%}
+<a class="tile" href="{{ root }}bac/{{ v.id }}/" data-stream="{{ v.id }}">
+  <span class="tile__name">{{ v.name|replace('شعبة ','') }}</span>
+  <span class="tile__years">{{ v.first }} – {{ v.last }}</span>
+  <span class="tile__count">{{ v.years|length }} دورة</span>
+</a>
+{%- endmacro %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% set title = 'دروس و ملخصات للسنة الثالثة ثانوي' %}
+{% set description = 'ملخصات و كتب و قنوات شرح لمواد البكالوريا الجزائرية: الرياضيات، الفيزياء، العلوم الطبيعية، اللغات و الفلسفة.' %}
+{% block main %}
+<section class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><span>دروس و ملخصات</span></nav>
+    <h1 class="pagehead__title">دروس و ملخصات</h1>
+    <p class="pagehead__meta">مراجع مختارة لكل مادة. الكتب المدرسية للسنة الثالثة ثانوي لجميع الشعب متوفرة <a href="{{ content.lessons.books }}" target="_blank" rel="noopener">على موقع الدراسة الجزائري</a>.</p>
+  </div>
+</section>
+<div class="wrap">
+  <div class="lessons">
+    {% for r in content.lessons.rows %}
+    <section class="lesson">
+      <h2 class="lesson__subject">{{ r.subject }}</h2>
+      <dl class="lesson__groups">
+        {% for g, items in r.groups.items() if items %}
+        <div><dt>{{ g }}</dt><dd>{% for it in items %}<a href="{{ it.href }}" target="_blank" rel="noopener" {% if 'drive.google' in it.href %}data-drive-url{% endif %}>{{ it.label|replace('(pdf قزوري)','ملخص قزوري') }}</a>{% endfor %}</dd></div>
+        {% endfor %}
+      </dl>
+    </section>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

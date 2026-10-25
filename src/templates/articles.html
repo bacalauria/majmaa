@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% set title = 'مقالات' %}
+{% block main %}
+<section class="pagehead">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">/</span><span>مقالات</span></nav>
+    <h1 class="pagehead__title">مقالات</h1>
+  </div>
+</section>
+<div class="wrap">
+  <ul class="articles">
+    <li><a href="{{ root }}articles/laureates/"><span class="articles__t">الثلاثة الأوائل في بكالوريا الجزائر</span><span class="articles__d">من {{ content.toppers[-1].year }} إلى {{ content.toppers[0].year }}</span></a></li>
+    {% for a in content.articles %}
+    <li><a href="{{ root }}articles/{{ a.slug }}/"><span class="articles__t">{{ a.title }}</span><span class="articles__d">{{ a.date[:4] }}</span></a></li>
+    {% endfor %}
+    <li><a href="{{ root }}platforms/"><span class="articles__t">{{ content.platforms.title }}</span><span class="articles__d">للتعلم عن بعد</span></a></li>
+  </ul>
+</div>
+{% endblock %}
