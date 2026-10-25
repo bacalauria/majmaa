@@ -110,10 +110,17 @@ Save as CSV (UTF-8), push. Done. New laureates go in `data/content.json` → `to
 
 ## 6. Design notes
 
-Modern ed-tech look: white surfaces, an indigo → violet brand gradient and a
-colour per subject and stream (`HUES` / `STREAM_STYLE` in `build.py`). Titles use
-*Readex Pro*, text *IBM Plex Sans Arabic*; both are self-hosted under the SIL Open
-Font License. Light and dark themes follow the device, with a toggle.
+Colours of the Algerian flag (green, white, red) with a gold accent; every subject
+and stream also has its own colour (`HUES` / `STREAM_STYLE` in `build.py`).
+Fonts, self-hosted from `src/assets/fonts/` (SIL Open Font License): **El Messiri**
+for headings, **Tajawal** for text, **Reem Kufi** for the wordmark. The logo is the
+name itself; the square icon is the Kufic «م» with a gold rule and a red dot.
+Logo, profile pictures, YouTube banner, Facebook cover and the link-preview image
+are in `brand/` (regenerate with `python3 brand/make2.py && node brand/shoot2.js`).
+
+Articles are plain HTML files in `data/articles/<slug>.html`; their title, date and
+summary live in `data/content.json` → `articles`. Every `<h2>` becomes an entry
+of the article's table of contents.
 
 Every exam row keeps the old site's columns:
 **الموضوع (PDF · Word) | الحل (PDF · Word) | فيديو الحل**. A file that is not ready

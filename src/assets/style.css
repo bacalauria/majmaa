@@ -1,15 +1,16 @@
 /* =============================================================================
-   مجمع البكالوريا — "modern ed-tech" theme
-   Clean surfaces, an indigo→violet brand gradient, colour-coded subjects
+   مجمع البكالوريا — site theme
+   Algerian flag palette (green, white, red) with a gold accent, colour-coded subjects
    (each subject / stream carries an HSL hue in --h), and file chips that keep
    the old site's columns: الموضوع (PDF · Word) | الحل (PDF · Word) | فيديو.
-   Fonts: Readex Pro (display, variable 500–700) + IBM Plex Sans Arabic (text).
+   Fonts (self-hosted, SIL OFL): El Messiri (headings), Tajawal (text), Reem Kufi (wordmark).
    ========================================================================== */
 
-@font-face { font-family: "Readex"; src: url(fonts/readex-pro-var.woff) format("woff"); font-weight: 500 700; font-display: swap; }
-@font-face { font-family: "Plex Arabic"; src: url(fonts/plex-arabic-Regular.woff) format("woff"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Plex Arabic"; src: url(fonts/plex-arabic-SemiBold.woff) format("woff"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Plex Arabic"; src: url(fonts/plex-arabic-Bold.woff) format("woff"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "El Messiri"; src: url(fonts/el-messiri-var.woff) format("woff"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Tajawal"; src: url(fonts/tajawal-Regular.woff) format("woff"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Tajawal"; src: url(fonts/tajawal-Medium.woff) format("woff"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Tajawal"; src: url(fonts/tajawal-Bold.woff) format("woff"); font-weight: 600 700; font-display: swap; }
+@font-face { font-family: "Reem Kufi"; src: url(fonts/reem-kufi-var.woff) format("woff"); font-weight: 400 700; font-display: swap; }
 
 /* ------------------------------------------------------------------ tokens */
 :root {
@@ -38,8 +39,10 @@
   --r-m: 14px; --r-l: 20px; --r-xl: 28px;
   --l: 52%;            /* lightness of subject colours */
   --sat: 70%;
-  --font: "Plex Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
-  --display: "Readex", "Plex Arabic", "Segoe UI", system-ui, sans-serif;
+  --font: "Tajawal", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --brandfont: "Reem Kufi", "El Messiri", sans-serif;
+  --gold: #B98A2E;
+  --display: "El Messiri", "Tajawal", "Segoe UI", system-ui, sans-serif;
   --wrap: 1200px;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
@@ -66,7 +69,7 @@
 /* ------------------------------------------------------------------- base */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 88px; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.7 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.75 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: var(--brand); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.3; margin: 0; }
@@ -99,7 +102,9 @@ kbd { font: 600 11px/1 var(--font); padding: 4px 7px; border-radius: 6px; border
 .brand:hover { text-decoration: none; }
 .brand__mark { width: 42px; height: 42px; border-radius: 12px; display: block; overflow: hidden; box-shadow: 0 8px 18px -8px rgb(0 98 51 / .7); }
 .brand__mark img { width: 100%; height: 100%; display: block; }
-.brand__name { font: 700 19px/1.15 var(--display); display: flex; flex-direction: column; }
+.brand__name { font: 700 23px/1.1 var(--brandfont); color: var(--brand-ink); display: flex; flex-direction: column; }
+.brand__name small { font-family: var(--font); }
+.brand__rule { display: block; width: 1px; height: 34px; background: var(--line-2); }
 .brand__name small { font: 400 11.5px/1.5 var(--font); color: var(--ink-3); }
 .nav { display: flex; gap: 2px; margin-inline-end: auto; }
 .nav a { padding: 8px 12px; border-radius: 10px; color: var(--ink-2); font-weight: 600; font-size: 14.5px; white-space: nowrap; }
@@ -463,3 +468,74 @@ dialog::backdrop { background: rgb(4 16 10 / .55); backdrop-filter: blur(4px); }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 @media print { .topbar, .footer, .rail, .filter { display: none; } }
+
+/* ------------------------------------------------------- long-form content */
+.article { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 32px; align-items: start; padding-top: 32px; padding-bottom: 64px; }
+.article .prose { margin: 0; max-width: 780px; }
+.article:not(:has(.toc)) { grid-template-columns: minmax(0, 1fr); }
+.article:not(:has(.toc)) .prose { margin: 0 auto; }
+.toc { position: sticky; top: 94px; padding: 18px; border: 1px solid var(--line); border-radius: var(--r-l); background: var(--surface); }
+.toc__h { font: 700 14px/1.4 var(--display); margin-bottom: 8px; }
+.toc ol { margin: 0; padding: 0; list-style: none; counter-reset: t; display: flex; flex-direction: column; gap: 2px; }
+.toc li { counter-increment: t; }
+.toc a { display: flex; gap: 8px; padding: 6px 8px; border-radius: 8px; color: var(--ink-2); font-size: 14px; line-height: 1.5; }
+.toc a::before { content: counter(t); color: var(--brand); font-weight: 600; font-variant-numeric: tabular-nums; }
+.toc a:hover { background: var(--surface-2); text-decoration: none; color: var(--ink); }
+.prose .lead { font-size: 1.12em; color: var(--ink); line-height: 1.9; padding-bottom: 6px; }
+.prose h2 { font-size: 24px; padding-top: 6px; scroll-margin-top: 90px; }
+.prose h3 { font-size: 18.5px; margin-top: 1.4em; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose strong { color: var(--ink); }
+.prose li + li { margin-top: .45em; }
+.callout { border-inline-start: 4px solid var(--brand); background: var(--brand-soft); border-radius: 12px; padding: 14px 18px; }
+.callout b { display: block; font-family: var(--display); color: var(--brand-ink); margin-bottom: 2px; }
+.callout p { color: var(--ink) !important; margin: 0; }
+.callout--warn { border-color: var(--red); background: color-mix(in srgb, var(--red) 8%, transparent); }
+.callout--warn b { color: var(--red); }
+.table { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.prose .table table { border: 0; margin: 0; }
+.prose table { font-size: 14.5px; }
+.prose th { background: var(--surface-2); color: var(--ink); text-align: start; font-weight: 600; }
+.prose td, .prose th { border: 0; border-bottom: 1px solid var(--line); padding: 10px 12px; vertical-align: top; }
+.prose tr:last-child td { border-bottom: 0; }
+.prose td.num, .prose th.num { text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.episodes .grp th { background: var(--brand-soft); color: var(--brand-ink); font-family: var(--display); }
+.episodes .grp small { font: 400 12.5px var(--font); color: var(--ink-2); margin-inline-start: 8px; }
+.episodes .ep, .episodes .dur { width: 64px; font-variant-numeric: tabular-nums; color: var(--ink-3); white-space: nowrap; }
+.steps-list { counter-reset: st; list-style: none; padding: 0 !important; display: flex; flex-direction: column; gap: 12px; }
+.steps-list li { counter-increment: st; position: relative; padding: 14px 18px; padding-inline-start: 58px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); }
+.steps-list li::before { content: counter(st); position: absolute; inset-inline-start: 16px; top: 14px; width: 28px; height: 28px; border-radius: 50%; background: var(--brand); color: #fff; display: grid; place-items: center; font: 700 14px/1 var(--display); }
+.cta-line { margin-top: 1.4em; }
+.cta-line .btn { color: #fff; }
+.cta-line .btn:hover { text-decoration: none; }
+.articles__kind { font-size: 12.5px; font-weight: 600; color: var(--brand); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.facts div { padding: 14px; border-radius: 12px; background: var(--surface-2); }
+.facts b { display: block; font: 700 22px/1.2 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.facts span { font-size: 13px; color: var(--ink-2); }
+.res { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; padding: 0 !important; list-style: none; }
+.res li { margin: 0 !important; }
+.res a { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); transition: border-color .15s, transform .15s; }
+.res a:hover { text-decoration: none; border-color: color-mix(in srgb, var(--brand) 45%, var(--line)); transform: translateY(-2px); }
+.res b { font-family: var(--display); font-size: 15.5px; }
+.res span { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+.res em { font-style: normal; font-size: 12px; color: var(--brand); font-weight: 600; }
+@media (max-width: 920px) { .article { grid-template-columns: minmax(0, 1fr); } .toc { position: static; } }
+.note-small { font-size: 13.5px; color: var(--ink-3) !important; }
+.brand__tag { font-size: 11.5px; line-height: 1.35; color: var(--ink-3); }
+.brand--footer .brand__name { color: #fff; font-size: 28px; }
+.footer .brand--footer { margin-bottom: 14px; }
+@media (max-width: 640px) { .brand__tag, .brand__rule { display: none; } .brand__name { font-size: 21px; } }
+.chart-wrap { margin: 0; border: 1px solid var(--line); border-radius: 14px; padding: 16px 12px 10px; background: var(--surface); overflow-x: auto; }
+.chart { width: 100%; min-width: 560px; height: auto; display: block; }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.chart .ax { fill: var(--ink-3); font: 400 11px var(--font); }
+.chart .val { fill: var(--ink-2); font: 600 10.5px var(--font); }
+.chart .bar { fill: color-mix(in srgb, var(--brand) 55%, var(--surface)); }
+.chart .bar--hi { fill: var(--brand); }
+.chart .bar--low { fill: color-mix(in srgb, var(--gold) 70%, var(--surface)); }
+.chart-wrap figcaption { font-size: 12.5px; color: var(--ink-3); padding: 6px 8px 0; }
+.lg { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: -1px; margin-inline-end: 4px; }
+.lg--hi { background: var(--brand); } .lg--low { background: color-mix(in srgb, var(--gold) 70%, var(--surface)); }
+.prose td.src { font-size: 12px; color: var(--ink-3); direction: ltr; text-align: right; }
+.sheet__intro { padding: 0 22px 16px; color: var(--ink-2); max-width: 75ch; }

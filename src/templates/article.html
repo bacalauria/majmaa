@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 {% from '_macros.html' import pagehead %}
 {% set title = a.title %}
+{% set description = a.desc or '' %}
 {% block main %}
-{{ pagehead(a.title, [('articles/', 'مقالات')] if page == 'articles' else [], root, None, 'scroll', 175) }}
-<div class="wrap">
+{% set meta %}{% if a.kind %}<span class="pill">{{ a.kind }}</span> {% endif %}{% if a.minutes %}{{ a.minutes }} دقائق قراءة{% endif %}{% if a.updated %} · حدث في {{ a.updated|ardate }}{% elif a.date %} · {{ a.date|ardate }}{% endif %}{% endset %}
+{{ pagehead(a.title, [('articles/', 'مقالات')] if page == 'articles' else [(None, a.title)], root, meta, {'olympiads': 'pi', 'platforms': 'globe'}.get(page, 'scroll'), {'olympiads': 265, 'platforms': 200}.get(page, 150)) }}
+<div class="wrap article">
+  {% if a.toc and a.toc|length > 2 %}
+  <nav class="toc" aria-label="محتوى المقال">
+    <p class="toc__h">في هذا المقال</p>
+    <ol>{% for id, t in a.toc %}<li><a href="#{{ id }}">{{ t }}</a></li>{% endfor %}</ol>
+  </nav>
+  {% endif %}
   <article class="prose">{{ a.html|safe }}</article>
 </div>
 {% endblock %}

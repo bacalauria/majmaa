@@ -29,6 +29,27 @@ meta = json.load(open(D('meta.json'), encoding='utf-8'))
 content = json.load(open(D('content.json'), encoding='utf-8'))
 rows = list(csv.DictReader(open(D('exams.csv'), encoding='utf-8')))
 
+# Articles: the body of each article lives in data/articles/<slug>.html (plain HTML).
+# Headings <h2> get ids and feed the table of contents; reading time ≈ 180 words/min.
+def load_article(a):
+    f = D('articles', a['slug'] + '.html')
+    if os.path.exists(f): a['html'] = open(f, encoding='utf-8').read()
+    toc, n = [], [0]
+    def h2(m):
+        n[0] += 1; toc.append((f's{n[0]}', re.sub(r'<[^>]+>', '', m.group(1))))
+        return f'<h2 id="s{n[0]}">{m.group(1)}</h2>'
+    a['html'] = re.sub(r'<h2>(.*?)</h2>', h2, a['html'])
+    a['toc'] = toc
+    words = len(re.sub(r'<[^>]+>', ' ', a['html']).split())
+    a['minutes'] = max(1, round(words / 180))
+    return a
+for a in content['articles']: load_article(a)
+content['platforms'].update(slug='platforms', title='المنصات التعليمية', kind='دليل',
+    desc='أفضل المنصات التعليمية المجانية لتلميذ البكالوريا و أستاذه: الرسمية الجزائرية، العربية، العالمية، و الأدوات.')
+load_article(content['platforms'])
+OLYMP = load_article(dict(slug='olympiads', title='أولمبياد الرياضيات و الفيزياء', kind='دليل',
+    desc='كل ما يحتاجه تلميذ جزائري عن الأولمبياد: IMO و IPhO، نتائج الجزائر، الأولمبياد الجزائرية و شروطها، و مراجع التحضير.'))
+
 STREAMS = {s['id']: s for s in meta['streams']}
 SUBJECTS = meta['subjects']
 SESSIONS = meta['sessions']
@@ -121,6 +142,8 @@ env = Environment(loader=FileSystemLoader(os.path.join(ROOT, 'src', 'templates')
 import hashlib
 ASSET_VER = hashlib.md5(b''.join(open(os.path.join(ROOT, 'src', 'assets', f), 'rb').read()
                                  for f in ('style.css', 'app.js'))).hexdigest()[:8]   # cache-buster
+MONTHS = ['جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان', 'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+env.filters['ardate'] = lambda d: f"{MONTHS[int(d[5:7]) - 1]} {d[:4]}" if d and len(d) >= 7 else (d or '')
 env.globals.update(ver=ASSET_VER, drive_id=drive_id, site=site, streams=STREAMS, views=views, SYSTEMS=SYSTEMS,
                    total_files=total_files, total_words=total_words, total_videos=total_videos, HUES=HUES, all_years=all_years, content=content)
 pages = []
@@ -155,7 +178,7 @@ def build():
     render('teachers.html', 'teachers/index.html', page='teachers')
     render('lessons.html', 'lessons/index.html', page='lessons')
     render('world.html', 'world/index.html', page='world')
-    render('olympiads.html', 'olympiads/index.html', page='olympiads')
+    render('article.html', 'olympiads/index.html', page='olympiads', a=OLYMP)
     render('article.html', 'platforms/index.html', page='platforms', a=content['platforms'])
     render('articles.html', 'articles/index.html', page='articles')
     for a in content['articles']:

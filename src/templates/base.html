@@ -18,8 +18,9 @@
 <link rel="apple-touch-icon" href="{{ root }}assets/apple-touch-icon.png">
 <meta property="og:image" content="{{ site.url }}assets/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="{{ root }}assets/fonts/plex-arabic-Regular.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="{{ root }}assets/fonts/readex-pro-var.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="{{ root }}assets/fonts/tajawal-Regular.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="{{ root }}assets/fonts/el-messiri-var.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="{{ root }}assets/fonts/reem-kufi-var.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="{{ root }}assets/style.css?v={{ ver }}">
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
@@ -59,8 +60,7 @@
 <header class="topbar">
   <div class="topbar__in">
     <a class="brand" href="{{ root }}" aria-label="{{ site.title }} — الصفحة الرئيسية">
-      <span class="brand__mark" aria-hidden="true"><img src="{{ root }}assets/icon.svg" alt="" width="42" height="42"></span>
-      <span class="brand__name">{{ site.title }}<small>بكالوريا الجزائر منذ {{ site.since }}</small></span>
+      <span class="brand__name">{{ site.title }}</span><span class="brand__rule" aria-hidden="true"></span><span class="brand__tag">بكالوريا الجزائر<br>منذ {{ site.since }}</span>
     </a>
     <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
       <a href="{{ root }}bac/" {% if page=='bac' %}aria-current="page"{% endif %}>بكالوريا الجزائر</a>
@@ -94,7 +94,6 @@
   <div class="footer__in">
     <div class="footer__about">
       <a class="brand brand--footer" href="{{ root }}">
-        <span class="brand__mark" aria-hidden="true"><img src="{{ root }}assets/icon.svg" alt="" width="42" height="42"></span>
         <span class="brand__name">{{ site.title }}</span>
       </a>
       <p>{{ site.tagline }}. أرشيف مجاني و مفتوح لمواضيع البكالوريا الجزائرية و حلولها، للتلاميذ و الأساتذة، منذ {{ site.since }}.</p>

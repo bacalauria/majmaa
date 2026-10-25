@@ -9,6 +9,7 @@
 <div class="wrap world">
   <section class="sheet" id="tn">
     <header class="sheet__head"><h2><span class="sheet__year">تونس</span></h2></header>
+    <p class="sheet__intro">الباكالوريا التونسية قريبة جدا من الجزائرية في برامج الرياضيات و العلوم الفيزيائية، و تتميز بدورة رئيسية تليها «دورة مراقبة» لمن لم ينجح. مواضيع شعبتي الرياضيات و العلوم التجريبية خاصة تدريب ممتاز.</p>
     <ul class="links">{% for a in content.tunisia.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}</ul>
     <div class="xh xh--2" aria-hidden="true"><span>الشعبة</span><span class="xh__g">الموضوع</span><span class="xh__g xh__g--sol">الحل</span></div>
     <ol class="rows">
@@ -23,10 +24,12 @@
   </section>
   <section class="sheet" id="ma">
     <header class="sheet__head"><h2><span class="sheet__year">المغرب</span></h2></header>
+    <p class="sheet__intro">يمتحن التلميذ المغربي في امتحان جهوي في السنة الأولى بكالوريا ثم الامتحان الوطني الموحد في السنة الثانية. مواضيع مسلك العلوم الرياضية معروفة بصعوبتها، و هي مفيدة للمتفوقين.</p>
     <ul class="links">{% for a in content.morocco.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}</ul>
   </section>
   <section class="sheet" id="sy">
     <header class="sheet__head"><h2><span class="sheet__year">سوريا</span></h2></header>
+    <p class="sheet__intro">الشهادة الثانوية السورية بفرعيها العلمي و الأدبي، و موادها العلمية مكتوبة بالعربية بمصطلحات قريبة مما ندرسه.</p>
     <ul class="links">
       {% for a in content.syria.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}
       {% for a in content.syria.files %}<li><a href="{{ a.href }}" target="_blank" rel="noopener" data-drive-url>{{ a.label }}</a></li>{% endfor %}
@@ -34,6 +37,7 @@
   </section>
   <section class="sheet" id="fr">
     <header class="sheet__head"><h2><span class="sheet__year">فرنسا</span></h2></header>
+    <p class="sheet__intro">البكالوريا الفرنسية بعد إصلاح 2021: امتحانات مواد التخصص (منها الرياضيات و الفيزياء-الكيمياء)، و الفلسفة، و «المقابلة الكبرى». مفيدة لمن يريد التدرب بالفرنسية أو يحضر للدراسة في الخارج.</p>
     <ul class="links">{% for a in content.france.archive %}<li><a href="{{ a.href }}" target="_blank" rel="noopener">{{ a.label }}</a></li>{% endfor %}</ul>
   </section>
 </div>

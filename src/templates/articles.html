@@ -1,15 +1,23 @@
 {% extends 'base.html' %}
 {% from '_macros.html' import pagehead %}
 {% set title = 'مقالات' %}
+{% set description = 'مقالات و أدلة للتلاميذ و الأساتذة: منهجية المراجعة، مفاتيح النجاح، البكالوريا بالأرقام، و الأوائل في البكالوريا.' %}
 {% block main %}
-{{ pagehead('مقالات', [(None, 'مقالات')], root, None, 'scroll', 175) }}
+{{ pagehead('مقالات و أدلة', [(None, 'مقالات')], root, 'منهجية المراجعة، نصائح، أرقام و سير الأوائل.', 'scroll', 150) }}
 <div class="wrap">
   <ul class="articles">
-    <li><a href="{{ root }}articles/laureates/"><span class="articles__t">الثلاثة الأوائل في بكالوريا الجزائر</span><span class="articles__d">من {{ content.toppers[-1].year }} إلى {{ content.toppers[0].year }}</span></a></li>
     {% for a in content.articles %}
-    <li><a href="{{ root }}articles/{{ a.slug }}/"><span class="articles__t">{{ a.title }}</span><span class="articles__d">{{ a.date[:4] }}</span></a></li>
+    <li><a href="{{ root }}articles/{{ a.slug }}/">
+      <span class="articles__kind">{{ a.kind }}{% if a.minutes %} · {{ a.minutes }} د{% endif %}</span>
+      <span class="articles__t">{{ a.title }}</span>
+      <span class="articles__d">{{ a.desc }}</span>
+    </a></li>
     {% endfor %}
-    <li><a href="{{ root }}platforms/"><span class="articles__t">{{ content.platforms.title }}</span><span class="articles__d">للتعلم عن بعد</span></a></li>
+    <li><a href="{{ root }}articles/laureates/">
+      <span class="articles__kind">سجل</span>
+      <span class="articles__t">الأوائل في البكالوريا</span>
+      <span class="articles__d">أعلى ثلاثة معدلات على المستوى الوطني في كل دورة، من {{ content.toppers[-1].year }} إلى {{ content.toppers[0].year }}.</span>
+    </a></li>
   </ul>
 </div>
 {% endblock %}
