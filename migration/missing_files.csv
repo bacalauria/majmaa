@@ -1,24 +1,12 @@
 stream,year,session,subject,file,old_url,reason
-mt,2012,main,isl,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2012_mt_islamiq_s.pdf,http 404
-mt,2012,main,hg,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2012_mt_hgeo_s.pdf,http 404
 mt,2012,main,ge_el,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2012_mt_gelec_s.pdf,http 404
 mt,2008,main,ge_civ,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_mt_gciv_s.pdf,http 404
 mt,2008,main,ge_proc,sujet_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_mt_gmeth.pdf,http 404
 mt,2008,main,ge_proc,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_mt_gmeth_s.pdf,http 404
 ge,2012,main,law,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2012_ge_droit_s.pdf,http 404
-ge,2012,main,hg,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2012_ge_hgeo_s.pdf,http 404
 ge,2008,main,compta,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_ge_gest_s.pdf,http 404
-lph,2012,main,en,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2012_l_ang_s.pdf,http 404
-lph,2010,main,isl,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2010_l_islamiq_s.pdf,http 404
-lph,2010,main,hg,sujet_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2010_l_hgeo.pdf,http 404
 lph,2010,main,tz,sujet_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2010_l_am.pdf,http 404
 lph,2010,main,tz,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2010_l_am_s.pdf,http 404
-lph,2008,main,ar,sujet_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_l_ar.pdf,http 404
-lph,2008,main,ar,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_l_ar_s.pdf,http 404
-lph,2008,main,en,sujet_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_l_ang.pdf,http 404
-lph,2008,main,en,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_l_ang_s.pdf,http 404
-lph,2008,main,tz,sujet_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_l_am.pdf,http 404
-lph,2008,main,tz,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2008_l_am_s.pdf,http 404
 lang,2012,main,math,solution_pdf,https://khelifak.files.wordpress.com/2013/05/bac_2012_lang_math_s.pdf,http 404
 sx,2005,main,phys,sujet_pdf,https://baccalauria.wordpress.com/wp-content/uploads/2013/05/bac_2005_se_physiq.pdf,http 404
 sx,2005,main,phys,solution_pdf,https://baccalauria.wordpress.com/wp-content/uploads/2013/05/bac_2005_se_physiq_s.pdf,http 404
