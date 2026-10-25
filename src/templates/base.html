@@ -36,6 +36,9 @@
   <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
   <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7M5.5 9.5V20h5v-6h3v6h5V9.5"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></symbol>
   <symbol id="i-board" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20l2-4M16 20l-2-4M7 9h6M7 12h4"/></symbol>
@@ -143,6 +146,11 @@
   <p class="viewer__loading">جار تحميل المعاينة…</p>
   <iframe id="vframe" title="معاينة الملف" allow="autoplay" referrerpolicy="no-referrer"></iframe>
 </dialog>
+
+<div class="fab" aria-label="تنقل سريع">
+  {% if page != 'home' %}<a class="fab__btn fab__home" href="{{ root }}" aria-label="الصفحة الرئيسية" title="الصفحة الرئيسية"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-home"/></svg></a>{% endif %}
+  <button class="fab__btn fab__top" type="button" id="totop" aria-label="العودة إلى أعلى الصفحة" title="أعلى الصفحة"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-up"/></svg></button>
+</div>
 
 <script src="{{ root }}assets/app.js?v={{ ver }}" defer></script>
 </body>

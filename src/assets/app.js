@@ -24,6 +24,17 @@
     const open = nav.classList.toggle('is-open'); menuBtn.setAttribute('aria-expanded', open);
   });
 
+  /* ------------------------------------------------- quick nav (top / home) */
+  const fab = $('.fab');
+  if (fab) {
+    const onScroll = () => fab.classList.toggle('is-shown', window.scrollY > 600);
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    $('#totop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      const skip = $('#main'); skip && skip.focus && skip.setAttribute('tabindex', '-1');
+    });
+  }
+
   /* -------------------------------------------------------- drive helpers */
   const driveId = (u) => { const m = /\/d\/([\w-]{10,})|[?&]id=([\w-]{10,})/.exec(u || ''); return m ? (m[1] || m[2]) : null; };
   const isDrive = (u) => /(?:drive|docs)\.google\.com/.test(u || '');

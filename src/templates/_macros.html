@@ -51,7 +51,9 @@
 {% macro pagehead(title, crumbs, root, meta=None, icon=None, hue=235) -%}
 <section class="pagehead" style="--h:{{ hue }}">
   <div class="wrap">
-    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a>{% for href, label in crumbs %}<span aria-hidden="true">›</span>{% if href %}<a href="{{ root }}{{ href }}">{{ label }}</a>{% else %}<span>{{ label }}</span>{% endif %}{% endfor %}</nav>
+    {% set back = (crumbs|selectattr(0)|list|last) if (crumbs|selectattr(0)|list) else ('', 'الرئيسية') %}
+    <div class="crumbbar"><a class="backlink" href="{{ root }}{{ back[0] }}"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-back"/></svg>{{ back[1] }}</a>
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a>{% for href, label in crumbs %}<span aria-hidden="true">›</span>{% if href %}<a href="{{ root }}{{ href }}">{{ label }}</a>{% else %}<span>{{ label }}</span>{% endif %}{% endfor %}</nav></div>
     <div class="pagehead__row">
       {% if icon %}<span class="pagehead__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ icon }}"/></svg></span>{% endif %}
       <div>
