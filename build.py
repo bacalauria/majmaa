@@ -59,6 +59,9 @@ OLYMP_PHYS = load_article(dict(slug='olympiads-physics', title='أولمبياد
 OLYMP_OTHER = load_article(dict(slug='olympiads-other', title='أولمبياد المواد الأخرى', kind='دليل', icon='compass', hue=150,
     crumbs=[('olympiads/', 'أولمبياد'), (None, 'مواد أخرى')],
     desc='الإعلام الآلي و الذكاء الاصطناعي، الكيمياء، الأحياء، علم الفلك، علوم الأرض، الجغرافيا، الفلسفة، اللسانيات، الاقتصاد و العلوم للناشئين: البرنامج، وضع الجزائر، كيف تشارك، و المراجع.'))
+WORLD = load_article(dict(slug='world', title='البكالوريا في العالم', kind='دليل', icon='globe', hue=200,
+    crumbs=[(None, 'بكالوريا أجنبية')],
+    desc='أنظمة البكالوريا الكبرى في العالم: الفرنسي، المغاربي، المشرقي، البريطاني، الدولي IB، الأمريكي، الألماني و غيرها. الدول، البرامج، و أين تجد المواضيع.'))
 
 STREAMS = {s['id']: s for s in meta['streams']}
 SUBJECTS = meta['subjects']
@@ -189,7 +192,8 @@ def build():
     render('videos.html', 'videos/index.html', page='videos')
     render('productions.html', 'productions/index.html', page='productions')
     render('lessons.html', 'lessons/index.html', page='lessons')
-    render('world.html', 'world/index.html', page='world')
+    WORLD['html'] = WORLD['html'].replace('<!--TN_FILES-->', env.get_template('_tn_files.html').render(content=content))
+    render('article.html', 'world/index.html', page='world', a=WORLD)
     render('article.html', 'olympiads/index.html', page='olympiads', a=OLYMP)
     render('article.html', 'olympiads/math/index.html', page='olympiads', a=OLYMP_MATH)
     render('article.html', 'olympiads/physics/index.html', page='olympiads', a=OLYMP_PHYS)

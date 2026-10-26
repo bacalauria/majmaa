@@ -623,3 +623,6 @@ dialog::backdrop { background: rgb(4 16 10 / .55); backdrop-filter: blur(4px); }
 .module.is-active { border-style: solid; border-color: var(--brand); background: var(--brand-soft); color: var(--brand-ink); }
 .module.is-active small { color: var(--brand); }
 @media (max-width: 760px) { .serie { grid-template-columns: minmax(0, 1fr); } .serie__cover { min-height: 150px; } .projects { grid-template-columns: minmax(0, 1fr); } }
+.prose .tnfiles { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 12px 0 20px; font-size: .95rem; }
+.prose .tnfiles ol { padding: 0; margin: 0; list-style: none; }
+.prose .tnfiles li { margin: 0; }
