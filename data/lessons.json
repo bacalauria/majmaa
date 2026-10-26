@@ -7,7 +7,7 @@
   "كتب",
   "فيديوهات"
  ],
- "note": "المواد المشتركة مجمعة حسب عناوين مواضيع البكالوريا: الشعب التي تمتحن في موضوع واحد تدرس نفس البرنامج في تلك المادة.",
+ "note": "المواد المشتركة مستخرجة من مواضيع البكالوريا 2025 و 2026: الشعب التي تمتحن في موضوع واحد تدرس نفس البرنامج في تلك المادة.",
  "streams": [
   "math",
   "mt",
@@ -35,15 +35,22 @@
     ],
     [
      "lph",
-     "lang"
-    ],
-    [
+     "lang",
      "arts"
     ]
    ],
    "items": {
     "دروس": [],
     "ملخصات": [
+     {
+      "label": "ملخص الأجوبة النموذجية (إصدار المجمع)",
+      "href": "https://drive.google.com/file/d/1rpwkHa5xJYeK-ObxM4HrjcuiiIfUI2pZ/view?usp=drive_link",
+      "for": [
+       "math",
+       "mt",
+       "se"
+      ]
+     },
      {
       "label": "ملخص (أ.توامي)",
       "href": "https://drive.google.com/file/d/1CImdtH7X5NTIhNW6CnCA6UgTwyksBQPf/view?usp=share_link"
@@ -81,11 +88,20 @@
    "items": {
     "دروس": [
      {
-      "label": "كتاب الأستاذ قزوري: دروس و تمارين (516 صفحة)",
-      "href": "https://drive.google.com/file/d/1vgiR7hs9T5ds7cK4vhp6DNPcPbOWJqyq/view?usp=drive_link"
+      "label": "كتاب الأستاذ قزوري: دروس و تمارين، مع ملاحق لأساتذة آخرين (608 صفحات)",
+      "href": "https://drive.google.com/file/d/1bxrzjSCrxIPH6ACOPanjvjFsHS_FF6i4/view?usp=drive_link"
      }
     ],
     "ملخصات": [
+     {
+      "label": "ملخص الأجوبة النموذجية (إصدار المجمع)",
+      "href": "https://drive.google.com/file/d/1dk-NJEQT2adVYBbFC6jZgJqtSlYSjCFY/view?usp=drive_link",
+      "for": [
+       "math",
+       "mt",
+       "se"
+      ]
+     },
      {
       "label": "ملخص (أ. نصر الله)",
       "href": "https://drive.google.com/file/d/1gROcxpV6PE6yjfQ_uZ_Eme-6Is1R5wwJ/view?usp=share_link"
@@ -127,6 +143,13 @@
     "دروس": [],
     "ملخصات": [
      {
+      "label": "ملخص الأجوبة النموذجية (إصدار المجمع)",
+      "href": "https://drive.google.com/file/d/1ld-TSbL882teYB3sYfr9YCHSWaQwJd6T/view?usp=drive_link",
+      "for": [
+       "se"
+      ]
+     },
+     {
       "label": "ملخص (سمراني)",
       "href": "https://drive.google.com/file/d/13tAEpBZGc5Ufck8y2nifhMaev9rzR7Yz/view?usp=share_link"
      },
@@ -156,21 +179,24 @@
      "math",
      "mt",
      "se",
-     "ge"
+     "ge",
+     "arts"
     ],
     [
      "lph"
     ],
     [
      "lang"
-    ],
-    [
-     "arts"
     ]
    ],
    "items": {
     "دروس": [],
-    "ملخصات": [],
+    "ملخصات": [
+     {
+      "label": "ملخص الأجوبة النموذجية (إصدار المجمع)",
+      "href": "https://drive.google.com/file/d/18pIfUj05L7bn44ODgoE81AtgMGmNbSNl/view?usp=drive_link"
+     }
+    ],
     "سلاسل و تمارين": [],
     "كتب": [
      {
@@ -192,22 +218,27 @@
     [
      "math",
      "mt",
-     "se",
+     "se"
+    ],
+    [
      "ge"
     ],
     [
      "lph"
     ],
     [
-     "lang"
-    ],
-    [
+     "lang",
      "arts"
     ]
    ],
    "items": {
     "دروس": [],
-    "ملخصات": [],
+    "ملخصات": [
+     {
+      "label": "ملخص الأجوبة النموذجية (إصدار المجمع)",
+      "href": "https://drive.google.com/file/d/1nrIatLkd7jzOxVhnsfx-OAu-i_AMR9-E/view?usp=drive_link"
+     }
+    ],
     "سلاسل و تمارين": [],
     "كتب": [
      {
@@ -260,7 +291,8 @@
     [
      "math",
      "mt",
-     "se"
+     "se",
+     "arts"
     ],
     [
      "ge"
@@ -270,14 +302,16 @@
     ],
     [
      "lang"
-    ],
-    [
-     "arts"
     ]
    ],
    "items": {
     "دروس": [],
-    "ملخصات": [],
+    "ملخصات": [
+     {
+      "label": "ملخص الأجوبة النموذجية (إصدار المجمع)",
+      "href": "https://drive.google.com/file/d/1KURWHBycgapl1b7OYsBVWrQ-CYDVPwhX/view?usp=drive_link"
+     }
+    ],
     "سلاسل و تمارين": [],
     "كتب": [
      {
@@ -304,24 +338,34 @@
      "math",
      "mt",
      "se",
-     "ge"
+     "ge",
+     "arts"
     ],
     [
      "lph"
     ],
     [
      "lang"
-    ],
-    [
-     "arts"
     ]
    ],
    "items": {
     "دروس": [],
     "ملخصات": [
      {
+      "label": "ملخص الأجوبة النموذجية (إصدار المجمع)",
+      "href": "https://drive.google.com/file/d/1-zaW3dk-jKaTDd8tcck3WCSsnDqnPGAS/view?usp=drive_link"
+     },
+     {
       "label": "ملخص (منصوري)",
       "href": "https://drive.google.com/file/d/1-Q8lIvzsWFT_HO2iEl3m6IEOTUnD7X0t/view?usp=share_link"
+     },
+     {
+      "label": "ملخص قواعد اللغة الفرنسية",
+      "href": "https://drive.google.com/file/d/1R44ZjD_I83IUYSQuigO_Q_4sP07hxtHR/view?usp=drive_link"
+     },
+     {
+      "label": "ملخص لجميع الشعب (أ. نوري)",
+      "href": "https://drive.google.com/file/d/1S-lPfXmhDux8DmMLhD6rxIyFuKqPF09s/view?usp=drive_link"
      }
     ],
     "سلاسل و تمارين": [],
@@ -346,21 +390,28 @@
      "math",
      "mt",
      "se",
-     "ge"
+     "ge",
+     "arts"
     ],
     [
      "lph"
     ],
     [
      "lang"
-    ],
-    [
-     "arts"
     ]
    ],
    "items": {
     "دروس": [],
-    "ملخصات": [],
+    "ملخصات": [
+     {
+      "label": "ملخص الأجوبة النموذجية (إصدار المجمع)",
+      "href": "https://drive.google.com/file/d/1ZJ_XshcqSGMmwab9lmwUzQUHETRhg5Xa/view?usp=drive_link"
+     },
+     {
+      "label": "ملخص (منصوري)",
+      "href": "https://drive.google.com/file/d/1-bUmZOZlUyyfPCaGgMjgxXHwrwDU8YC0/view?usp=drive_link"
+     }
+    ],
     "سلاسل و تمارين": [],
     "كتب": [],
     "فيديوهات": [
@@ -384,7 +435,13 @@
      "arts"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "eco",
@@ -393,7 +450,13 @@
      "ge"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "compta",
@@ -402,7 +465,13 @@
      "ge"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "law",
@@ -411,7 +480,13 @@
      "ge"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "ge_civ",
@@ -420,7 +495,13 @@
      "mt"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "ge_el",
@@ -429,7 +510,13 @@
      "mt"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "ge_mec",
@@ -438,7 +525,13 @@
      "mt"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "ge_proc",
@@ -447,7 +540,13 @@
      "mt"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "de",
@@ -456,7 +555,13 @@
      "lang"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "es",
@@ -465,7 +570,13 @@
      "lang"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "it",
@@ -474,7 +585,13 @@
      "lang"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   },
   {
    "subject": "arts",
@@ -483,7 +600,13 @@
      "arts"
     ]
    ],
-   "items": {}
+   "items": {
+    "دروس": [],
+    "ملخصات": [],
+    "سلاسل و تمارين": [],
+    "كتب": [],
+    "فيديوهات": []
+   }
   }
  ]
 }

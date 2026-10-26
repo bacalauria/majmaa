@@ -1,0 +1,13 @@
+{% from '_macros.html' import fc %}
+<div class="tnfiles">
+<div class="xh xh--2" aria-hidden="true"><span>{{ head or 'الشعبة' }}</span><span class="xh__g">الموضوع</span><span class="xh__g xh__g--sol">الحل</span></div>
+<ol class="rows">
+{% for r in rows %}
+<li class="xr xr--2" style="--h:{{ r.hue or 200 }}">
+  <span class="xr__sub"><b class="dot" aria-hidden="true"></b>{{ r.label }} <small>{{ r.year }}</small></span>
+  <span class="xr__grp xr__grp--paper" data-label="الموضوع">{{ fc({'url': r.sujet, 'drive': drive_id(r.sujet)} if r.sujet else None, 'pdf', country ~ ' ' ~ r.year ~ ' — ' ~ r.label ~ ' — الموضوع') }}</span>
+  <span class="xr__grp xr__grp--sol" data-label="الحل">{{ fc({'url': r.solution, 'drive': drive_id(r.solution)} if r.solution else None, 'pdf', country ~ ' ' ~ r.year ~ ' — ' ~ r.label ~ ' — الحل') }}</span>
+</li>
+{% endfor %}
+</ol>
+</div>

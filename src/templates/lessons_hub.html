@@ -23,7 +23,7 @@
 
   <section class="hub__sec">
     <header class="section__head"><div><p class="kicker">من يدرس ماذا؟</p><h2 class="section__title">خريطة المواد المشتركة</h2></div></header>
-    <p class="hub__note">في كل سطر، الشعب التي تحمل نفس الحرف و نفس اللون تمتحن في موضوع واحد في البكالوريا، أي تدرس نفس البرنامج في تلك المادة.</p>
+    <p class="hub__note">في كل سطر، الشعب التي تحمل نفس الحرف و نفس اللون تمتحن في موضوع واحد في البكالوريا، أي تدرس نفس البرنامج في تلك المادة. الخريطة مبنية على مواضيع دورتي 2025 و 2026.</p>
     <div class="table matrix"><table>
       <thead><tr><th>المادة</th>{% for sid in lessons.streams %}<th style="--h:{{ views[sid].hue }}"><a href="{{ root }}lessons/{{ sid }}/">{{ views[sid].name|replace('شعبة ','') }}</a></th>{% endfor %}</tr></thead>
       <tbody>

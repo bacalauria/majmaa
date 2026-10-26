@@ -895,3 +895,23 @@ dialog::backdrop { background: rgb(4 16 10 / .55); backdrop-filter: blur(4px); }
 .matrix thead th:first-child, .matrix tbody th { width: 210px; text-align: start; padding-inline-start: 16px; }
 .matrix tbody tr:hover { background: var(--surface-2); }
 .matrix tbody tr:last-child th, .matrix tbody tr:last-child td { border-bottom: 0; }
+
+/* productions: published series */
+.series { margin-bottom: 48px; }
+.series__head { margin-bottom: 20px; }
+.series__desc { color: var(--ink-2); max-width: 75ch; margin-top: 6px; }
+.books { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 18px; }
+.bookc { display: flex; flex-direction: column; gap: 10px; color: var(--ink); }
+.bookc:hover { text-decoration: none; }
+.bookc__cover { position: relative; aspect-ratio: 3 / 4; border-radius: 6px 14px 14px 6px; padding: 18px 16px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; overflow: hidden;
+  background: linear-gradient(155deg, hsl(var(--h) 62% 46%), hsl(var(--h) 65% 30%)); box-shadow: inset 8px 0 0 rgb(0 0 0 / .18), var(--shadow-2); transition: transform .2s, box-shadow .2s; }
+.bookc__cover::after { content: ""; position: absolute; inset: 0; opacity: .18; background: url(zellige.svg) 0 0 / 70px 70px; }
+.bookc__cover > * { position: relative; z-index: 1; }
+.bookc__cover small { font-size: 12px; opacity: .85; font-weight: 600; }
+.bookc__cover b { font: 700 24px/1.3 var(--display); }
+.bookc__cover i { font: 600 13px/1 var(--brandfont); font-style: normal; opacity: .9; }
+.bookc:hover .bookc__cover { transform: translateY(-4px) rotate(-1deg); box-shadow: inset 8px 0 0 rgb(0 0 0 / .18), var(--shadow-3); }
+.bookc__meta { display: flex; flex-direction: column; gap: 2px; }
+.bookc__meta b { font-family: var(--display); font-size: 16px; }
+.bookc__meta span { font-size: 12.5px; color: var(--ink-3); }
+.bookc__meta em { font-style: normal; font-size: 12px; color: var(--brand); font-weight: 600; }

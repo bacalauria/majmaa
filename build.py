@@ -80,7 +80,8 @@ for sid in lessons['streams']:
     for m in lessons['modules']:
         for grp in m['variants']:
             if sid in grp:
-                mine.append(dict(subject=m['subject'], items=m['items'], shared=[x for x in grp if x != sid]))
+                items = {g: [it for it in its if sid in it.get('for', [sid])] for g, its in m['items'].items()}
+                mine.append(dict(subject=m['subject'], items=items, shared=[x for x in grp if x != sid]))
     pri = LESSON_ORDER.get(sid, [])
     mine.sort(key=lambda m: pri.index(m['subject']) if m['subject'] in pri else len(pri))
     lessons['by_stream'][sid], lessons['mod_count'][sid] = mine, len(mine)
@@ -217,9 +218,12 @@ def build():
     render('lessons_hub.html', 'lessons/index.html', page='lessons')
     for sid in lessons['streams']:
         render('lessons_stream.html', f'lessons/{sid}/index.html', page='lessons', v=views[sid])
-    tn = env.get_template('_tn_files.html').render(content=content)
+    # <!--FILES:key--> in a system page body becomes the table of our files for that country
+    ftpl = env.get_template('_files.html')
     for x in world['systems']:
-        for sec in x['sections']: sec['html'] = sec['html'].replace('<!--TN_FILES-->', tn)
+        for sec in x['sections']:
+            sec['html'] = re.sub(r'<!--FILES:(\w+)-->', lambda m: ftpl.render(rows=content['foreign'][m.group(1)]['rows'],
+                                 country=content['foreign'][m.group(1)]['name'], head=content['foreign'][m.group(1)].get('head')), sec['html'])
     render('world_hub.html', 'world/index.html', page='world')
     for x in world['systems']:
         render('topic.html', f'world/{x["id"]}/index.html', page='world', t=x, kind='world')

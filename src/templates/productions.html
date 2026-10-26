@@ -6,10 +6,21 @@
 {{ pagehead('إصداراتنا', [(None, 'إصداراتنا')], root, 'كتب و سلاسل من إعداد المجمع، مجانية للتلاميذ و الأساتذة.', 'book', 150) }}
 <div class="wrap section">
   {% if content.productions.books %}
-  <h2 class="section__title">كتب و سلاسل منشورة</h2>
-  <ul class="res">
-    {% for b in content.productions.books %}<li><a href="{{ b.url }}" target="_blank" rel="noopener" data-drive-url><em>{{ b.kind }}</em><b>{{ b.title }}</b><span>{{ b.desc }}</span></a></li>{% endfor %}
-  </ul>
+  <section class="series">
+    <header class="series__head">
+      <p class="kicker">سلسلة منشورة</p>
+      <h2 class="section__title">ملخص الأجوبة النموذجية</h2>
+      <p class="series__desc">لكل مادة، خلاصة ما تكرر في الأجوبة النموذجية الرسمية لمواضيع البكالوريا: التعاريف و القوانين و الصيغ التي ينتظرها المصحح، مرتبة حسب البرنامج. من إعداد الفريق العلمي لمجمع البكالوريا.</p>
+    </header>
+    <div class="books">
+      {% for b in content.productions.books %}
+      <a class="bookc" href="{{ b.href }}" target="_blank" rel="noopener" data-drive-url data-title="{{ b.title }}" style="--h:{{ HUES.get(b.subject, 150) }}">
+        <span class="bookc__cover" aria-hidden="true"><small>ملخص الأجوبة النموذجية</small><b>{{ SUBJ[b.subject] }}</b><i>مَجْمَعُ البكالوريا</i></span>
+        <span class="bookc__meta"><b>{{ SUBJ[b.subject] }}</b><span>{{ b.streams or 'كل الشعب' }}</span><em>PDF · تحميل مجاني</em></span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
   {% endif %}
 
   <h2 class="section__title">مشاريع قيد الإنجاز</h2>
