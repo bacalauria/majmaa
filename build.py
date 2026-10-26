@@ -218,12 +218,6 @@ def build():
     render('lessons_hub.html', 'lessons/index.html', page='lessons')
     for sid in lessons['streams']:
         render('lessons_stream.html', f'lessons/{sid}/index.html', page='lessons', v=views[sid])
-    # <!--FILES:key--> in a system page body becomes the table of our files for that country
-    ftpl = env.get_template('_files.html')
-    for x in world['systems']:
-        for sec in x['sections']:
-            sec['html'] = re.sub(r'<!--FILES:(\w+)-->', lambda m: ftpl.render(rows=content['foreign'][m.group(1)]['rows'],
-                                 country=content['foreign'][m.group(1)]['name'], head=content['foreign'][m.group(1)].get('head')), sec['html'])
     render('world_hub.html', 'world/index.html', page='world')
     for x in world['systems']:
         render('topic.html', f'world/{x["id"]}/index.html', page='world', t=x, kind='world')

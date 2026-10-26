@@ -1,51 +1,13 @@
 {% extends 'base.html' %}
 {% from '_macros.html' import pagehead %}
 {% set title = 'إصداراتنا' %}
-{% set description = 'كتب و سلاسل مجمع البكالوريا: سلسلة الحلول النموذجية، البكالوريا الأجنبية بالعربية، و سلاسل الفيديو.' %}
+{% set description = 'كتب و سلاسل من إعداد مجمع البكالوريا، عن قريب.' %}
 {% block main %}
 {{ pagehead('إصداراتنا', [(None, 'إصداراتنا')], root, 'كتب و سلاسل من إعداد المجمع، مجانية للتلاميذ و الأساتذة.', 'book', 150) }}
 <div class="wrap section">
-  {% if content.productions.books %}
-  <section class="series">
-    <header class="series__head">
-      <p class="kicker">سلسلة منشورة</p>
-      <h2 class="section__title">ملخص الأجوبة النموذجية</h2>
-      <p class="series__desc">لكل مادة، خلاصة ما تكرر في الأجوبة النموذجية الرسمية لمواضيع البكالوريا: التعاريف و القوانين و الصيغ التي ينتظرها المصحح، مرتبة حسب البرنامج. من إعداد الفريق العلمي لمجمع البكالوريا.</p>
-    </header>
-    <div class="books">
-      {% for b in content.productions.books %}
-      <a class="bookc" href="{{ b.href }}" target="_blank" rel="noopener" data-drive-url data-title="{{ b.title }}" style="--h:{{ HUES.get(b.subject, 150) }}">
-        <span class="bookc__cover" aria-hidden="true"><small>ملخص الأجوبة النموذجية</small><b>{{ SUBJ[b.subject] }}</b><i>مَجْمَعُ البكالوريا</i></span>
-        <span class="bookc__meta"><b>{{ SUBJ[b.subject] }}</b><span>{{ b.streams or 'كل الشعب' }}</span><em>PDF · تحميل مجاني</em></span>
-      </a>
-      {% endfor %}
-    </div>
-  </section>
-  {% endif %}
-
-  <h2 class="section__title">مشاريع قيد الإنجاز</h2>
-  <div class="projects">
-    {% for p in content.productions.projects %}
-    <article class="project" style="--h:{{ p.hue }}">
-      <header class="project__head">
-        <span class="feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ p.icon }}"/></svg></span>
-        <div><h3>{{ p.title }}</h3><span class="pill">{{ p.status }}</span></div>
-      </header>
-      <p>{{ p.desc }}</p>
-      <ul class="project__points">{% for x in p.points %}<li>{{ x }}</li>{% endfor %}</ul>
-      {% if p.modules %}
-      <div class="modules">
-        {% for m, st in p.modules %}<span class="module{% if st != 'مخطط' %} is-active{% endif %}">{{ m }}<small>{{ st }}</small></span>{% endfor %}
-      </div>
-      {% endif %}
-    </article>
-    {% endfor %}
+  <div class="soon">
+    <span class="soon__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-book"/></svg></span>
+    <p class="soon__t">عن قريب...</p>
   </div>
-
-  <aside class="note">
-    <span class="note__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-play"/></svg></span>
-    <p>و للمجمع أيضا سلاسل فيديو في مواضيع عامة، مثل احتراف الآلة الحاسبة.</p>
-    <a class="btn btn--soft" href="{{ root }}videos/">سلاسل الفيديو</a>
-  </aside>
 </div>
 {% endblock %}
