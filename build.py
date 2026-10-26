@@ -49,13 +49,16 @@ content['platforms'].update(slug='platforms', title='المنصات التعلي
 load_article(content['platforms'])
 OLYMP = load_article(dict(slug='olympiads', title='الأولمبياد العلمية', kind='دليل', icon='trophy', hue=265,
     crumbs=[(None, 'أولمبياد')],
-    desc='أولمبياد الرياضيات و الفيزياء للتلاميذ الجزائريين: المسابقات الوطنية، الدولية، و كيف تشارك.'))
+    desc='أولمبياد الرياضيات و الفيزياء و المواد الأخرى للتلاميذ الجزائريين: المسابقات الوطنية، الدولية، و كيف تشارك.'))
 OLYMP_MATH = load_article(dict(slug='olympiads-math', title='أولمبياد الرياضيات', kind='دليل', icon='sigma', hue=235,
     crumbs=[('olympiads/', 'أولمبياد'), (None, 'الرياضيات')],
     desc='الأولمبياد الجزائرية للرياضيات و شروطها، IMO و نتائج الجزائر منذ 1977، PAMO و العربية، امتحانات الترشيح الجزائرية و مسائل IMO بالعربية، و مراجع التحضير.'))
 OLYMP_PHYS = load_article(dict(slug='olympiads-physics', title='أولمبياد الفيزياء', kind='دليل', icon='flask', hue=200,
     crumbs=[('olympiads/', 'أولمبياد'), (None, 'الفيزياء')],
     desc='المسابقة الوطنية المؤهلة لأولمبياد علم الفلك IOAA، الأولمبياد الدولية للفيزياء IPhO و برنامجها، Physics Cup، و مراجع التحضير.'))
+OLYMP_OTHER = load_article(dict(slug='olympiads-other', title='أولمبياد المواد الأخرى', kind='دليل', icon='compass', hue=150,
+    crumbs=[('olympiads/', 'أولمبياد'), (None, 'مواد أخرى')],
+    desc='الإعلام الآلي و الذكاء الاصطناعي، الكيمياء، الأحياء، علم الفلك، علوم الأرض، الجغرافيا، الفلسفة، اللسانيات، الاقتصاد و العلوم للناشئين: البرنامج، وضع الجزائر، كيف تشارك، و المراجع.'))
 
 STREAMS = {s['id']: s for s in meta['streams']}
 SUBJECTS = meta['subjects']
@@ -190,6 +193,7 @@ def build():
     render('article.html', 'olympiads/index.html', page='olympiads', a=OLYMP)
     render('article.html', 'olympiads/math/index.html', page='olympiads', a=OLYMP_MATH)
     render('article.html', 'olympiads/physics/index.html', page='olympiads', a=OLYMP_PHYS)
+    render('article.html', 'olympiads/other/index.html', page='olympiads', a=OLYMP_OTHER)
     render('article.html', 'platforms/index.html', page='platforms', a=content['platforms'])
     render('articles.html', 'articles/index.html', page='articles')
     for a in content['articles']:
