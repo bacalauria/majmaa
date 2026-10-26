@@ -39,7 +39,7 @@ def card(c):
     desc = html.escape(c['desc'])
     return green_bg() + f'''<div style="position:absolute;inset:0;padding:58px 76px 54px;display:flex;flex-direction:column">
 <div style="display:flex;justify-content:space-between;align-items:center">
-  <div class="wm" style="font-size:44px">مَجْمَعُ البكالوريا</div>
+  <div style="display:flex;align-items:center;gap:16px"><img src="emblem.png" style="width:92px;height:92px;margin:-14px 0"><div class="wm" style="font-size:44px">مَجْمَعُ البكالوريا</div></div>
   <span style="font:700 26px TJ;color:{GOLD};padding:8px 24px;border-radius:99px;border:2px solid rgba(201,162,74,.65)">{kick}</span></div>
 <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
   <div style="font:700 {fs}px/1.28 EM;color:{CREAM}">{title}</div>
@@ -58,6 +58,7 @@ def main():
     cards = [c for c in json.load(open(man, encoding='utf-8')) if c['key'] != 'home']   # home keeps og-image.jpg
     for f in os.listdir(os.path.join(ROOT, 'src', 'assets', 'fonts')):
         shutil.copy(os.path.join(ROOT, 'src', 'assets', 'fonts', f), tmp)
+    shutil.copy(os.path.join(ROOT, 'brand', 'emblem.png'), tmp)
     for c in cards:
         open(os.path.join(tmp, c['key'] + '.html'), 'w', encoding='utf-8').write(
             HEAD + '<style>html,body{width:1200px;height:630px;overflow:hidden}</style>' + card(c))

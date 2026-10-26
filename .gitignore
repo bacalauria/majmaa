@@ -2,3 +2,5 @@ _site/
 __pycache__/
 *.pyc
 .DS_Store
+brand/build3/
+brand/out3/
