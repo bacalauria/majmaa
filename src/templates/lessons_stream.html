@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set sname = v.name|replace('شعبة ','') %}
+{% set title = 'دروس و ملخصات — ' ~ v.name %}
+{% set description = 'مراجع مواد ' ~ v.name ~ ' في البكالوريا الجزائرية: دروس، ملخصات، سلاسل، كتب و قنوات شرح.' %}
+{% block main %}
+{% set meta_html %}مراجع مختارة لكل مادة من مواد {{ v.name }}. المواد المشتركة مع شعب أخرى مشار إليها، و مراجعها نفسها. <a href="{{ root }}bac/{{ v.id }}/">مواضيع البكالوريا لهذه الشعبة ←</a>{% endset %}
+{{ pagehead('دروس ' ~ v.name, [('lessons/', 'دروس و ملخصات'), (None, sname)], root, meta_html, v.icon, v.hue) }}
+<div class="wrap">
+  <nav class="switch" aria-label="الشعب">{% for sid in lessons.streams %}<a href="{{ root }}lessons/{{ sid }}/" style="--h:{{ views[sid].hue }}"{% if sid == v.id %} aria-current="page"{% endif %}>{{ views[sid].name|replace('شعبة ','') }}</a>{% endfor %}</nav>
+  <div class="mods">
+    {% for m in lessons.by_stream[v.id] %}
+    <section class="mod" style="--h:{{ HUES.get(m.subject, 230) }}">
+      <header class="mod__head">
+        <h2 class="mod__name"><b class="dot" aria-hidden="true"></b>{{ SUBJ[m.subject] }}</h2>
+        {% if m.shared %}<p class="mod__shared">مشترك مع: {% for sid in m.shared %}<a href="{{ root }}lessons/{{ sid }}/">{{ views[sid].name|replace('شعبة ','') }}</a>{% endfor %}</p>
+        {% else %}<p class="mod__shared mod__shared--own">خاص بهذه الشعبة</p>{% endif %}
+      </header>
+      {% set has = namespace(x=false) %}{% for g, items in m['items'].items() if items %}{% set has.x = true %}{% endfor %}
+      {% if has.x %}
+      <dl class="mod__groups">
+        {% for g, items in m['items'].items() if items %}
+        <div><dt>{{ g }}</dt><dd>{% for it in items %}<a href="{{ it.href }}" target="_blank" rel="noopener" {% if 'drive.google' in it.href %}data-drive-url{% endif %}>{{ it.label }}</a>{% endfor %}</dd></div>
+        {% endfor %}
+      </dl>
+      {% else %}
+      <p class="mod__empty">المراجع قيد الإعداد. لديك ملخص أو سلسلة جيدة؟ <a href="mailto:{{ site.email }}?subject=مرجع: {{ SUBJ[m.subject] }} — {{ v.name }}">أرسلها إلينا</a>.</p>
+      {% endif %}
+    </section>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

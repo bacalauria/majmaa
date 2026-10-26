@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set title = 'البكالوريا في العالم' %}
+{% set description = 'أنظمة البكالوريا الكبرى في العالم: الفرنسي، المغاربي، المشرقي، البريطاني، الدولي IB، أمريكا الشمالية، أوروبا و آسيا. الدول، البرامج، و أين تجد المواضيع.' %}
+{% block main %}
+{{ pagehead('البكالوريا في العالم', [(None, 'بكالوريا أجنبية')], root, world.intro, 'globe', 200) }}
+<div class="wrap hub">
+  <section class="hub__sec">
+    <header class="section__head"><div><p class="kicker">{{ world.systems|length }} أنظمة</p><h2 class="section__title">اختر نظاما</h2></div></header>
+    <div class="sysgrid">
+      {% for x in world.systems %}
+      <a class="sys" href="{{ root }}world/{{ x.id }}/" style="--h:{{ x.hue }}">
+        <span class="sys__top"><span class="sys__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ x.icon }}"/></svg></span><span class="sys__n">{{ '%02d'|format(loop.index) }}</span></span>
+        <b class="sys__name">{{ x.name }}</b>
+        <span class="sys__short">{{ x.short }}</span>
+        <span class="sys__sum">{{ x.summary }}</span>
+        <span class="sys__chips">{% for c in x.countries[:4] %}<i>{{ c }}</i>{% endfor %}{% if x.countries|length > 4 %}<i class="more-n">+{{ x.countries|length - 4 }}</i>{% endif %}</span>
+        <span class="sys__foot"><span>{{ x.grading }}</span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="hub__sec">
+    <header class="section__head"><div><p class="kicker">دليل سريع</p><h2 class="section__title">أي نظام يناسب هدفك؟</h2></div></header>
+    <div class="goals">
+      {% for goal, sid in [('أريد مواضيع قريبة جدا من برنامجي', 'maghreb'), ('أريد التدرب على المصطلحات بالفرنسية', 'french'), ('أريد مواضيع علمية بالعربية', 'mashriq'), ('أريد أن أتعلم كيف يوزع المصحح النقاط', 'british'), ('أريد مسائل رياضيات صعبة للمتفوقين', 'asia'), ('أحضر للدراسة في الخارج', 'ib')] %}
+      {% set x = world.systems|selectattr('id', 'equalto', sid)|first %}
+      <a class="goal" href="{{ root }}world/{{ sid }}/" style="--h:{{ x.hue }}"><span>{{ goal }}</span><b><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ x.icon }}"/></svg></i>{{ x.name }}</b></a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="hub__sec">
+    <header class="section__head"><div><p class="kicker">مقارنة</p><h2 class="section__title">الأنظمة جنبا إلى جنب</h2></div></header>
+    <div class="table cmp"><table>
+      <thead><tr><th>النظام</th><th>أين يعتمد</th><th>التنقيط</th><th>لماذا يهمك</th></tr></thead>
+      <tbody>{% for x in world.systems %}<tr style="--h:{{ x.hue }}"><th><a href="{{ root }}world/{{ x.id }}/"><b class="dot" aria-hidden="true"></b>{{ x.name }}</a></th><td>{{ x.countries|join('، ') }}</td><td>{{ x.grading }}</td><td>{{ x.why }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+  </section>
+
+  <aside class="callout"><b>قريبا: البكالوريا الأجنبية بالعربية</b><p>نعمل على سلسلة كتب تترجم إلى العربية مواضيع البكالوريا من البلدان غير العربية مع حلولها، في كل المواد العلمية. تابع صفحة <a href="{{ root }}productions/">إصداراتنا</a>.</p></aside>
+</div>
+{% endblock %}

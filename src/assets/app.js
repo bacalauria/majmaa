@@ -32,6 +32,24 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') more.open = false; });
   }
 
+  /* mega menus: on phones each section opens with its own toggle; Escape closes on desktop */
+  $$('.dd__tog').forEach((b) => b.addEventListener('click', () => {
+    const dd = b.closest('.dd'), open = !dd.classList.contains('is-open');
+    $$('.dd.is-open').forEach((x) => { x.classList.remove('is-open'); $('.dd__tog', x).setAttribute('aria-expanded', 'false'); });
+    dd.classList.toggle('is-open', open); b.setAttribute('aria-expanded', open);
+  }));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.activeElement && document.activeElement.closest('.dd')) document.activeElement.blur(); });
+
+  /* topic pages: highlight the section in view */
+  const tocLinks = $$('.tside__toc a');
+  if (tocLinks.length && 'IntersectionObserver' in window) {
+    const map = new Map(tocLinks.map((a) => [a.getAttribute('href').slice(1), a]));
+    const io = new IntersectionObserver((ents) => ents.forEach((en) => {
+      if (en.isIntersecting) { tocLinks.forEach((a) => a.classList.remove('is-on')); const a = map.get(en.target.id); a && a.classList.add('is-on'); }
+    }), { rootMargin: '-30% 0px -60% 0px' });
+    $$('.blk').forEach((b) => io.observe(b));
+  }
+
   /* ------------------------------------------------- quick nav (top / home) */
   const fab = $('.fab');
   if (fab) {

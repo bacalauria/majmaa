@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set title = 'الأولمبياد العلمية' %}
+{% set description = 'الأولمبياد الدولية في الرياضيات و الفيزياء و علم الفلك و الإعلام الآلي و الكيمياء و الأحياء و غيرها: وضع الجزائر، كيف تشارك، و بماذا تتدرب.' %}
+{% block main %}
+{{ pagehead('الأولمبياد العلمية', [(None, 'أولمبياد')], root, olymp.intro, 'trophy', 265) }}
+<div class="wrap hub">
+  <section class="hub__sec">
+    <div class="pillars">
+      <article class="pillar" style="--h:265"><span class="pillar__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-trophy"/></svg></span><h3>ما هي الأولمبياد؟</h3><p>مسابقات سنوية بين فرق وطنية من التلاميذ (عادة 4 إلى 6 دون 20 سنة)، في مسائل تتجاوز برنامج الثانوي و تختبر الفهم و الإبداع. تمنح الميداليات لنحو نصف المتسابقين: الذهب لأفضل 8% تقريبا.</p></article>
+      <article class="pillar" style="--h:150"><span class="pillar__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-cap"/></svg></span><h3>لماذا تشارك؟</h3><p>الميدالية الدولية مفتاح لأرقى الجامعات و المنح في العالم، و التحضير نفسه يرفع مستواك في البكالوريا. و قبل كل هذا: متعة حل مسألة جميلة.</p></article>
+      <article class="pillar" style="--h:35"><span class="pillar__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-key"/></svg></span><h3>من أين تبدأ؟</h3><p>اختر مادتك، تحقق من وجود مسابقة وطنية لها، و ابدأ بالمواضيع السابقة المفتوحة للجميع. في الإعلام الآلي تستطيع المنافسة على الإنترنت من اليوم.</p></article>
+    </div>
+  </section>
+
+  <section class="hub__sec">
+    <header class="section__head"><div><p class="kicker">{{ olymp.subjects|length }} مادة</p><h2 class="section__title">اختر مادتك</h2></div>
+      <ul class="legend">{% for k in ('active','national','maybe','none') %}<li><span class="st st--{{ k }}">{{ olymp.status_labels[k] }}</span></li>{% endfor %}</ul></header>
+    <div class="subgrid">
+      {% for x in olymp.subjects %}
+      <a class="subj subj--{{ x.status }}" href="{{ root }}olympiads/{{ x.id }}/" style="--h:{{ x.hue }}">
+        <span class="subj__head"><span class="subj__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ x.icon }}"/></svg></span><span class="subj__code">{{ x.code }}</span></span>
+        <b class="subj__name">{{ x.name }}</b>
+        <span class="subj__sum">{{ x.summary }}</span>
+        <span class="subj__foot"><span class="st st--{{ x.status }}">{{ x.badge }}</span><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="hub__sec">
+    <header class="section__head"><div><p class="kicker">في الجزائر</p><h2 class="section__title">طريق التلميذ إلى الفريق الوطني</h2></div></header>
+    <ol class="path">
+      <li><b>في القسم</b><span>المعدل الفصلي في المادة (17 فما فوق غالبا) شرط الترشح</span></li>
+      <li><b>المسابقة الوطنية</b><span>امتحان في مراكز عبر الوطن: الرياضيات في جانفي، علم الفلك في فيفري</span></li>
+      <li><b>التكوين المتخصص</b><span>أفضل التلاميذ (60 في علم الفلك) يتابعون تكوينا مع أساتذة جامعيين</span></li>
+      <li><b>الفريق الوطني</b><span>اختبارات انتقاء أخيرة تحدد من يمثل الجزائر</span></li>
+      <li><b>المسابقة الدولية</b><span>IMO و PAMO و IOAA و IOI و غيرها</span></li>
+    </ol>
+    <p class="hub__note">في جويلية 2025 أعلنت وزارة التربية الوطنية توسيع الأولمبياد إلى مواد أخرى ابتداء من الموسم 2025–2026. سنضيف كل مسابقة وطنية جديدة هنا حين يعلن عنها.</p>
+  </section>
+
+  <section class="hub__sec">
+    <header class="section__head"><div><p class="kicker">التقويم</p><h2 class="section__title">مواعيد السنة</h2></div></header>
+    <ol class="cal">
+      {% for m, what, sid in olymp.calendar %}{% set x = olymp.subjects|selectattr('id', 'equalto', sid)|first %}
+      <li style="--h:{{ x.hue }}"><b>{{ m }}</b><span>{{ what }}</span></li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <aside class="callout"><b>نصيحة للأساتذة</b><p>أغلب المتفوقين يكتشفون الأولمبياد متأخرين. إن كان في قسمك تلميذ يحل التمارين قبل الجميع، فوجهه إلى هذه الصفحات في السنة الأولى ثانوي، لا في الثالثة.</p></aside>
+</div>
+{% endblock %}

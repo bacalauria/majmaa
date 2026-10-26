@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set title = 'دروس و ملخصات للسنة الثالثة ثانوي' %}
+{% set description = 'دروس و ملخصات و كتب و قنوات شرح لكل شعبة من شعب البكالوريا الجزائرية، مع المواد المشتركة بين الشعب.' %}
+{% set letters = 'أبجدهوز' %}
+{% block main %}
+{% set meta_html %}لكل شعبة برنامجها. اختر شعبتك لتجد مراجع موادها، و المواد المشتركة بين عدة شعب مجمعة في مكان واحد. الكتب المدرسية لجميع الشعب <a href="{{ lessons.books }}" target="_blank" rel="noopener">على موقع الدراسة الجزائري</a>.{% endset %}
+{{ pagehead('دروس و ملخصات', [(None, 'دروس و ملخصات')], root, meta_html, 'book', 235) }}
+<div class="wrap hub">
+  <section class="hub__sec">
+    <header class="section__head"><div><p class="kicker">النظام الجديد</p><h2 class="section__title">اختر شعبتك</h2></div></header>
+    <div class="tiles">
+      {% for sid in lessons.streams %}{% set v = views[sid] %}
+      <a class="tile" href="{{ root }}lessons/{{ sid }}/" style="--h:{{ v.hue }}">
+        <span class="tile__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ v.icon }}"/></svg></span>
+        <span class="tile__body"><span class="tile__name">{{ v.name|replace('شعبة ','') }}</span>
+        <span class="tile__meta">{{ lessons.mod_count[sid] }} مادة</span></span>
+        <svg class="tile__go" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="hub__sec">
+    <header class="section__head"><div><p class="kicker">من يدرس ماذا؟</p><h2 class="section__title">خريطة المواد المشتركة</h2></div></header>
+    <p class="hub__note">في كل سطر، الشعب التي تحمل نفس الحرف و نفس اللون تمتحن في موضوع واحد في البكالوريا، أي تدرس نفس البرنامج في تلك المادة.</p>
+    <div class="table matrix"><table>
+      <thead><tr><th>المادة</th>{% for sid in lessons.streams %}<th style="--h:{{ views[sid].hue }}"><a href="{{ root }}lessons/{{ sid }}/">{{ views[sid].name|replace('شعبة ','') }}</a></th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for m in lessons.modules %}
+      <tr style="--h:{{ HUES.get(m.subject, 230) }}"><th><b class="dot" aria-hidden="true"></b>{{ SUBJ[m.subject] }}</th>
+        {% for sid in lessons.streams %}{% set ns = namespace(g=None) %}{% for vv in m.variants %}{% if sid in vv %}{% set ns.g = loop.index0 %}{% endif %}{% endfor %}
+        <td>{% if ns.g is not none %}<span class="grp grp--{{ ns.g }}{% if m.variants[ns.g]|length > 1 %} grp--shared{% endif %}" title="{{ 'مشترك' if m.variants[ns.g]|length > 1 else 'خاص بالشعبة' }}">{{ letters[ns.g] }}</span>{% endif %}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% set sib = world.systems if kind == 'world' else olymp.subjects %}
+{% set sect = 'بكالوريا أجنبية' if kind == 'world' else 'أولمبياد' %}
+{% set title = t.title or t.name %}
+{% set description = t.summary %}
+{% block main %}
+{% set idx = sib.index(t) %}
+<section class="thero" style="--h:{{ t.hue }}">
+  <div class="thero__bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="crumbbar"><a class="backlink" href="{{ root }}{{ kind }}/"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-back"/></svg>{{ sect }}</a>
+    <nav class="crumbs" aria-label="مسار التصفح"><a href="{{ root }}">الرئيسية</a><span aria-hidden="true">›</span><a href="{{ root }}{{ kind }}/">{{ sect }}</a><span aria-hidden="true">›</span><span>{{ t.name }}</span></nav></div>
+    <div class="thero__row">
+      <span class="thero__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ t.icon }}"/></svg></span>
+      <div class="thero__text">
+        <p class="thero__kicker">{% if kind == 'world' %}نظام بكالوريا · {{ t.short }}{% else %}أولمبياد · {{ t.code }}{% endif %}</p>
+        <h1 class="thero__title">{{ t.title or t.name }}</h1>
+        {% if kind == 'olympiads' %}<p class="thero__status"><span class="st st--{{ t.status }}">{{ olymp.status_labels[t.status] }}</span>{% if t.badge and t.status in ('active','national') %}<span class="st st--gold">{{ t.badge }}</span>{% endif %}</p>{% endif %}
+      </div>
+    </div>
+    {% if t.lead %}<p class="thero__lead">{{ t.lead|safe }}</p>{% endif %}
+    {% if kind == 'world' %}<ul class="thero__chips" aria-label="الدول">{% for c in t.countries %}<li>{{ c }}</li>{% endfor %}</ul>{% endif %}
+    {% if t.facts %}<div class="facts facts--hero">{{ t.facts|safe }}</div>{% endif %}
+  </div>
+</section>
+
+<div class="wrap tlayout">
+  <aside class="tside">
+    <nav class="tside__box" aria-label="في هذه الصفحة">
+      <p class="tside__h">في هذه الصفحة</p>
+      <ol class="tside__toc">{% for s in t.sections %}<li><a href="#{{ s.id }}">{{ s.title|striptags }}</a></li>{% endfor %}</ol>
+    </nav>
+    <nav class="tside__box" aria-label="{{ 'أنظمة أخرى' if kind == 'world' else 'مواد أخرى' }}">
+      <p class="tside__h">{{ 'كل الأنظمة' if kind == 'world' else 'كل المواد' }}</p>
+      <ul class="sibs">{% for x in sib %}<li><a href="{{ root }}{{ kind }}/{{ x.id }}/" style="--h:{{ x.hue }}"{% if x.id == t.id %} aria-current="page"{% endif %}><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ x.icon }}"/></svg></i>{{ x.name }}</a></li>{% endfor %}</ul>
+    </nav>
+  </aside>
+  <div class="tmain">
+    {% if t.pre %}<div class="prose">{{ t.pre|safe }}</div>{% endif %}
+    {% for s in t.sections %}
+    <section class="blk" id="{{ s.id }}" style="--h:{{ t.hue }}">
+      <header class="blk__head"><span class="blk__n">{{ '%02d'|format(loop.index) }}</span><h2>{{ s.title|safe }}</h2></header>
+      <div class="prose blk__body">{{ s.html|safe }}</div>
+    </section>
+    {% endfor %}
+    <nav class="pn" aria-label="التنقل">
+      {% if idx > 0 %}{% set x = sib[idx-1] %}<a class="pn__a" href="{{ root }}{{ kind }}/{{ x.id }}/" style="--h:{{ x.hue }}"><small>السابق</small><b>{{ x.name }}</b></a>{% else %}<span></span>{% endif %}
+      {% if idx < sib|length - 1 %}{% set x = sib[idx+1] %}<a class="pn__a pn__a--next" href="{{ root }}{{ kind }}/{{ x.id }}/" style="--h:{{ x.hue }}"><small>التالي</small><b>{{ x.name }}</b></a>{% endif %}
+    </nav>
+  </div>
+</div>
+{% endblock %}

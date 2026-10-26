@@ -47,21 +47,43 @@ for a in content['articles']: load_article(a)
 content['platforms'].update(slug='platforms', title='المنصات التعليمية', kind='دليل',
     desc='أفضل المنصات التعليمية المجانية لتلميذ البكالوريا و أستاذه: الرسمية الجزائرية، العربية، العالمية، و الأدوات.')
 load_article(content['platforms'])
-OLYMP = load_article(dict(slug='olympiads', title='الأولمبياد العلمية', kind='دليل', icon='trophy', hue=265,
-    crumbs=[(None, 'أولمبياد')],
-    desc='أولمبياد الرياضيات و الفيزياء و المواد الأخرى للتلاميذ الجزائريين: المسابقات الوطنية، الدولية، و كيف تشارك.'))
-OLYMP_MATH = load_article(dict(slug='olympiads-math', title='أولمبياد الرياضيات', kind='دليل', icon='sigma', hue=235,
-    crumbs=[('olympiads/', 'أولمبياد'), (None, 'الرياضيات')],
-    desc='الأولمبياد الجزائرية للرياضيات و شروطها، IMO و نتائج الجزائر منذ 1977، PAMO و العربية، امتحانات الترشيح الجزائرية و مسائل IMO بالعربية، و مراجع التحضير.'))
-OLYMP_PHYS = load_article(dict(slug='olympiads-physics', title='أولمبياد الفيزياء', kind='دليل', icon='flask', hue=200,
-    crumbs=[('olympiads/', 'أولمبياد'), (None, 'الفيزياء')],
-    desc='المسابقة الوطنية المؤهلة لأولمبياد علم الفلك IOAA، الأولمبياد الدولية للفيزياء IPhO و برنامجها، Physics Cup، و مراجع التحضير.'))
-OLYMP_OTHER = load_article(dict(slug='olympiads-other', title='أولمبياد المواد الأخرى', kind='دليل', icon='compass', hue=150,
-    crumbs=[('olympiads/', 'أولمبياد'), (None, 'مواد أخرى')],
-    desc='الإعلام الآلي و الذكاء الاصطناعي، الكيمياء، الأحياء، علم الفلك، علوم الأرض، الجغرافيا، الفلسفة، اللسانيات، الاقتصاد و العلوم للناشئين: البرنامج، وضع الجزائر، كيف تشارك، و المراجع.'))
-WORLD = load_article(dict(slug='world', title='البكالوريا في العالم', kind='دليل', icon='globe', hue=200,
-    crumbs=[(None, 'بكالوريا أجنبية')],
-    desc='أنظمة البكالوريا الكبرى في العالم: الفرنسي، المغاربي، المشرقي، البريطاني، الدولي IB، الأمريكي، الألماني و غيرها. الدول، البرامج، و أين تجد المواضيع.'))
+# ------------------------------------------------ topic pages (world, olympiads)
+# Each topic page body is plain HTML in data/<section>/<id>.html: an optional
+# <p class="lead">, an optional <div class="facts">, then <h2> sections.  The body
+# is cut into those parts so the template can lay them out as a hero + section cards.
+def load_body(path):
+    html = open(path, encoding='utf-8').read() if os.path.exists(path) else ''
+    lead = facts = ''
+    m = re.search(r'<p class="lead">(.*?)</p>', html, re.S)
+    if m: lead, html = m.group(1), html.replace(m.group(0), '', 1)
+    m = re.search(r'<div class="facts">(.*?)\n</div>', html, re.S)
+    if m: facts, html = m.group(1), html.replace(m.group(0), '', 1)
+    parts = re.split(r'<h2>(.*?)</h2>', html)
+    pre, secs = parts[0].strip(), []
+    for i in range(1, len(parts), 2):
+        secs.append(dict(id=f's{len(secs)+1}', title=parts[i], html=parts[i+1].strip()))
+    return dict(lead=lead, facts=facts, pre=pre, sections=secs)
+
+world = json.load(open(D('world.json'), encoding='utf-8'))
+for x in world['systems']: x.update(load_body(D('world', x['id'] + '.html')))
+olymp = json.load(open(D('olympiads.json'), encoding='utf-8'))
+for x in olymp['subjects']: x.update(load_body(D('olympiads', x['id'] + '.html')))
+lessons = json.load(open(D('lessons.json'), encoding='utf-8'))
+# per-stream module lists: the stream's key modules first, then the common ones
+LESSON_ORDER = {
+    'math': ['math', 'phys', 'svt'], 'mt': ['math', 'phys', 'ge_civ', 'ge_el', 'ge_mec', 'ge_proc'],
+    'se': ['svt', 'phys', 'math'], 'ge': ['compta', 'eco', 'law', 'math'],
+    'lph': ['philo', 'ar', 'hg'], 'lang': ['fr', 'en', 'de', 'es', 'it', 'ar', 'philo'], 'arts': ['arts', 'ar', 'philo']}
+lessons['by_stream'], lessons['mod_count'] = {}, {}
+for sid in lessons['streams']:
+    mine = []
+    for m in lessons['modules']:
+        for grp in m['variants']:
+            if sid in grp:
+                mine.append(dict(subject=m['subject'], items=m['items'], shared=[x for x in grp if x != sid]))
+    pri = LESSON_ORDER.get(sid, [])
+    mine.sort(key=lambda m: pri.index(m['subject']) if m['subject'] in pri else len(pri))
+    lessons['by_stream'][sid], lessons['mod_count'][sid] = mine, len(mine)
 
 STREAMS = {s['id']: s for s in meta['streams']}
 SUBJECTS = meta['subjects']
@@ -158,7 +180,8 @@ ASSET_VER = hashlib.md5(b''.join(open(os.path.join(ROOT, 'src', 'assets', f), 'r
 MONTHS = ['جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان', 'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
 env.filters['ardate'] = lambda d: f"{MONTHS[int(d[5:7]) - 1]} {d[:4]}" if d and len(d) >= 7 else (d or '')
 env.globals.update(ver=ASSET_VER, drive_id=drive_id, site=site, streams=STREAMS, views=views, SYSTEMS=SYSTEMS,
-                   total_files=total_files, total_words=total_words, total_videos=total_videos, HUES=HUES, all_years=all_years, content=content)
+                   total_files=total_files, total_words=total_words, total_videos=total_videos, HUES=HUES, all_years=all_years, content=content,
+                   world=world, olymp=olymp, lessons=lessons, SUBJ=SUBJECTS)
 pages = []
 
 def render(tpl, path, **ctx):
@@ -191,13 +214,18 @@ def build():
     render('teachers.html', 'teachers/index.html', page='teachers')
     render('videos.html', 'videos/index.html', page='videos')
     render('productions.html', 'productions/index.html', page='productions')
-    render('lessons.html', 'lessons/index.html', page='lessons')
-    WORLD['html'] = WORLD['html'].replace('<!--TN_FILES-->', env.get_template('_tn_files.html').render(content=content))
-    render('article.html', 'world/index.html', page='world', a=WORLD)
-    render('article.html', 'olympiads/index.html', page='olympiads', a=OLYMP)
-    render('article.html', 'olympiads/math/index.html', page='olympiads', a=OLYMP_MATH)
-    render('article.html', 'olympiads/physics/index.html', page='olympiads', a=OLYMP_PHYS)
-    render('article.html', 'olympiads/other/index.html', page='olympiads', a=OLYMP_OTHER)
+    render('lessons_hub.html', 'lessons/index.html', page='lessons')
+    for sid in lessons['streams']:
+        render('lessons_stream.html', f'lessons/{sid}/index.html', page='lessons', v=views[sid])
+    tn = env.get_template('_tn_files.html').render(content=content)
+    for x in world['systems']:
+        for sec in x['sections']: sec['html'] = sec['html'].replace('<!--TN_FILES-->', tn)
+    render('world_hub.html', 'world/index.html', page='world')
+    for x in world['systems']:
+        render('topic.html', f'world/{x["id"]}/index.html', page='world', t=x, kind='world')
+    render('olymp_hub.html', 'olympiads/index.html', page='olympiads')
+    for x in olymp['subjects']:
+        render('topic.html', f'olympiads/{x["id"]}/index.html', page='olympiads', t=x, kind='olympiads')
     render('article.html', 'platforms/index.html', page='platforms', a=content['platforms'])
     render('articles.html', 'articles/index.html', page='articles')
     for a in content['articles']:
