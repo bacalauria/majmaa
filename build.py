@@ -177,7 +177,7 @@ def search_index():
 # ------------------------------------------------------------------ render ---
 env = Environment(loader=FileSystemLoader(os.path.join(ROOT, 'src', 'templates')),
                   autoescape=select_autoescape(['html']), trim_blocks=True, lstrip_blocks=True)
-import hashlib
+import hashlib, re, html as html_lib
 ASSET_VER = hashlib.md5(b''.join(open(os.path.join(ROOT, 'src', 'assets', f), 'rb').read()
                                  for f in ('style.css', 'app.js'))).hexdigest()[:8]   # cache-buster
 MONTHS = ['جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان', 'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
@@ -186,6 +186,7 @@ env.globals.update(ver=ASSET_VER, drive_id=drive_id, site=site, streams=STREAMS,
                    total_files=total_files, total_words=total_words, total_videos=total_videos, HUES=HUES, all_years=all_years, content=content,
                    world=world, olymp=olymp, lessons=lessons, SUBJ=SUBJECTS)
 pages = []
+og_cards = []
 
 def render(tpl, path, **ctx):
     """path is the output path relative to _site, e.g. 'bac/math/index.html'."""
@@ -196,7 +197,16 @@ def render(tpl, path, **ctx):
         ctx['root'] = urlparse(site['url']).path or '/'
         if not ctx['root'].endswith('/'): ctx['root'] += '/'
     ctx['path'] = path
+    # Per-page link-preview card (assets/og/<key>.jpg, made by brand/og_cards.py); falls back to the site-wide one.
+    key = path[:-len('index.html')].strip('/').replace('/', '-') or 'home'
+    og = os.path.join(ROOT, 'src', 'assets', 'og', key + '.jpg')
+    if os.path.exists(og):
+        ctx['og_image'] = f"assets/og/{key}.jpg?v={hashlib.md5(open(og, 'rb').read()).hexdigest()[:6]}"
     html = env.get_template(tpl).render(**ctx)
+    if not path.startswith('404'):   # manifest the card generator reads: key, section, title, description
+        m = lambda prop: (re.search(f'<meta property="og:{prop}" content="([^"]*)"', html) or [None, ''])[1]
+        og_cards.append({'key': key, 'section': path.split('/')[0] if '/' in path else '',
+                         'title': html_lib.unescape(m('title')).split(' | ')[0], 'desc': html_lib.unescape(m('description'))})
     dst = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     open(dst, 'w', encoding='utf-8').write(html)
@@ -242,6 +252,8 @@ def build():
         sm.append(f'<url><loc>{base}{p.replace("index.html", "")}</loc></url>')
     sm.append('</urlset>')
     open(os.path.join(OUT, 'sitemap.xml'), 'w').write('\n'.join(sm))
+    if os.environ.get('OG_MANIFEST'):   # only when regenerating cards: python brand/og_cards.py
+        json.dump(og_cards, open(os.environ['OG_MANIFEST'], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     open(os.path.join(OUT, 'robots.txt'), 'w').write(f'User-agent: *\nAllow: /\nSitemap: {base}sitemap.xml\n')
     print(f'built {len(pages)} pages, {len(rows)} exam rows, {total_files} files -> {OUT}')
 

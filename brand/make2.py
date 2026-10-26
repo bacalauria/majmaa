@@ -43,19 +43,20 @@ def lockup(fs, tag=True, color=CREAM, sub='rgba(251,248,241,.78)'):
 def page(name, w, h, body, bg='transparent'):
     open(name + '.html', 'w').write(HEAD + f'<style>html,body{{width:{w}px;height:{h}px;background:{bg};overflow:hidden}}</style>' + body)
 
-open('logo-icon.svg', 'w').write(mim(512))
-page('logo-icon', 1024, 1024, mim(1024, rx=0) .replace('rx="0"', 'rx="0"'))
-page('avatar', 800, 800, mim(800, rx=0))
-# wordmark on light and on dark
-page('logo-wordmark', 1400, 900, f'<div style="position:absolute;inset:0;display:grid;place-items:center">{lockup(150, True, GREEN, "#6B7A70")}</div>')
-page('logo-wordmark-dark', 1400, 900, f'<div style="position:absolute;inset:0;display:grid;place-items:center">{lockup(150)}</div>', DEEP)
-# YouTube banner 2560x1440 — safe area 1546x423 centred (y 508..931)
-page('youtube-banner', 2560, 1440, green_bg() + f'''<div style="position:absolute;left:507px;top:508px;width:1546px;height:423px;display:grid;place-items:center">{lockup(104)}</div>
-<div style="position:absolute;left:0;right:0;top:948px;display:flex;justify-content:center;gap:16px">{''.join(f'<span style="font:700 30px TJ;color:{CREAM};padding:8px 24px;border-radius:99px;border:1.5px solid rgba(201,162,74,.6)">{t}</span>' for t in ['مواضيع و حلول','دروس و ملخصات','بكالوريا أجنبية','أولمبياد','سلاسل فيديو'])}</div>''')
-# Facebook cover 1640x624
-page('facebook-cover', 1640, 624, green_bg() + f'<div style="position:absolute;inset:0;display:grid;place-items:center">{lockup(92)}</div>')
-# Open Graph 1200x630
-page('og-image', 1200, 630, green_bg() + f'''<div style="position:absolute;inset:0;padding:64px 76px;display:flex;flex-direction:column;justify-content:space-between">
-<div class="wm" style="font-size:60px">مَجْمَعُ البكالوريا</div>
-<div><div style="font:700 62px/1.3 EM;color:{CREAM}">كل ما يحتاجه طالب البكالوريا<br>في مكان واحد</div>
-<div class="rule" style="width:340px;margin-top:26px"><i></i><b></b><i></i></div></div></div>''')
+if __name__ == '__main__':
+    open('logo-icon.svg', 'w').write(mim(512))
+    page('logo-icon', 1024, 1024, mim(1024, rx=0) .replace('rx="0"', 'rx="0"'))
+    page('avatar', 800, 800, mim(800, rx=0))
+    # wordmark on light and on dark
+    page('logo-wordmark', 1400, 900, f'<div style="position:absolute;inset:0;display:grid;place-items:center">{lockup(150, True, GREEN, "#6B7A70")}</div>')
+    page('logo-wordmark-dark', 1400, 900, f'<div style="position:absolute;inset:0;display:grid;place-items:center">{lockup(150)}</div>', DEEP)
+    # YouTube banner 2560x1440 — safe area 1546x423 centred (y 508..931)
+    page('youtube-banner', 2560, 1440, green_bg() + f'''<div style="position:absolute;left:507px;top:508px;width:1546px;height:423px;display:grid;place-items:center">{lockup(104)}</div>
+    <div style="position:absolute;left:0;right:0;top:948px;display:flex;justify-content:center;gap:16px">{''.join(f'<span style="font:700 30px TJ;color:{CREAM};padding:8px 24px;border-radius:99px;border:1.5px solid rgba(201,162,74,.6)">{t}</span>' for t in ['مواضيع و حلول','دروس و ملخصات','بكالوريا أجنبية','أولمبياد','سلاسل فيديو'])}</div>''')
+    # Facebook cover 1640x624
+    page('facebook-cover', 1640, 624, green_bg() + f'<div style="position:absolute;inset:0;display:grid;place-items:center">{lockup(92)}</div>')
+    # Open Graph 1200x630
+    page('og-image', 1200, 630, green_bg() + f'''<div style="position:absolute;inset:0;padding:64px 76px;display:flex;flex-direction:column;justify-content:space-between">
+    <div class="wm" style="font-size:60px">مَجْمَعُ البكالوريا</div>
+    <div><div style="font:700 62px/1.3 EM;color:{CREAM}">كل ما يحتاجه طالب البكالوريا<br>في مكان واحد</div>
+    <div class="rule" style="width:340px;margin-top:26px"><i></i><b></b><i></i></div></div></div>''')
