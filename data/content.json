@@ -229,16 +229,6 @@
   "books": "https://eddirasa.com/livre-3as/"
  },
  "tunisia": {
-  "archive": [
-   {
-    "label": "حوليات البكالوريا التونسية 1994 – 2017",
-    "href": "https://encysecondaire.blogspot.com/2015/05/bac.html"
-   },
-   {
-    "label": "موقع وزارة التربية التونسية",
-    "href": "http://www.bacweb.tn/"
-   }
-  ],
   "streams": [
    {
     "stream": "شعبة الرياضيات",
@@ -337,36 +327,6 @@
       "sujet": "https://drive.google.com/open?id=1v6f-PL5TKYzx2W3H80XBx3HH2WECIlP2"
      }
     ]
-   }
-  ]
- },
- "morocco": {
-  "archive": [
-   {
-    "label": "حوليات البكالوريا المغربية 2008 – 2017",
-    "href": "https://www.kezakoo.com/%D8%A7%D9%85%D8%AA%D8%AD%D8%A7%D9%86%D8%A7%D8%AA-%D8%A7%D9%84%D8%A8%D9%83%D8%A7%D9%84%D9%88%D8%B1%D9%8A%D8%A7-%D9%85%D8%BA%D8%B1%D8%A8/"
-   }
-  ]
- },
- "syria": {
-  "archive": [
-   {
-    "label": "موقع بكالوريا سوريا لجميع الفروع",
-    "href": "https://www.baccalaureate.education/2019/12/blog-post_11.html"
-   }
-  ],
-  "files": [
-   {
-    "label": "الفرع العلمي 2018 — الموضوع (الجزء 1)",
-    "href": "https://drive.google.com/open?id=1SoWUAV4bZsJ_ST65gqYomN903W5TS_W3"
-   }
-  ]
- },
- "france": {
-  "archive": [
-   {
-    "label": "حوليات البكالوريا الفرنسية (Sujetdebac)",
-    "href": "https://www.sujetdebac.fr/annales/serie-s/"
    }
   ]
  },
