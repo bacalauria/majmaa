@@ -183,6 +183,8 @@ def build():
     for sid, v in views.items():
         render('stream.html', f'bac/{sid}/index.html', page='bac', v=v)
     render('teachers.html', 'teachers/index.html', page='teachers')
+    render('videos.html', 'videos/index.html', page='videos')
+    render('productions.html', 'productions/index.html', page='productions')
     render('lessons.html', 'lessons/index.html', page='lessons')
     render('world.html', 'world/index.html', page='world')
     render('article.html', 'olympiads/index.html', page='olympiads', a=OLYMP)

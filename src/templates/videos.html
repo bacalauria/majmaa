@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set title = 'سلاسل الفيديو' %}
+{% set description = 'سلاسل فيديو مجمع البكالوريا في مواضيع عامة تفيد كل التلاميذ: احتراف الآلة الحاسبة، الذكاء الاصطناعي في المراجعة، و غيرها.' %}
+{% block main %}
+{{ pagehead('سلاسل الفيديو', [(None, 'فيديوهات')], root, 'سلاسل في مواضيع عامة تفيد كل التلاميذ. أما فيديوهات حل المواضيع فتجدها في جداول كل سنة و كل مادة، في عمود «فيديو الحل».', 'play', 350) }}
+<div class="wrap section">
+  <div class="series">
+    {% for s in content.video_series %}
+    <article class="serie" style="--h:{{ s.hue }}">
+      <a class="serie__cover" href="{{ s.url }}" target="_blank" rel="noopener" aria-label="شاهد {{ s.title }}">
+        <span class="serie__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ s.icon }}"/></svg></span>
+        <span class="serie__play" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-play"/></svg></span>
+        <span class="serie__count">{{ s.count }} {{ 'حلقة' if s.count > 10 else 'حلقات' if s.count > 2 else 'فيديو' }}{% if s.minutes %} · {{ s.minutes }} دقيقة{% endif %}</span>
+      </a>
+      <div class="serie__body">
+        <h2>{{ s.title }}</h2>
+        <p class="serie__tags">{% for t in s.tags %}<span class="pill">{{ t }}</span>{% endfor %}</p>
+        <p>{{ s.desc }}</p>
+        <p class="serie__links">
+          <a class="btn" href="{{ s.url }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg>شاهد على يوتيوب</a>
+          {% if s.page %}<a class="btn btn--soft" href="{{ root }}{{ s.page }}">محتوى السلسلة</a>{% endif %}
+        </p>
+      </div>
+    </article>
+    {% endfor %}
+    <article class="serie serie--soon">
+      <div class="serie__body">
+        <h2>سلاسل جديدة قريبا</h2>
+        <p>نعمل على سلاسل أخرى في المنهجية و المهارات العامة. اشترك في <a href="{{ site.channel }}" target="_blank" rel="noopener">قناة المجمع على يوتيوب</a> و تابع <a href="{{ site.facebook }}" target="_blank" rel="noopener">صفحة فيسبوك</a> ليصلك كل جديد.</p>
+      </div>
+    </article>
+  </div>
+</div>
+{% endblock %}

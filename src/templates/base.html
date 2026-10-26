@@ -68,10 +68,19 @@
     <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
       <a href="{{ root }}bac/" {% if page=='bac' %}aria-current="page"{% endif %}>بكالوريا الجزائر</a>
       <a href="{{ root }}lessons/" {% if page=='lessons' %}aria-current="page"{% endif %}>دروس و ملخصات</a>
-      <a href="{{ root }}teachers/" {% if page=='teachers' %}aria-current="page"{% endif %}>للأساتذة</a>
       <a href="{{ root }}world/" {% if page=='world' %}aria-current="page"{% endif %}>بكالوريا أجنبية</a>
       <a href="{{ root }}olympiads/" {% if page=='olympiads' %}aria-current="page"{% endif %}>أولمبياد</a>
-      <a href="{{ root }}articles/" {% if page in ('articles','platforms') %}aria-current="page"{% endif %}>مقالات</a>
+      <a href="{{ root }}videos/" {% if page=='videos' %}aria-current="page"{% endif %}>فيديوهات</a>
+      <a href="{{ root }}productions/" {% if page=='productions' %}aria-current="page"{% endif %}>إصداراتنا</a>
+      <details class="more{% if page in ('teachers','articles','platforms') %} is-current{% endif %}">
+        <summary>المزيد<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="more__menu">
+          <a href="{{ root }}teachers/" {% if page=='teachers' %}aria-current="page"{% endif %}>للأساتذة</a>
+          <a href="{{ root }}articles/" {% if page=='articles' %}aria-current="page"{% endif %}>مقالات و أدلة</a>
+          <a href="{{ root }}platforms/" {% if page=='platforms' %}aria-current="page"{% endif %}>المنصات التعليمية</a>
+          <a href="{{ root }}articles/laureates/">الأوائل في البكالوريا</a>
+        </div>
+      </details>
     </nav>
     <div class="topbar__tools">
       <button class="searchbtn" type="button" data-open-search aria-label="بحث">
@@ -107,18 +116,24 @@
       <a href="{{ root }}lessons/">دروس و ملخصات</a>
       <a href="{{ root }}world/">بكالوريا أجنبية</a>
       <a href="{{ root }}olympiads/">أولمبياد</a>
+      <a href="{{ root }}videos/">سلاسل الفيديو</a>
+      <a href="{{ root }}productions/">إصداراتنا</a>
     </nav>
     <nav class="footer__col" aria-label="المزيد">
       <p class="footer__h">المزيد</p>
       <a href="{{ root }}teachers/">للأساتذة</a>
       <a href="{{ root }}articles/laureates/">الأوائل في البكالوريا</a>
       <a href="{{ root }}platforms/">المنصات التعليمية</a>
-      <a href="{{ site.channel }}" target="_blank" rel="noopener">قناة يوتيوب</a>
+      <a href="{{ root }}articles/">مقالات و أدلة</a>
     </nav>
     <div class="footer__col">
       <p class="footer__h">تواصل</p>
       <p class="footer__small">رابط لا يعمل، ملف ناقص أو اقتراح؟</p>
       <a class="footer__mail" href="mailto:{{ site.email }}?subject=مجمع البكالوريا">{{ site.email }}</a>
+      <div class="social">
+        <a href="{{ site.channel }}" target="_blank" rel="noopener" aria-label="قناة يوتيوب"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8z" fill="currentColor" stroke="none"/><path d="m10 15 5-3-5-3z" fill="#06130D" stroke="none"/></svg>يوتيوب</a>
+        <a href="{{ site.facebook }}" target="_blank" rel="noopener" aria-label="صفحة فيسبوك"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5V7c0-.8.5-1 1-1h2V3h-3c-2.8 0-3.5 2-3.5 3.6v1.9H8V12h2.5v9H14v-9h2.6l.4-3.5z" fill="currentColor" stroke="none"/></svg>فيسبوك</a>
+      </div>
     </div>
   </div>
   <p class="footer__base">© {{ site.since }} – 2026 {{ site.title }}</p>

@@ -22,7 +22,15 @@
   const menuBtn = $('.menubtn'), nav = $('#nav');
   menuBtn && menuBtn.addEventListener('click', () => {
     const open = nav.classList.toggle('is-open'); menuBtn.setAttribute('aria-expanded', open);
+    const more = $('.more', nav); if (more) more.open = open;   // phone menu shows the "more" links inline
   });
+
+  /* "more" dropdown: close on outside click or Escape */
+  const more = $('.nav .more');
+  if (more) {
+    document.addEventListener('click', (e) => { if (more.open && !more.contains(e.target) && !(nav && nav.classList.contains('is-open'))) more.open = false; });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') more.open = false; });
+  }
 
   /* ------------------------------------------------- quick nav (top / home) */
   const fab = $('.fab');
