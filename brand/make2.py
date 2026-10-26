@@ -57,5 +57,5 @@ page('facebook-cover', 1640, 624, green_bg() + f'<div style="position:absolute;i
 # Open Graph 1200x630
 page('og-image', 1200, 630, green_bg() + f'''<div style="position:absolute;inset:0;padding:64px 76px;display:flex;flex-direction:column;justify-content:space-between">
 <div class="wm" style="font-size:60px">مَجْمَعُ البكالوريا</div>
-<div><div style="font:700 62px/1.3 EM;color:{CREAM}">كل مواضيع البكالوريا الجزائرية<br>و حلولها، من 1995 إلى اليوم</div>
+<div><div style="font:700 62px/1.3 EM;color:{CREAM}">كل ما يحتاجه طالب البكالوريا<br>في مكان واحد</div>
 <div class="rule" style="width:340px;margin-top:26px"><i></i><b></b><i></i></div></div></div>''')
