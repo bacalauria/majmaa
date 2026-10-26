@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set title = s.title ~ ' — محتوى السلسلة' %}
+{% set description = s.desc %}
+{% block main %}
+{{ pagehead(s.title, [('videos/', 'فيديوهات'), (None, s.title)], root, s.count ~ ' فيديو · ' ~ s.minutes ~ ' دقيقة · انطلقت في ' ~ s.launched, s.icon, s.hue) }}
+<div class="wrap vs">
+  <p class="vs__desc">{{ s.desc }}</p>
+  <aside class="callout callout--warn"><b>متى سُجّلت السلسلة؟</b><p>{{ s.launch_note }}</p></aside>
+  <ol class="eps">
+    {% for e in s.episodes %}
+    <li class="ep" style="--h:{{ s.hue }}">
+      <a class="ep__thumb" href="https://www.youtube.com/watch?v={{ e.id }}" target="_blank" rel="noopener" aria-label="شاهد: {{ e.title }}">
+        <img src="https://i.ytimg.com/vi/{{ e.id }}/mqdefault.jpg" alt="" loading="lazy" width="320" height="180">
+        <span class="ep__dur">{{ e.dur }}</span>
+      </a>
+      <div class="ep__body">
+        <p class="ep__n">الحلقة {{ e.n }} · {{ e.date }}</p>
+        <h2><a href="https://www.youtube.com/watch?v={{ e.id }}" target="_blank" rel="noopener">{{ e.title }}</a></h2>
+        <p>{{ e.desc }}</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+  <p><a class="btn" href="{{ s.url }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg>كل فيديوهات القناة</a></p>
+</div>
+{% endblock %}

@@ -866,7 +866,9 @@
     "كل الشعب العلمية"
    ],
    "url": "https://www.youtube.com/playlist?list=PLDCj_x_0LsfxbbYcGqcTXV8FhG7pGX5VP",
-   "page": "articles/calculator-series/"
+   "page": "articles/calculator-series/",
+   "launched": "ماي 2024",
+   "launch_note": "نُشرت الحلقات بين 14 ماي و 10 جوان 2024، أسابيع قليلة قبل بكالوريا 2024، على قناة الأستاذ كمال خليفة."
   },
   {
    "slug": "prof-chatgpt",
@@ -880,7 +882,29 @@
     "منهجية",
     "ذكاء اصطناعي"
    ],
-   "url": "https://www.youtube.com/@baccalauria/videos"
+   "url": "https://www.youtube.com/@baccalauria/videos",
+   "launched": "أفريل 2023",
+   "launch_note": "سُجّلت في أفريل 2023، بعد أشهر قليلة من إتاحة ChatGPT للعموم في 30 نوفمبر 2022، يوم كان في نسخته الأولى البدائية. الأخطاء و حدود الأجوبة التي تراها في الفيديوهات تعكس تلك النسخة، و قد تطور كثيرا منذ ذلك الحين.",
+   "page": "videos/prof-chatgpt/",
+   "minutes": 74,
+   "episodes": [
+    {
+     "n": 1,
+     "title": "مقدمة و كيفية التسجيل",
+     "id": "tX_W1OMqwcY",
+     "date": "6 أفريل 2023",
+     "dur": "31:21",
+     "desc": "ما هو ChatGPT، و كيف تنشئ حسابا و تبدأ استعماله في المراجعة."
+    },
+    {
+     "n": 2,
+     "title": "حل بكالوريا مادة الرياضيات",
+     "id": "0BbsLerwTI8",
+     "date": "8 أفريل 2023",
+     "dur": "42:38",
+     "desc": "اختبار قدراته على موضوع الرياضيات لشعبة الرياضيات (بكالوريا 2022): طرق إدخال العبارات الرياضية، تمرين القسمة الإقليدية، ثم المسألة، مع تقييم أجوبته."
+    }
+   ]
   }
  ],
  "productions": {

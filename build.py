@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-build.py — static-site generator for مجمع البكالوريا (Baccalauria).
+build.py — static-site generator for مَجْمَعُ البكالوريا (Baccalauria).
 
     python3 build.py            # writes the whole site into ./_site
     python3 build.py --serve    # same, then serves it on http://localhost:8000
@@ -214,6 +214,8 @@ def build():
         render('stream.html', f'bac/{sid}/index.html', page='bac', v=v)
     render('teachers.html', 'teachers/index.html', page='teachers')
     render('videos.html', 'videos/index.html', page='videos')
+    for s in content['video_series']:
+        if s.get('episodes'): render('video_series.html', f'videos/{s["slug"]}/index.html', page='videos', s=s)
     render('productions.html', 'productions/index.html', page='productions')
     render('lessons_hub.html', 'lessons/index.html', page='lessons')
     for sid in lessons['streams']:

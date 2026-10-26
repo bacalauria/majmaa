@@ -1,4 +1,4 @@
-/* مجمع البكالوريا — front-end behaviour (no framework, ~6 KB).
+/* مَجْمَعُ البكالوريا — front-end behaviour (no framework, ~6 KB).
    1. theme toggle + mobile menu
    2. instant search over every exam row (assets/search.json, loaded on first use)
    3. in-page viewer for Google Drive files (Drive /preview embed)

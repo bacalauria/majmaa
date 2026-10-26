@@ -43,8 +43,13 @@
     "دروس": [],
     "ملخصات": [
      {
-      "label": "ملخص (أ.توامي)",
-      "href": "https://drive.google.com/file/d/1CImdtH7X5NTIhNW6CnCA6UgTwyksBQPf/view?usp=share_link"
+      "label": "ملخصات مفيدة قبل البكالوريا (أ. توامي)",
+      "href": "https://drive.google.com/file/d/1CImdtH7X5NTIhNW6CnCA6UgTwyksBQPf/view?usp=share_link",
+      "for": [
+       "math",
+       "mt",
+       "se"
+      ]
      }
     ],
     "سلاسل و تمارين": [],
@@ -52,15 +57,30 @@
     "فيديوهات": [
      {
       "label": "قناة أ. نور الدين",
-      "href": "https://www.youtube.com/user/noureddine2013/playlists"
+      "href": "https://www.youtube.com/user/noureddine2013/playlists",
+      "for": [
+       "math",
+       "mt",
+       "se"
+      ]
      },
      {
       "label": "قناة أ. صدام زرواق",
-      "href": "https://www.youtube.com/channel/UCWqjSfgbEHk9zMpOsqWyRog"
+      "href": "https://www.youtube.com/channel/UCWqjSfgbEHk9zMpOsqWyRog",
+      "for": [
+       "math",
+       "mt",
+       "se"
+      ]
      },
      {
-      "label": "دروس وزارة التعليم",
-      "href": "https://eddirasa.com/%d8%af%d8%b1%d9%88%d8%b3-%d8%a7%d9%84%d8%b1%d9%8a%d8%a7%d8%b6%d9%8a%d8%a7%d8%aa-%d9%84%d9%84%d8%b3%d9%86%d8%a9-%d8%a7%d9%84%d8%ab%d8%a7%d9%84%d8%ab%d8%a9-%d8%ab%d8%a7%d9%86%d9%88%d9%8a-%d8%a8%d8%a7/"
+      "label": "دروس وزارة التربية بالفيديو",
+      "href": "https://eddirasa.com/%d8%af%d8%b1%d9%88%d8%b3-%d8%a7%d9%84%d8%b1%d9%8a%d8%a7%d8%b6%d9%8a%d8%a7%d8%aa-%d9%84%d9%84%d8%b3%d9%86%d8%a9-%d8%a7%d9%84%d8%ab%d8%a7%d9%84%d8%ab%d8%a9-%d8%ab%d8%a7%d9%86%d9%88%d9%8a-%d8%a8%d8%a7/",
+      "for": [
+       "math",
+       "mt",
+       "se"
+      ]
      }
     ]
    }
@@ -101,12 +121,17 @@
       "href": "https://www.youtube.com/channel/UCh7Gz8vMb4OC5LqX-W7h_yw/playlists"
      },
      {
-      "label": "دروس وزارة التعليم",
+      "label": "دروس وزارة التربية بالفيديو",
       "href": "https://eddirasa.com/%D8%AF%D8%B1%D9%88%D8%B3-%D8%A7%D9%84%D9%81%D9%8A%D8%B2%D9%8A%D8%A7%D8%A1-%D9%84%D9%84%D8%B3%D9%86%D8%A9-%D8%A7%D9%84%D8%AB%D8%A7%D9%84%D8%AB%D8%A9-%D8%AB%D8%A7%D9%86%D9%88%D9%8A-%D8%A8%D8%A7%D9%84/"
      },
      {
       "label": "قناة أ. صدام زرواق",
-      "href": "https://www.youtube.com/channel/UCWqjSfgbEHk9zMpOsqWyRog"
+      "href": "https://www.youtube.com/channel/UCWqjSfgbEHk9zMpOsqWyRog",
+      "for": [
+       "math",
+       "mt",
+       "se"
+      ]
      }
     ]
    }
@@ -126,11 +151,19 @@
     "ملخصات": [
      {
       "label": "ملخص (سمراني)",
-      "href": "https://drive.google.com/file/d/13tAEpBZGc5Ufck8y2nifhMaev9rzR7Yz/view?usp=share_link"
+      "href": "https://drive.google.com/file/d/13tAEpBZGc5Ufck8y2nifhMaev9rzR7Yz/view?usp=share_link",
+      "for": [
+       "se",
+       "math"
+      ]
      },
      {
       "label": "ملخص (حلاسة)",
-      "href": "https://drive.google.com/file/d/1voCX_1D1AYo3NRdK7j_OKmnUKNB4m6mK/view?usp=share_link"
+      "href": "https://drive.google.com/file/d/1voCX_1D1AYo3NRdK7j_OKmnUKNB4m6mK/view?usp=share_link",
+      "for": [
+       "se",
+       "math"
+      ]
      }
     ],
     "سلاسل و تمارين": [],
@@ -138,10 +171,14 @@
     "فيديوهات": [
      {
       "label": "قناة أ. كتفي شريف",
-      "href": "https://www.youtube.com/channel/UCuJqXbrblfKeO9fa82a7KHQ"
+      "href": "https://www.youtube.com/channel/UCuJqXbrblfKeO9fa82a7KHQ",
+      "for": [
+       "se",
+       "math"
+      ]
      },
      {
-      "label": "دروس وزارة التعليم",
+      "label": "دروس وزارة التربية بالفيديو",
       "href": "https://eddirasa.com/%d8%af%d8%b1%d9%88%d8%b3-%d8%a7%d9%84%d8%b9%d9%84%d9%88%d9%85-%d8%a7%d9%84%d8%b7%d8%a8%d9%8a%d8%b9%d9%8a%d8%a9-%d9%84%d9%84%d8%b3%d9%86%d8%a9-%d8%a7%d9%84%d8%ab%d8%a7%d9%84%d8%ab%d8%a9-%d8%ab%d8%a7/"
      }
     ]
@@ -170,13 +207,20 @@
     "سلاسل و تمارين": [],
     "كتب": [
      {
-      "label": "كتاب حماش",
-      "href": "https://drive.google.com/file/d/1-Fg2yiiQLV1WoP_bCIo8zwhP5f7j7Wp5/view?usp=share_link"
+      "label": "ملخص اللغة العربية (أ. خالد حماش)",
+      "href": "https://drive.google.com/file/d/1-Fg2yiiQLV1WoP_bCIo8zwhP5f7j7Wp5/view?usp=share_link",
+      "for": [
+       "math",
+       "mt",
+       "se",
+       "ge",
+       "arts"
+      ]
      }
     ],
     "فيديوهات": [
      {
-      "label": "دروس وزارة التعليم",
+      "label": "دروس وزارة التربية بالفيديو",
       "href": "https://eddirasa.com/%d8%af%d8%b1%d9%88%d8%b3-%d8%a7%d9%84%d9%84%d8%ba%d8%a9-%d8%a7%d9%84%d8%b9%d8%b1%d8%a8%d9%8a%d8%a9-%d9%84%d9%84%d8%b3%d9%86%d8%a9-%d8%a7%d9%84%d8%ab%d8%a7%d9%84%d8%ab%d8%a9-%d8%ab%d8%a7%d9%86%d9%88/"
      }
     ]
@@ -207,13 +251,21 @@
     "سلاسل و تمارين": [],
     "كتب": [
      {
-      "label": "كتاب سعيداني",
-      "href": "https://drive.google.com/file/d/1-CUtGpTmxVTsfwXR8qCn6F9ptZPrbr89/view?usp=share_link"
+      "label": "المراجعة الشاملة في الفلسفة (أ. سعيداني)",
+      "href": "https://drive.google.com/file/d/1-CUtGpTmxVTsfwXR8qCn6F9ptZPrbr89/view?usp=share_link",
+      "for": [
+       "math",
+       "mt",
+       "se",
+       "ge",
+       "lang",
+       "arts"
+      ]
      }
     ],
     "فيديوهات": [
      {
-      "label": "دروس وزارة التعليم",
+      "label": "دروس وزارة التربية بالفيديو",
       "href": "https://eddirasa.com/%d8%af%d8%b1%d9%88%d8%b3-%d8%a7%d9%84%d9%81%d9%84%d8%b3%d9%81%d8%a9-%d9%84%d9%84%d8%b3%d9%86%d8%a9-%d8%a7%d9%84%d8%ab%d8%a7%d9%84%d8%ab%d8%a9-%d8%ab%d8%a7%d9%86%d9%88%d9%8a-%d8%a8%d8%a7%d9%84%d9%81/"
      }
     ]
@@ -233,21 +285,21 @@
     ]
    ],
    "items": {
-    "دروس": [],
+    "دروس": [
+     {
+      "label": "دروس العلوم الإسلامية (الديوان الوطني للتعليم عن بعد)",
+      "href": "https://eddirasa.com/%D8%AF%D8%B1%D9%88%D8%B3-%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9-%D8%B3%D9%86%D8%A9-%D8%AB%D8%A7%D9%84%D8%AB%D8%A9-%D8%AB%D8%A7%D9%86%D9%88%D9%8A/"
+     }
+    ],
     "ملخصات": [],
     "سلاسل و تمارين": [],
     "كتب": [
      {
-      "label": "كتاب بوسعادي",
+      "label": "العلوم الإسلامية (أ. بوسعادي نوال)",
       "href": "https://drive.google.com/file/d/1-6JNOn_Ud1w1t3P-KHhcFePnfVSN9Vm2/view?usp=share_link"
      }
     ],
-    "فيديوهات": [
-     {
-      "label": "دروس وزارة التعليم",
-      "href": "https://eddirasa.com/%d8%af%d8%b1%d9%88%d8%b3-%d8%a7%d9%84%d9%84%d8%ba%d8%a9-%d8%a7%d9%84%d8%b9%d8%b1%d8%a8%d9%8a%d8%a9-%d9%84%d9%84%d8%b3%d9%86%d8%a9-%d8%a7%d9%84%d8%ab%d8%a7%d9%84%d8%ab%d8%a9-%d8%ab%d8%a7%d9%86%d9%88/"
-     }
-    ]
+    "فيديوهات": []
    }
   },
   {
@@ -275,8 +327,15 @@
     "سلاسل و تمارين": [],
     "كتب": [
      {
-      "label": "كتاب بورنان",
-      "href": "https://drive.google.com/file/d/1-3mDlKKWCEZ4qWMd570-RoY1ZA798Oow/view?usp=share_link"
+      "label": "التاريخ و الجغرافيا (أ. بورنان عمار)",
+      "href": "https://drive.google.com/file/d/1-3mDlKKWCEZ4qWMd570-RoY1ZA798Oow/view?usp=share_link",
+      "for": [
+       "math",
+       "mt",
+       "se",
+       "arts",
+       "lang"
+      ]
      }
     ],
     "فيديوهات": [
@@ -312,7 +371,7 @@
     "دروس": [],
     "ملخصات": [
      {
-      "label": "ملخص (منصوري)",
+      "label": "ملخص الفرنسية (أ. منصوري عبد الناصر)",
       "href": "https://drive.google.com/file/d/1-Q8lIvzsWFT_HO2iEl3m6IEOTUnD7X0t/view?usp=share_link"
      },
      {
@@ -327,13 +386,13 @@
     "سلاسل و تمارين": [],
     "كتب": [
      {
-      "label": "كتاب شبوة",
+      "label": "ملخص الفرنسية (أ. منير شبوة)",
       "href": "https://drive.google.com/file/d/186WGgXnMOTrkUSpy8iTgKVUm9bE8ZKNc/view?usp=share_link"
      }
     ],
     "فيديوهات": [
      {
-      "label": "دروس وزارة التعليم",
+      "label": "دروس وزارة التربية بالفيديو",
       "href": "https://eddirasa.com/%d8%af%d8%b1%d9%88%d8%b3-%d8%a7%d9%84%d9%84%d8%ba%d8%a9-%d8%a7%d9%84%d9%81%d8%b1%d9%86%d8%b3%d9%8a%d8%a9-%d9%84%d9%84%d8%b3%d9%86%d8%a9-%d8%a7%d9%84%d8%ab%d8%a7%d9%84%d8%ab%d8%a9-%d8%ab%d8%a7%d9%86/"
      }
     ]
@@ -360,15 +419,22 @@
     "دروس": [],
     "ملخصات": [
      {
-      "label": "ملخص (منصوري)",
-      "href": "https://drive.google.com/file/d/1-bUmZOZlUyyfPCaGgMjgxXHwrwDU8YC0/view?usp=drive_link"
+      "label": "ملخص الوحدات (أ. منصوري عبد الناصر)",
+      "href": "https://drive.google.com/file/d/1-bUmZOZlUyyfPCaGgMjgxXHwrwDU8YC0/view?usp=drive_link",
+      "for": [
+       "math",
+       "mt",
+       "se",
+       "ge",
+       "arts"
+      ]
      }
     ],
     "سلاسل و تمارين": [],
     "كتب": [],
     "فيديوهات": [
      {
-      "label": "دروس وزارة التعليم",
+      "label": "دروس وزارة التربية بالفيديو",
       "href": "https://eddirasa.com/%d8%af%d8%b1%d9%88%d8%b3-%d8%a7%d9%84%d9%84%d8%ba%d8%a9-%d8%a7%d9%84%d8%a5%d9%86%d8%ac%d9%84%d9%8a%d8%b2%d9%8a%d8%a9-%d9%84%d9%84%d8%b3%d9%86%d8%a9-%d8%a7%d9%84%d8%ab%d8%a7%d9%84%d8%ab%d8%a9-%d8%ab/"
      }
     ]

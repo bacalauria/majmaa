@@ -79,7 +79,7 @@
 <header class="topbar">
   <div class="topbar__in">
     <a class="brand" href="{{ root }}" aria-label="{{ site.title }} — الصفحة الرئيسية">
-      <span class="brand__name">{{ site.title }}</span><span class="brand__rule" aria-hidden="true"></span><span class="brand__tag">بكالوريا الجزائر<br>منذ {{ site.since }}</span>
+      <span class="brand__name">{{ site.title }}</span><span class="brand__rule" aria-hidden="true"></span><span class="brand__tag">بكالوريا الجزائر<br>{{ all_years[-1] }} – {{ all_years[0] }}</span>
     </a>
     <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
       {% macro dd(key, href, label, head, items, all_label, wide=false) -%}
@@ -139,7 +139,7 @@
       <a class="brand brand--footer" href="{{ root }}">
         <span class="brand__name">{{ site.title }}</span>
       </a>
-      <p>{{ site.tagline }}. أرشيف مجاني و مفتوح لمواضيع البكالوريا الجزائرية و حلولها، للتلاميذ و الأساتذة، منذ {{ site.since }}.</p>
+      <p>{{ site.tagline }}. أرشيف مجاني و مفتوح لمواضيع البكالوريا الجزائرية و حلولها من {{ all_years[-1] }} إلى {{ all_years[0] }}، للتلاميذ و الأساتذة. في خدمتكم منذ {{ site.since }}.</p>
     </div>
     <nav class="footer__col" aria-label="الأرشيف">
       <p class="footer__h">الأرشيف</p>
@@ -160,7 +160,7 @@
     <div class="footer__col">
       <p class="footer__h">تواصل</p>
       <p class="footer__small">رابط لا يعمل، ملف ناقص أو اقتراح؟</p>
-      <a class="footer__mail" href="mailto:{{ site.email }}?subject=مجمع البكالوريا">{{ site.email }}</a>
+      <a class="footer__mail" href="mailto:{{ site.email }}?subject=مَجْمَعُ البكالوريا">{{ site.email }}</a>
       <div class="social">
         <a href="{{ site.channel }}" target="_blank" rel="noopener" aria-label="قناة يوتيوب"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8z" fill="currentColor" stroke="none"/><path d="m10 15 5-3-5-3z" fill="#06130D" stroke="none"/></svg>يوتيوب</a>
         <a href="{{ site.facebook }}" target="_blank" rel="noopener" aria-label="صفحة فيسبوك"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.5V7c0-.8.5-1 1-1h2V3h-3c-2.8 0-3.5 2-3.5 3.6v1.9H8V12h2.5v9H14v-9h2.6l.4-3.5z" fill="currentColor" stroke="none"/></svg>فيسبوك</a>

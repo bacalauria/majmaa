@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% from '_macros.html' import pagehead %}
 {% set title = 'سلاسل الفيديو' %}
-{% set description = 'سلاسل فيديو مجمع البكالوريا في مواضيع عامة تفيد كل التلاميذ: احتراف الآلة الحاسبة، الذكاء الاصطناعي في المراجعة، و غيرها.' %}
+{% set description = 'سلاسل فيديو مَجْمَعُ البكالوريا في مواضيع عامة تفيد كل التلاميذ: احتراف الآلة الحاسبة، الذكاء الاصطناعي في المراجعة، و غيرها.' %}
 {% block main %}
 {{ pagehead('سلاسل الفيديو', [(None, 'فيديوهات')], root, 'سلاسل في مواضيع عامة تفيد كل التلاميذ. أما فيديوهات حل المواضيع فتجدها في جداول كل سنة و كل مادة، في عمود «فيديو الحل».', 'play', 350) }}
 <div class="wrap section">
@@ -17,6 +17,7 @@
         <h2>{{ s.title }}</h2>
         <p class="serie__tags">{% for t in s.tags %}<span class="pill">{{ t }}</span>{% endfor %}</p>
         <p>{{ s.desc }}</p>
+        {% if s.launched %}<p class="serie__launch"><b>انطلقت في {{ s.launched }}.</b> {{ s.launch_note }}</p>{% endif %}
         <p class="serie__links">
           <a class="btn" href="{{ s.url }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg>شاهد على يوتيوب</a>
           {% if s.page %}<a class="btn btn--soft" href="{{ root }}{{ s.page }}">محتوى السلسلة</a>{% endif %}
@@ -27,7 +28,7 @@
     <article class="serie serie--soon">
       <div class="serie__body">
         <h2>سلاسل جديدة قريبا</h2>
-        <p>نعمل على سلاسل أخرى في المنهجية و المهارات العامة. اشترك في <a href="{{ site.channel }}" target="_blank" rel="noopener">قناة المجمع على يوتيوب</a> و تابع <a href="{{ site.facebook }}" target="_blank" rel="noopener">صفحة فيسبوك</a> ليصلك كل جديد.</p>
+        <p>نعمل على سلاسل أخرى في المنهجية و المهارات العامة. اشترك في <a href="{{ site.channel }}" target="_blank" rel="noopener">قناة المَجْمَع على يوتيوب</a> و تابع <a href="{{ site.facebook }}" target="_blank" rel="noopener">صفحة فيسبوك</a> ليصلك كل جديد.</p>
       </div>
     </article>
   </div>
