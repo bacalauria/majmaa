@@ -931,3 +931,7 @@ dialog::backdrop { background: rgb(4 16 10 / .55); backdrop-filter: blur(4px); }
 .ep__body h2 { font-size: 19px; margin: 2px 0 6px; } .ep__body h2 a { color: var(--ink); }
 .ep__body p:last-child { color: var(--ink-2); font-size: 14.5px; }
 @media (max-width: 640px) { .ep { grid-template-columns: 1fr; } }
+.vbs { display: flex; flex-wrap: wrap; gap: 3px; justify-content: center; max-width: 96px; }
+.vb.vb--n { height: 26px; padding: 0 6px; gap: 3px; font-size: 11.5px; border-radius: 7px; }
+.vb.vb--n svg { font-size: 10px; }
+@media (max-width: 760px) { .vbs { max-width: none; justify-content: flex-start; } }

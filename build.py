@@ -125,7 +125,9 @@ for r in rows:
     key = (int(r['year']), r['session'])
     c = dict(sp=link(r['sujet_pdf'], 'PDF'), sw=link(r['sujet_docx'], 'Word'), sf=link(r['sujet_pdf_fr'], 'FR'),
              cp=link(r['solution_pdf'], 'PDF'), cw=link(r['solution_docx'], 'Word'), cf=link(r['solution_pdf_fr'], 'FR'),
-             v=link(r['video'], 'Video'))
+             v=link(r['video'].split('|')[0], 'Video'),
+             # several videos (one per exercise) are stored as url1|url2|...
+             vs=[link(u.strip(), 'Video') for u in r['video'].split('|') if u.strip()] if '|' in r['video'] else [])
     by_stream[r['stream']].setdefault(key, []).append(dict(
         subject=r['subject'], name=SUBJECTS.get(r['subject'], r['subject']), hue=HUES.get(r['subject'], 230), c=c,
         sujet=[x for x in (c['sp'], c['sw'], c['sf']) if x],
