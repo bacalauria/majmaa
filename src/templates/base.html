@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-{% set full_title = (title ~ ' | ' ~ site.title) if title else (site.title ~ ' | مواضيع و حلول البكالوريا الجزائرية') %}
+{% set full_title = (title ~ ' | ' ~ site.title) if title else (site.title ~ ' | ' ~ site.slogan) %}
 <title>{{ full_title }}</title>
 <meta name="description" content="{{ description or site.description }}">
 <link rel="canonical" href="{{ site.url }}{{ path|replace('index.html','') }}">
@@ -79,7 +79,7 @@
 <header class="topbar">
   <div class="topbar__in">
     <a class="brand" href="{{ root }}" aria-label="{{ site.title }} — الصفحة الرئيسية">
-      <span class="brand__name">{{ site.title }}</span><span class="brand__rule" aria-hidden="true"></span><span class="brand__tag">بكالوريا<br>الجزائر</span>
+      <span class="brand__name">{{ site.title }}</span><span class="brand__rule" aria-hidden="true"></span><span class="brand__tag">كل ما يحتاجه طالب البكالوريا<br>في مكان واحد</span>
     </a>
     <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
       {% macro dd(key, href, label, head, items, all_label, wide=false) -%}
@@ -152,7 +152,7 @@
       <a class="brand brand--footer" href="{{ root }}">
         <span class="brand__name">{{ site.title }}</span>
       </a>
-      <p><b class="footer__slogan">{{ site.slogan }}</b> مواضيع البكالوريا الجزائرية و حلولها من {{ all_years[-1] }} إلى {{ all_years[0] }}، دروس و ملخصات لكل شعبة، البكالوريا في العالم، الأولمبياد العلمية و سلاسل فيديو. مجانا للتلاميذ و الأساتذة، في خدمتكم منذ {{ site.since }}.</p>
+      <p><b class="footer__slogan">{{ site.slogan }}</b> مواضيع البكالوريا الجزائرية و حلولها من {{ all_years[-1] }} إلى {{ all_years[0] }}، دروس و ملخصات لكل شعبة، البكالوريا في العالم، الأولمبياد العلمية و سلاسل فيديو. مجانا للطلاب و الأساتذة، في خدمتكم منذ {{ site.since }}.</p>
     </div>
     <nav class="footer__col" aria-label="الأرشيف">
       <p class="footer__h">الأرشيف</p>
