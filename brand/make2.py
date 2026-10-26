@@ -37,7 +37,7 @@ def lockup(fs, tag=True, color=CREAM, sub='rgba(251,248,241,.78)'):
     t = (f'<div style="text-align:center"><div class="wm" style="font-size:{fs*1.25}px;color:{color}">مَجْمَعُ</div>'
          f'<div class="wm" style="font-size:{fs*.86}px;color:{color};margin-top:{fs*.02}px">البكالوريا</div>'
          f'<div class="rule" style="width:{fs*3}px;margin:{fs*.3}px auto {fs*.22}px"><i></i><b style="width:{fs*.16}px;height:{fs*.16}px"></b><i></i></div>')
-    if tag: t += f'<div style="font:400 {fs*.3}px TJ;letter-spacing:.06em;color:{sub}">كل ما يحتاجه تلميذ البكالوريا، في مكان واحد</div>'
+    if tag: t += f'<div style="font:400 {fs*.3}px TJ;letter-spacing:.06em;color:{sub}">كل ما يحتاجه طالب البكالوريا، في مكان واحد</div>'
     return t + '</div>'
 
 def page(name, w, h, body, bg='transparent'):
@@ -51,7 +51,7 @@ page('logo-wordmark', 1400, 900, f'<div style="position:absolute;inset:0;display
 page('logo-wordmark-dark', 1400, 900, f'<div style="position:absolute;inset:0;display:grid;place-items:center">{lockup(150)}</div>', DEEP)
 # YouTube banner 2560x1440 — safe area 1546x423 centred (y 508..931)
 page('youtube-banner', 2560, 1440, green_bg() + f'''<div style="position:absolute;left:507px;top:508px;width:1546px;height:423px;display:grid;place-items:center">{lockup(104)}</div>
-<div style="position:absolute;left:0;right:0;top:948px;display:flex;justify-content:center;gap:16px">{''.join(f'<span style="font:700 30px TJ;color:{CREAM};padding:8px 24px;border-radius:99px;border:1.5px solid rgba(201,162,74,.6)">{t}</span>' for t in ['حلول مفصلة','رياضيات','فيزياء','احتراف الآلة الحاسبة'])}</div>''')
+<div style="position:absolute;left:0;right:0;top:948px;display:flex;justify-content:center;gap:16px">{''.join(f'<span style="font:700 30px TJ;color:{CREAM};padding:8px 24px;border-radius:99px;border:1.5px solid rgba(201,162,74,.6)">{t}</span>' for t in ['مواضيع و حلول','دروس و ملخصات','بكالوريا أجنبية','أولمبياد','سلاسل فيديو'])}</div>''')
 # Facebook cover 1640x624
 page('facebook-cover', 1640, 624, green_bg() + f'<div style="position:absolute;inset:0;display:grid;place-items:center">{lockup(92)}</div>')
 # Open Graph 1200x630
