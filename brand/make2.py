@@ -37,7 +37,7 @@ def lockup(fs, tag=True, color=CREAM, sub='rgba(251,248,241,.78)'):
     t = (f'<div style="text-align:center"><div class="wm" style="font-size:{fs*1.25}px;color:{color}">مَجْمَعُ</div>'
          f'<div class="wm" style="font-size:{fs*.86}px;color:{color};margin-top:{fs*.02}px">البكالوريا</div>'
          f'<div class="rule" style="width:{fs*3}px;margin:{fs*.3}px auto {fs*.22}px"><i></i><b style="width:{fs*.16}px;height:{fs*.16}px"></b><i></i></div>')
-    if tag: t += f'<div style="font:400 {fs*.3}px TJ;letter-spacing:.06em;color:{sub}">مواضيع و حلول البكالوريا الجزائرية</div>'
+    if tag: t += f'<div style="font:400 {fs*.3}px TJ;letter-spacing:.06em;color:{sub}">كل ما يحتاجه تلميذ البكالوريا، في مكان واحد</div>'
     return t + '</div>'
 
 def page(name, w, h, body, bg='transparent'):

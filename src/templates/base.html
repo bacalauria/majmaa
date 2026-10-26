@@ -93,8 +93,21 @@
         </div>
       </div>
       {%- endmacro %}
-      {% set bac_items = [] %}{% for sid, v in views.items() %}{% if bac_items.append(('bac/' ~ sid ~ '/', v.name|replace('شعبة ',''), v.icon, v.hue, ('النظام الجديد' if v.system == 'new' else 'النظام القديم') ~ ' · ' ~ v.first ~ '–' ~ v.last)) %}{% endif %}{% endfor %}
-      {{ dd('bac', 'bac/', 'بكالوريا الجزائر', 'المواضيع و الحلول حسب الشعبة', bac_items, 'كل الشعب و السنوات', true) }}
+      <div class="dd{% if page == 'bac' %} is-current{% endif %}">
+        <a class="dd__top" href="{{ root }}bac/"{% if page == 'bac' %} aria-current="page"{% endif %}>بكالوريا الجزائر<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg></a>
+        <button class="dd__tog" type="button" aria-expanded="false" aria-label="فروع بكالوريا الجزائر"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chev"/></svg></button>
+        <div class="dd__panel dd__panel--wide">
+          <div class="dd__cols">
+            {% for sys in ('new', 'old') %}{% set vs = views.values()|selectattr('system', 'equalto', sys)|list %}
+            <div class="dd__col">
+              <p class="dd__h">{{ SYSTEMS[sys] }} · {{ vs|map(attribute='first')|min }} – {{ vs|map(attribute='last')|max }}</p>
+              <div class="dd__grid">{% for v in vs %}<a class="dd__item" href="{{ root }}bac/{{ v.id }}/" style="--h:{{ v.hue }}"><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ v.icon }}"/></svg></i><span><b>{{ v.name|replace('شعبة ','') }}</b><small>{{ v.first }} – {{ v.last }} · {{ v.years|length }} دورة</small></span></a>{% endfor %}</div>
+            </div>
+            {% endfor %}
+          </div>
+          <a class="dd__all" href="{{ root }}bac/">كل الشعب و السنوات<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
       {% set les_items = [] %}{% for sid in lessons.streams %}{% set v = views[sid] %}{% if les_items.append(('lessons/' ~ sid ~ '/', v.name|replace('شعبة ',''), v.icon, v.hue, lessons.mod_count[sid] ~ ' مادة')) %}{% endif %}{% endfor %}
       {{ dd('lessons', 'lessons/', 'دروس و ملخصات', 'المراجع حسب الشعبة', les_items, 'خريطة المواد المشتركة') }}
       {% set w_items = [] %}{% for x in world.systems %}{% if w_items.append(('world/' ~ x.id ~ '/', x.name, x.icon, x.hue, x.short)) %}{% endif %}{% endfor %}
@@ -139,7 +152,7 @@
       <a class="brand brand--footer" href="{{ root }}">
         <span class="brand__name">{{ site.title }}</span>
       </a>
-      <p>{{ site.tagline }}. أرشيف مجاني و مفتوح لمواضيع البكالوريا الجزائرية و حلولها من {{ all_years[-1] }} إلى {{ all_years[0] }}، للتلاميذ و الأساتذة. في خدمتكم منذ {{ site.since }}.</p>
+      <p><b class="footer__slogan">{{ site.slogan }}</b> مواضيع البكالوريا الجزائرية و حلولها من {{ all_years[-1] }} إلى {{ all_years[0] }}، دروس و ملخصات لكل شعبة، البكالوريا في العالم، الأولمبياد العلمية و سلاسل فيديو. مجانا للتلاميذ و الأساتذة، في خدمتكم منذ {{ site.since }}.</p>
     </div>
     <nav class="footer__col" aria-label="الأرشيف">
       <p class="footer__h">الأرشيف</p>

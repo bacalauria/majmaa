@@ -935,3 +935,9 @@ dialog::backdrop { background: rgb(4 16 10 / .55); backdrop-filter: blur(4px); }
 .vb.vb--n { height: 26px; padding: 0 6px; gap: 3px; font-size: 11.5px; border-radius: 7px; }
 .vb.vb--n svg { font-size: 10px; }
 @media (max-width: 760px) { .vbs { max-width: none; justify-content: flex-start; } }
+.dd__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dd__col { min-width: 0; }
+.dd__col + .dd__col { border-inline-start: 1px solid var(--line); padding-inline-start: 10px; }
+.dd__cols .dd__grid { grid-template-columns: 1fr !important; }
+@media (max-width: 1120px) { .dd__cols { grid-template-columns: 1fr; } .dd__col + .dd__col { border: 0; padding: 0; } .dd__cols .dd__h { display: block; padding-top: 8px; } }
+.footer__slogan { display: block; font: 700 16px/1.6 var(--display); color: inherit; margin-bottom: 4px; }
