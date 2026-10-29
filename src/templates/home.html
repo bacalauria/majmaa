@@ -38,9 +38,8 @@
       <div><dt>ملف PDF</dt><dd>{{ "{:,}".format(total_files) }}</dd></div>
       <div><dt>دورة امتحان</dt><dd>{{ views.values()|map(attribute='years')|map('length')|sum }}</dd></div>
       <div><dt>سنة</dt><dd>{{ all_years|length }}</dd></div>
-      {% if stats_public and stats %}
-      <div><dt>تحميل هذا الشهر</dt><dd>{{ "{:,}".format(stats.month.downloads) }}</dd></div>
-      <div><dt>زيارة</dt><dd>{{ "{:,}".format(stats.visitors + (site.visitors_before or 0)) }}</dd></div>
+      {% if legacy %}
+      <div><dt><a href="{{ root }}popular/">مشاهدة منذ 2014</a></dt><dd>+{{ ((legacy.views + (stats.visitors if stats else 0)) / 1000000)|round(1) }} مليون</dd></div>
       {% else %}
       <div><dt>مجاني</dt><dd>100%</dd></div>
       {% endif %}

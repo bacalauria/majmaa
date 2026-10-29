@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 {% from '_macros.html' import pagehead %}
-{% set title = 'الأكثر تحميلاً' %}
-{% set description = 'المواضيع و الحلول الأكثر تحميلاً في مَجْمَع البكالوريا هذا الشهر، و ترتيب الشعب و المواد.' %}
-{% set m = stats.month %}
+{% set title = 'الأكثر زيارة و تحميلاً' %}
+{% set description = 'إحصائيات مَجْمَع البكالوريا: الملفات الأكثر تحميلاً هذا الشهر، ترتيب الشعب و المواد، و أكثر من 3.5 مليون مشاهدة منذ 2014.' %}
+{% set m = stats.month if stats else none %}
 {% block main %}
-{{ pagehead('الأكثر تحميلاً', [(None, 'الأكثر تحميلاً')], root, 'ما يفتحه و يحمّله طلاب البكالوريا أكثر خلال آخر 30 يوما. يتحدث تلقائيا كل يوم.', 'star', 25) }}
+{{ pagehead('الأكثر زيارة و تحميلاً', [(None, 'الأكثر زيارة و تحميلاً')], root, 'ما يفتحه و يحمّله طلاب البكالوريا أكثر، يتحدث تلقائيا كل يوم، و تاريخ زيارات المَجْمَع منذ 2014.', 'star', 25) }}
 <div class="wrap section popular">
+  {% if legacy %}{% set lv = legacy.views + (stats.visitors if stats else 0) %}
+  <dl class="stats stats--3">
+    <div><dt>مشاهدة منذ 2014</dt><dd>{{ "{:,}".format(lv) }}</dd></div>
+    <div><dt>زائر</dt><dd>{{ "{:,}".format(legacy.visitors) }}+</dd></div>
+    <div><dt>أفضل سنة ({{ (legacy.years|sort(attribute=1))[-1][0] }})</dt><dd>{{ "{:,}".format((legacy.years|sort(attribute=1))[-1][1]) }}</dd></div>
+  </dl>
+  {% endif %}
+  {% if m %}
   <p class="popular__upd">آخر تحديث: {{ stats.updated }}</p>
   <h2 class="popular__h">أكثر 30 ملفا تحميلاً</h2>
   <ol class="toplist">
@@ -23,5 +31,20 @@
       {% set mx = (m.subjects[0][1] if m.subjects else 1) or 1 %}
       <ol class="bars">{% for k, n in m.subjects[:12] %}<li><span class="bars__k">{{ SUBJ.get(k, k) }}</span><span class="bars__bar"><i style="width:{{ (100 * n / mx)|round(1) }}%"></i></span><b>{{ "{:,}".format(n) }}</b></li>{% endfor %}</ol></section>
   </div>
+  {% endif %}
+  {% if legacy %}
+  <h2 class="popular__h popular__h--big">المَجْمَع عبر السنين</h2>
+  <p class="popular__upd">مشاهدات الموقع كل سنة منذ 2014 (إحصائيات الموقع القديم).</p>
+  {% set mx = (legacy.years|map(attribute=1)|max) %}
+  <ol class="cols">{% for y, n in legacy.years %}<li title="{{ "{:,}".format(n) }}"><span class="cols__n">{{ (n/1000)|round|int }}K</span><span class="cols__bar" style="height:{{ (100 * n / mx)|round(1) }}%"></span><span class="cols__y">{{ y }}</span></li>{% endfor %}</ol>
+  <div class="popular__grid">
+    <section><h2 class="popular__h">الشعب الأكثر زيارة منذ 2014</h2>
+      {% set mx = legacy.streams[0][1] %}
+      <ol class="bars">{% for k, n in legacy.streams %}{% if k in views %}<li><span class="bars__k"><a href="{{ root }}bac/{{ k }}/">{{ views[k].short }}</a></span><span class="bars__bar"><i style="width:{{ (100 * n / mx)|round(1) }}%"></i></span><b>{{ "{:,}".format(n) }}</b></li>{% endif %}{% endfor %}</ol></section>
+    <section><h2 class="popular__h">الأقسام الأكثر زيارة منذ 2014</h2>
+      {% set mx = legacy.sections[0][1] %}
+      <ol class="bars">{% for k, n in legacy.sections %}<li><span class="bars__k">{{ k }}</span><span class="bars__bar"><i style="width:{{ (100 * n / mx)|round(1) }}%"></i></span><b>{{ "{:,}".format(n) }}</b></li>{% endfor %}</ol></section>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

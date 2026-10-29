@@ -127,6 +127,7 @@
           <a href="{{ root }}articles/" {% if page=='articles' %}aria-current="page"{% endif %}>مقالات و أدلة</a>
           <a href="{{ root }}platforms/" {% if page=='platforms' %}aria-current="page"{% endif %}>المنصات التعليمية</a>
           <a href="{{ root }}articles/laureates/">الأوائل في البكالوريا</a>
+          {% if legacy or stats %}<a href="{{ root }}popular/" {% if page=='popular' %}aria-current="page"{% endif %}>الأكثر زيارة و تحميلاً</a>{% endif %}
         </div>
       </details>
     </nav>
@@ -172,6 +173,7 @@
       <a href="{{ root }}teachers/">للأساتذة</a>
       <a href="{{ root }}articles/laureates/">الأوائل في البكالوريا</a>
       <a href="{{ root }}platforms/">المنصات التعليمية</a>
+      {% if legacy or stats %}<a href="{{ root }}popular/">الأكثر زيارة و تحميلاً</a>{% endif %}
       <a href="{{ root }}articles/">مقالات و أدلة</a>
     </nav>
     <div class="footer__col">
