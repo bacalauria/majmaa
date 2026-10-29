@@ -5,3 +5,4 @@ __pycache__/
 brand/build3/
 brand/out3/
 data/stats.json
+data/stats-status.txt

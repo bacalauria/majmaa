@@ -1,13 +1,10 @@
 # Rebuilds the site with build.py on every push to main and publishes the result
-# to the gh-pages branch (GitHub Pages serves that branch). Also runs daily to refresh
-# the statistics page from GoatCounter (scripts/stats.py).
+# to the gh-pages branch (GitHub Pages serves that branch).
 name: Build and deploy site
 on:
   push:
     branches: [main]
   workflow_dispatch:
-  schedule:
-    - cron: '17 3 * * *'      # daily refresh of the visit / download statistics
 permissions:
   contents: write
 concurrency:
@@ -22,10 +19,6 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install jinja2
-      - name: Pull statistics from GoatCounter
-        run: python scripts/stats.py
-        env:
-          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
       - run: python build.py
       - uses: peaceiris/actions-gh-pages@v4
         with:

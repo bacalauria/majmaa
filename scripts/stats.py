@@ -20,6 +20,7 @@ START = '2026-10-29'          # GoatCounter went live on the new site this day
 
 
 def api(path, **params):
+    params = {k: v for k, v in params.items() if v not in (None, [], '')}
     url = f'{SITE}{path}?' + urllib.parse.urlencode(params, doseq=True)
     req = urllib.request.Request(url, headers={'Authorization': f'Bearer {TOKEN}', 'Content-Type': 'application/json'})
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -36,6 +37,11 @@ def all_hits(start, end):
         seen += [h['path_id'] for h in hits if 'path_id' in h]
         if not d.get('more') or not hits:
             return out
+
+
+def status(msg):
+    """One-line status for debugging the daily run (the Actions log is not always reachable); no secrets in it."""
+    open(os.path.join(ROOT, 'data', 'stats-status.txt'), 'w').write(f'{datetime.datetime.utcnow():%Y-%m-%d %H:%M} UTC  {msg}\n')
 
 
 def summarise(hits):
@@ -64,14 +70,23 @@ def summarise(hits):
 
 def main():
     if not TOKEN:
-        print('stats: no GOATCOUNTER_TOKEN, skipping'); return
+        status('no GOATCOUNTER_TOKEN secret'); print('stats: no GOATCOUNTER_TOKEN, skipping'); return
     today = datetime.date.today()
+    now = datetime.datetime.utcnow().replace(microsecond=0)
+    iso = lambda d: d.strftime('%Y-%m-%dT%H:%M:%SZ')
+    t0 = datetime.datetime.fromisoformat(START)
     try:
-        tot = api('/stats/total', start=START, end=today.isoformat())
-        month = summarise(all_hits((today - datetime.timedelta(days=30)).isoformat(), today.isoformat()))
-        ever = summarise(all_hits(START, today.isoformat()))
+        tot = api('/stats/total', start=iso(t0), end=iso(now))
+        month = summarise(all_hits(iso(max(t0, now - datetime.timedelta(days=30))), iso(now)))
+        ever = summarise(all_hits(iso(t0), iso(now)))
     except Exception as e:                       # never break the build because of stats
-        print('stats: API error, keeping previous stats.json:', e); return
+        body = ''
+        if hasattr(e, 'read'):
+            try: body = e.read().decode()[:400]
+            except Exception: pass
+        status(f'API error: {e} {body}')
+        print('stats: API error, keeping previous stats.json:', e, body); return
+    status(f"ok: {tot.get('total', 0)} pageviews, {ever['downloads']} file opens")
     data = dict(updated=today.isoformat(), since=START, visitors=tot.get('total', 0), month=month, all=ever)
     json.dump(data, open(OUT, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f"stats: {data['visitors']} pageviews, {ever['downloads']} file opens since {START}")

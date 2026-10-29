@@ -259,6 +259,8 @@ def build():
     open(os.path.join(OUT, 'sitemap.xml'), 'w').write('\n'.join(sm))
     if os.environ.get('OG_MANIFEST'):   # only when regenerating cards: python brand/og_cards.py
         json.dump(og_cards, open(os.environ['OG_MANIFEST'], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    _ss = os.path.join(ROOT, 'data', 'stats-status.txt')
+    if os.path.exists(_ss): shutil.copy(_ss, os.path.join(OUT, 'stats-status.txt'))
     open(os.path.join(OUT, 'robots.txt'), 'w').write(f'User-agent: *\nAllow: /\nSitemap: {base}sitemap.xml\n')
     print(f'built {len(pages)} pages, {len(rows)} exam rows, {total_files} files -> {OUT}')
 
