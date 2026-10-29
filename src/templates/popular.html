@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import pagehead %}
+{% set title = 'الأكثر تحميلاً' %}
+{% set description = 'المواضيع و الحلول الأكثر تحميلاً في مَجْمَع البكالوريا هذا الشهر، و ترتيب الشعب و المواد.' %}
+{% set m = stats.month %}
+{% block main %}
+{{ pagehead('الأكثر تحميلاً', [(None, 'الأكثر تحميلاً')], root, 'ما يفتحه و يحمّله طلاب البكالوريا أكثر خلال آخر 30 يوما. يتحدث تلقائيا كل يوم.', 'star', 25) }}
+<div class="wrap section popular">
+  <p class="popular__upd">آخر تحديث: {{ stats.updated }}</p>
+  <h2 class="popular__h">أكثر 30 ملفا تحميلاً</h2>
+  <ol class="toplist">
+    {% for key, n in m.files %}{% set st, yr, sub, part = key.split('/') %}{% set v = views.get(st) %}
+    {% if v %}<li><span class="toplist__rank">{{ loop.index }}</span>
+      <a href="{{ root }}bac/{{ st }}/#y{{ yr }}"><b>{{ SUBJ.get(sub, sub) }}</b> — {{ 'الموضوع' if part == 'paper' else 'الحل' }} · بكالوريا {{ yr.split('-')[0] }} · {{ v.short }}</a>
+      <span class="toplist__n">{{ "{:,}".format(n) }}</span></li>{% endif %}
+    {% endfor %}
+  </ol>
+  <div class="popular__grid">
+    <section><h2 class="popular__h">ترتيب الشعب</h2>
+      {% set mx = (m.streams[0][1] if m.streams else 1) or 1 %}
+      <ol class="bars">{% for k, n in m.streams %}{% if k in views %}<li><span class="bars__k">{{ views[k].short }}</span><span class="bars__bar"><i style="width:{{ (100 * n / mx)|round(1) }}%"></i></span><b>{{ "{:,}".format(n) }}</b></li>{% endif %}{% endfor %}</ol></section>
+    <section><h2 class="popular__h">ترتيب المواد</h2>
+      {% set mx = (m.subjects[0][1] if m.subjects else 1) or 1 %}
+      <ol class="bars">{% for k, n in m.subjects[:12] %}<li><span class="bars__k">{{ SUBJ.get(k, k) }}</span><span class="bars__bar"><i style="width:{{ (100 * n / mx)|round(1) }}%"></i></span><b>{{ "{:,}".format(n) }}</b></li>{% endfor %}</ol></section>
+  </div>
+</div>
+{% endblock %}

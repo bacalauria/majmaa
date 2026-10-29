@@ -65,6 +65,18 @@
   const driveId = (u) => { const m = /\/d\/([\w-]{10,})|[?&]id=([\w-]{10,})/.exec(u || ''); return m ? (m[1] || m[2]) : null; };
   const isDrive = (u) => /(?:drive|docs)\.google\.com/.test(u || '');
 
+  /* ------------------------------------------------------------ analytics */
+  // GoatCounter (cookie-free). Events: open/<stream>/<year>/<subject>/<paper|solution>/<pdf|word|fr>,
+  // dl/... (download button in the viewer), video/..., out/<host> (any other external link).
+  const track = (name, title) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: name, title: title || name, event: true }); } catch (e) {} };
+  let curEv = '';
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]'); if (!a || e.button > 1) return;
+    if (a.dataset.ev) { const ev = a.dataset.ev; track(ev.startsWith('video/') ? ev : 'open/' + ev, a.dataset.title || a.getAttribute('aria-label')); curEv = ev; return; }
+    if (a.id === 'vdl') { track('dl/' + (curEv || 'unknown'), $('#vtitle') ? $('#vtitle').textContent : ''); return; }
+    try { const u = new URL(a.href, location.href); if (u.host && u.host !== location.host) track('out/' + u.host.replace(/^www\./, ''), a.textContent.trim().slice(0, 80)); } catch (e2) {}
+  }, true);
+
   /* --------------------------------------------------------------- viewer */
   const viewer = $('#viewer'), vframe = $('#vframe');
   function openViewer(url, title) {
@@ -144,8 +156,8 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const ICON = { PDF: '<svg viewBox="0 0 24 24"><use href="#i-pdf"/></svg>', Word: 'W', FR: 'FR' };
   const LBL = { PDF: 'PDF', Word: 'Word', FR: 'ع/ف' };
-  function fileLinks(list, title) {
-    return list.map(([kind, url]) => `<a class="fc fc--${kind === 'Word' ? 'word' : kind === 'FR' ? 'fr' : 'pdf'}" href="${esc(url)}" target="_blank" rel="noopener" data-title="${esc(title)}"><i aria-hidden="true">${ICON[kind] || ICON.PDF}</i><span>${LBL[kind] || esc(kind)}</span></a>`).join('');
+  function fileLinks(list, title, ev) {
+    return list.map(([kind, url]) => `<a class="fc fc--${kind === 'Word' ? 'word' : kind === 'FR' ? 'fr' : 'pdf'}" href="${esc(url)}" target="_blank" rel="noopener" data-title="${esc(title)}" data-ev="${ev}/${kind === 'Word' ? 'word' : kind === 'FR' ? 'fr' : 'pdf'}"><i aria-hidden="true">${ICON[kind] || ICON.PDF}</i><span>${LBL[kind] || esc(kind)}</span></a>`).join('');
   }
   function run() {
     const toks = tokens(q.value);
@@ -162,10 +174,11 @@
         const ctx = `بكالوريا ${r[1]}${sess ? ' ' + sess : ''} — ${st[0]}`;
         const anchor = `y${r[1]}${r[2] === 'main' ? '' : '-' + r[2]}`;
         const t = sub + ' — ' + ctx;
+        const ev = `${r[0]}/${r[1]}${r[2] === 'main' ? '' : '-' + r[2]}/${r[3]}`;
         return `<li><span class="sr__main" style="--h:${d.hues[r[3]] || 235}"><b class="dot" aria-hidden="true"></b><span class="sr__txt"><span class="sr__subject">${esc(sub)}</span><span class="sr__ctx"><a href="${ROOT}bac/${r[0]}/#${anchor}">${esc(ctx)}</a></span></span></span>` +
-          `<span class="sr__files">${r[4].length ? '<span class="sr__lbl">الموضوع</span>' + fileLinks(r[4], t + ' — الموضوع') : ''}` +
-          `<span class="sr__files sr__sol">${r[5].length ? '<span class="sr__lbl">الحل</span>' + fileLinks(r[5], t + ' — الحل') : ''}</span>` +
-          `${r[6] ? `<a class="vb" href="${esc(r[6])}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg><span>فيديو</span></a>` : ''}</span></li>`;
+          `<span class="sr__files">${r[4].length ? '<span class="sr__lbl">الموضوع</span>' + fileLinks(r[4], t + ' — الموضوع', ev + '/paper') : ''}` +
+          `<span class="sr__files sr__sol">${r[5].length ? '<span class="sr__lbl">الحل</span>' + fileLinks(r[5], t + ' — الحل', ev + '/solution') : ''}</span>` +
+          `${r[6] ? `<a class="vb" href="${esc(r[6])}" data-ev="video/${ev}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg><span>فيديو</span></a>` : ''}</span></li>`;
       }).join('');
       active = -1;
     });

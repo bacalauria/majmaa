@@ -187,6 +187,10 @@ env.globals.update(ver=ASSET_VER, drive_id=drive_id, site=site, streams=STREAMS,
                    world=world, olymp=olymp, lessons=lessons, SUBJ=SUBJECTS)
 pages = []
 og_cards = []
+# Visit / download statistics pulled from GoatCounter by scripts/stats.py (absent until the API key is set).
+_sp = os.path.join(ROOT, 'data', 'stats.json')
+stats = json.load(open(_sp, encoding='utf-8')) if os.path.exists(_sp) else None
+env.globals.update(stats=stats, stats_public=site.get('stats_public', False))
 
 def render(tpl, path, **ctx):
     """path is the output path relative to _site, e.g. 'bac/math/index.html'."""
@@ -238,6 +242,7 @@ def build():
     render('olymp_hub.html', 'olympiads/index.html', page='olympiads')
     for x in olymp['subjects']:
         render('topic.html', f'olympiads/{x["id"]}/index.html', page='olympiads', t=x, kind='olympiads')
+    if stats: render('popular.html', 'popular/index.html', page='popular')
     render('article.html', 'platforms/index.html', page='platforms', a=content['platforms'])
     render('articles.html', 'articles/index.html', page='articles')
     for a in content['articles']:

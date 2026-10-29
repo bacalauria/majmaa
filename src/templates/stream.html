@@ -31,7 +31,8 @@
       </header>
       {{ xhead() }}
       <ol class="rows">
-        {% for it in y.rows %}{{ examrow(it, ctx) }}{% endfor %}
+        {% set ev = v.id ~ '/' ~ y.year ~ ('' if y.session == 'main' else '-' ~ y.session) %}
+        {% for it in y.rows %}{{ examrow(it, ctx, ev) }}{% endfor %}
       </ol>
       <p class="sheet__empty" hidden>لا توجد هذه المادة في دورة {{ y.year }}.</p>
     </section>
