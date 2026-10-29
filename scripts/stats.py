@@ -10,7 +10,7 @@ Event names are set by assets/app.js:
   video/<stream>/<year>/<subject>[/exN]                                       solution video
   out/<host>                                                                  any other external link
 """
-import json, os, sys, datetime, urllib.request, urllib.parse, collections
+import json, os, sys, datetime, urllib.request, urllib.error, urllib.parse, collections
 
 SITE = 'https://majmaabac.goatcounter.com/api/v0'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,8 +23,11 @@ def api(path, **params):
     params = {k: v for k, v in params.items() if v not in (None, [], '')}
     url = f'{SITE}{path}?' + urllib.parse.urlencode(params, doseq=True)
     req = urllib.request.Request(url, headers={'Authorization': f'Bearer {TOKEN}', 'Content-Type': 'application/json'})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.load(r)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f'{e.code} on {path}?{urllib.parse.urlencode(params, doseq=True)}: {e.read().decode()[:300]}')
 
 
 def all_hits(start, end):
