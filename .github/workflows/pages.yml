@@ -25,7 +25,7 @@ jobs:
       - name: Pull statistics from GoatCounter
         run: python scripts/stats.py
         env:
-          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN || secrets.GOATCOUNTER_TOKE }}
       - run: python build.py
       - uses: peaceiris/actions-gh-pages@v4
         with:
