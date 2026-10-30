@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><title>relay</title><script>
+// TEMPORARY helper, approved by Kamel (2026-10-30), removed right after use: hands the episode files to the
+// Facebook page that frames it (Facebook does not let its own pages fetch files from other sites).
+(async()=>{const B='https://raw.githubusercontent.com/bacalauria/majmaa/ecba7825a2c4144261b81198f5d5b308572b1da9/s/';
+for(const [n,t] of [['ep02.mp4','video/mp4'],['cover-02.jpg','image/jpeg'],['ep04.mp4','video/mp4'],['cover-04.jpg','image/jpeg']]){const b=await (await fetch(B+n)).blob();
+parent.postMessage({__majmaa:1,name:n,file:new File([b],n,{type:t})},'https://www.facebook.com');}})();
+</script>
