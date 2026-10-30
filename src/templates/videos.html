@@ -8,16 +8,24 @@
   <div class="series">
     {% for s in content.video_series %}
     <article class="serie" style="--h:{{ s.hue }}">
+      {% if s.poster %}
+      <a class="serie__cover serie__cover--poster" href="{{ root }}{{ s.page }}" aria-label="شاهد {{ s.title }}">
+        <img src="{{ root }}{{ s.poster }}" alt="" loading="lazy" width="540" height="960">
+        <span class="serie__play" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-play"/></svg></span>
+        <span class="serie__count">{{ 'حلقة واحدة' if s.count == 1 else 'حلقتان' if s.count == 2 else s.count ~ (' حلقات' if s.count <= 10 else ' حلقة') }} · فيديوهات قصيرة</span>
+      </a>
+      {% else %}
       <a class="serie__cover" href="{{ s.url }}" target="_blank" rel="noopener" aria-label="شاهد {{ s.title }}">
         <span class="serie__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-{{ s.icon }}"/></svg></span>
         <span class="serie__play" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-play"/></svg></span>
         <span class="serie__count">{{ s.count }} {{ 'حلقة' if s.count > 10 else 'حلقات' if s.count > 2 else 'فيديو' }}{% if s.minutes %} · {{ s.minutes }} دقيقة{% endif %}</span>
       </a>
+      {% endif %}
       <div class="serie__body">
         <h2>{{ s.title }}</h2>
         <p class="serie__tags">{% for t in s.tags %}<span class="pill">{{ t }}</span>{% endfor %}</p>
         <p>{{ s.desc }}</p>
-        {% if s.launched %}<p class="serie__launch"><b>انطلقت في {{ s.launched }}.</b> {{ s.launch_note }}</p>{% endif %}
+        {% if s.launched and not s.shorts %}<p class="serie__launch"><b>انطلقت في {{ s.launched }}.</b> {{ s.launch_note }}</p>{% endif %}
         <p class="serie__links">
           <a class="btn" href="{{ s.url }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg>شاهد على يوتيوب</a>
           {% if s.page %}<a class="btn btn--soft" href="{{ root }}{{ s.page }}">محتوى السلسلة</a>{% endif %}

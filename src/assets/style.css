@@ -972,3 +972,23 @@ dialog::backdrop { background: rgb(4 16 10 / .55); backdrop-filter: blur(4px); }
 .cols__y { font: 700 12.5px var(--display); color: var(--ink-2); }
 .stats dt a { color: inherit; }
 @media (max-width: 640px) { .cols { gap: 3px; height: 180px; } .cols__n { font-size: 9px; } .cols__y { font-size: 10px; writing-mode: vertical-rl; transform: rotate(180deg); } .stats--3 { grid-template-columns: 1fr; } }
+
+/* Shorts series (ذاكِرْ بذكاء): portrait poster that turns into the YouTube player on click */
+.serie__cover--poster { background: hsl(var(--h) 30% 92%); min-height: 0; overflow: hidden; }
+.serie__cover--poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 6%; }
+.shorts { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }
+.short { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 24px; padding: 16px; border-radius: var(--r-l); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1); }
+.short__player { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: hsl(var(--h) 30% 90%); cursor: pointer; }
+.short__player img, .short__player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; display: block; }
+.short__play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,.95); color: hsl(var(--h) 60% 25%); display: grid; place-items: center; box-shadow: 0 10px 30px -8px rgba(0,0,0,.5); transition: transform .15s; }
+.short__play svg { font-size: 26px; margin-inline-start: -3px; }
+.short__player:hover .short__play { transform: translate(-50%, -50%) scale(1.08); }
+.short__body { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; }
+.short__body h2 { font-size: 24px; }
+.short__line { font-size: 18px; color: var(--ink-2); }
+.short__quote { margin: 4px 0; padding: 14px 16px; border-radius: 12px; background: var(--surface-2); border-inline-start: 4px solid hsl(var(--h) 45% 40%); }
+.short__quote blockquote { margin: 0; font-size: 18px; line-height: 1.8; color: var(--ink); }
+.short__quote figcaption { margin-top: 6px; font-size: 13.5px; color: var(--ink-3); }
+.short .serie__links { margin-top: auto; }
+@media (max-width: 640px) { .short { grid-template-columns: minmax(0, 1fr); } .short__player { max-width: 320px; margin-inline: auto; } }
+.card--wide { grid-column: 1 / -1; }

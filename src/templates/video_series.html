@@ -3,9 +3,34 @@
 {% set title = s.title ~ ' — محتوى السلسلة' %}
 {% set description = s.desc %}
 {% block main %}
-{{ pagehead(s.title, [('videos/', 'فيديوهات'), (None, s.title)], root, s.count ~ ' فيديو · ' ~ s.minutes ~ ' دقيقة · انطلقت في ' ~ s.launched, s.icon, s.hue) }}
+{% if s.shorts %}{% set sub = ('حلقة واحدة' if s.count == 1 else 'حلقتان' if s.count == 2 else s.count ~ (' حلقات' if s.count <= 10 else ' حلقة')) ~ ' · ' ~ s.launch_note %}{% else %}{% set sub = s.count ~ ' فيديو · ' ~ s.minutes ~ ' دقيقة · انطلقت في ' ~ s.launched %}{% endif %}
+{{ pagehead(s.title, [('videos/', 'فيديوهات'), (None, s.title)], root, sub, s.icon, s.hue) }}
 <div class="wrap vs">
   <p class="vs__desc">{{ s.desc }}</p>
+  {% if s.shorts %}
+  <ol class="shorts">
+    {% for e in s.episodes|reverse %}
+    <li class="short" style="--h:{{ s.hue }}">
+      <button class="short__player" type="button" data-yt="{{ e.id }}" data-ev="video/{{ s.slug }}/{{ e.n }}" data-title="{{ s.title }} — الحلقة {{ e.n }}" aria-label="شاهد الحلقة {{ e.n }}: {{ e.title }}">
+        <img src="{{ root }}{{ e.poster }}" alt="" loading="lazy" width="540" height="960">
+        <span class="short__play" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-play"/></svg></span>
+        <span class="ep__dur">{{ e.dur }}</span>
+      </button>
+      <div class="short__body">
+        <p class="ep__n">الحلقة {{ e.n }} · {{ e.date }}</p>
+        <h2>{{ e.title }}</h2>
+        <p class="short__line">{{ e.desc }}</p>
+        {% if e.quote %}<figure class="short__quote"><blockquote>قال رسولُ اللهِ ﷺ: «{{ e.quote }}»</blockquote><figcaption>{{ e.quote_src }}</figcaption></figure>{% endif %}
+        <p class="serie__links"><a class="btn btn--soft" href="https://www.youtube.com/shorts/{{ e.id }}" target="_blank" rel="noopener" data-ev="video/{{ s.slug }}/{{ e.n }}/yt">شاهد على يوتيوب</a></p>
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+  <p class="serie__links">
+    <a class="btn" href="{{ s.url }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg>قائمة التشغيل على يوتيوب</a>
+    <a class="btn btn--soft" href="{{ site.facebook }}" target="_blank" rel="noopener">صفحة فيسبوك</a>
+  </p>
+  {% else %}
   <aside class="callout callout--warn"><b>متى سُجّلت السلسلة؟</b><p>{{ s.launch_note }}</p></aside>
   <ol class="eps">
     {% for e in s.episodes %}
@@ -23,5 +48,6 @@
     {% endfor %}
   </ol>
   <p><a class="btn" href="{{ s.url }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg>شاهد على يوتيوب</a></p>
+  {% endif %}
 </div>
 {% endblock %}

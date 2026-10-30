@@ -852,6 +852,39 @@
  "calculator_playlist": "https://youtube.com/playlist?list=PLDCj_x_0LsfxbbYcGqcTXV8FhG7pGX5VP",
  "video_series": [
   {
+   "slug": "dhakir",
+   "title": "ذاكِرْ بذكاء",
+   "status": "متاحة",
+   "count": 1,
+   "icon": "key",
+   "hue": 150,
+   "shorts": true,
+   "poster": "assets/videos/dhakir-01.jpg",
+   "desc": "سلسلة فيديوهات قصيرة (Shorts) عن عادات مذاكرة ذكيّة لطلاب البكالوريا في كلّ الشعب: متى تبدأ، كيف تنظّم وقتك، و كيف تحفظ و لا تنسى. حلقة جديدة كلّ أسبوع.",
+   "tags": [
+    "منهجية",
+    "فيديوهات قصيرة",
+    "كل الشعب"
+   ],
+   "url": "https://www.youtube.com/playlist?list=PLOPkds9WGG4Y",
+   "page": "videos/dhakir/",
+   "launched": "نوفمبر 2026",
+   "launch_note": "حلقة جديدة كلّ يوم خميس مساءً.",
+   "episodes": [
+    {
+     "n": 1,
+     "id": "OJC4-nSxS_g",
+     "title": "لماذا تبدأ الآن؟",
+     "date": "5 نوفمبر 2026",
+     "dur": "0:56",
+     "poster": "assets/videos/dhakir-01.jpg",
+     "desc": "ساعةٌ واحدةٌ يوميًا… تصنعُ الفرق.",
+     "quote": "أَحَبُّ الأعمالِ إلى اللهِ أَدْوَمُها وإنْ قَلّ",
+     "quote_src": "عن عائشة رضي الله عنها — رواه البخاري (6464) ومسلم (2818)"
+    }
+   ]
+  },
+  {
    "slug": "calculator",
    "title": "احتراف الآلة الحاسبة",
    "status": "متاحة",

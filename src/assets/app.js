@@ -77,6 +77,17 @@
     try { const u = new URL(a.href, location.href); if (u.host && u.host !== location.host) track('out/' + u.host.replace(/^www\./, ''), a.textContent.trim().slice(0, 80)); } catch (e2) {}
   }, true);
 
+  /* --------------------------------------------------- shorts (lite embed) */
+  // A poster button with data-yt=<id> turns into the YouTube player on first click (nothing loads from YouTube before).
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-yt]'); if (!b || b.dataset.on) return;
+    b.dataset.on = '1'; track(b.dataset.ev || 'video/' + b.dataset.yt, b.dataset.title);
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0&playsinline=1`;
+    f.title = b.dataset.title || ''; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true;
+    b.replaceChildren(f);
+  });
+
   /* --------------------------------------------------------------- viewer */
   const viewer = $('#viewer'), vframe = $('#vframe');
   function openViewer(url, title) {
