@@ -29,6 +29,31 @@ meta = json.load(open(D('meta.json'), encoding='utf-8'))
 content = json.load(open(D('content.json'), encoding='utf-8'))
 rows = list(csv.DictReader(open(D('exams.csv'), encoding='utf-8')))
 
+# Scheduled videos: data/video_schedule.json maps a YouTube id to the moment it goes public
+# ("2026-11-02T18:00:00+01:00").  Until then the video is left out everywhere (exam tables,
+# series pages, article links), so the site never links to a video that is still private.
+# The workflow rebuilds the site daily and shortly after each publishing slot.
+from datetime import datetime, timezone
+SCHED = json.load(open(D('video_schedule.json'))) if os.path.exists(D('video_schedule.json')) else {}
+NOW = datetime.fromisoformat(os.environ['BUILD_NOW']) if os.environ.get('BUILD_NOW') else datetime.now(timezone.utc)  # BUILD_NOW: preview a later date
+AR_MONTHS = ['', 'جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان', 'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+def yt_id(u):
+    m = re.search(r'(?:youtu\.be/|[?&]v=|shorts/|embed/)([\w-]{11})', u or '')
+    return m.group(1) if m else (u if re.fullmatch(r'[\w-]{11}', u or '') else None)
+def is_live(u):
+    t = SCHED.get(yt_id(u))
+    return not t or datetime.fromisoformat(t) <= NOW
+def publish_day(u):
+    d = datetime.fromisoformat(SCHED[yt_id(u)]); return f'{d.day} {AR_MONTHS[d.month]}'
+for r in rows:
+    if r['video'] and SCHED:
+        us = [u.strip() for u in r['video'].split('|') if u.strip()]
+        r['_multi'] = len(us) > 1
+        r['video'] = '|'.join(u for u in us if is_live(u))
+for s in content['video_series']:
+    if s.get('episodes'): s['episodes'] = [e for e in s['episodes'] if is_live(e['id'])]
+content['video_series'] = [s for s in content['video_series'] if not s.get('hide_until_live') or s.get('episodes')]
+
 # Articles: the body of each article lives in data/articles/<slug>.html (plain HTML).
 # Headings <h2> get ids and feed the table of contents; reading time ≈ 180 words/min.
 def load_article(a):
@@ -39,6 +64,10 @@ def load_article(a):
         n[0] += 1; toc.append((f's{n[0]}', re.sub(r'<[^>]+>', '', m.group(1))))
         return f'<h2 id="s{n[0]}">{m.group(1)}</h2>'
     a['html'] = re.sub(r'<h2>(.*?)</h2>', h2, a['html'])
+    # links to videos that are not public yet become plain text with their publishing day
+    a['html'] = re.sub(r'<a href="(https://www\.youtube\.com/watch\?v=[\w-]{11}[^"]*)"[^>]*>(.*?)</a>',
+                       lambda m: m.group(0) if is_live(m.group(1)) else f'{m.group(2)} <small class="soon">(يُنشر في {publish_day(m.group(1))})</small>',
+                       a['html'])
     a['toc'] = toc
     words = len(re.sub(r'<[^>]+>', ' ', a['html']).split())
     a['minutes'] = max(1, round(words / 180))
@@ -127,7 +156,7 @@ for r in rows:
              cp=link(r['solution_pdf'], 'PDF'), cw=link(r['solution_docx'], 'Word'), cf=link(r['solution_pdf_fr'], 'FR'),
              v=link(r['video'].split('|')[0], 'Video'),
              # several videos (one per exercise) are stored as url1|url2|...
-             vs=[link(u.strip(), 'Video') for u in r['video'].split('|') if u.strip()] if '|' in r['video'] else [])
+             vs=[link(u.strip(), 'Video') for u in r['video'].split('|') if u.strip()] if ('|' in r['video'] or r.get('_multi')) else [])
     by_stream[r['stream']].setdefault(key, []).append(dict(
         subject=r['subject'], name=SUBJECTS.get(r['subject'], r['subject']), hue=HUES.get(r['subject'], 230), c=c,
         sujet=[x for x in (c['sp'], c['sw'], c['sf']) if x],

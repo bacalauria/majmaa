@@ -992,3 +992,6 @@ dialog::backdrop { background: rgb(4 16 10 / .55); backdrop-filter: blur(4px); }
 .short .serie__links { margin-top: auto; }
 @media (max-width: 640px) { .short { grid-template-columns: minmax(0, 1fr); } .short__player { max-width: 320px; margin-inline: auto; } }
 .card--wide { grid-column: 1 / -1; }
+
+/* video not public yet (article tables) */
+small.soon{opacity:.7;font-weight:400;white-space:nowrap}
