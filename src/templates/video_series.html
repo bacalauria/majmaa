@@ -20,7 +20,7 @@
         <p class="ep__n">الحلقة {{ e.n }} · {{ e.date }}</p>
         <h2>{{ e.title }}</h2>
         <p class="short__line">{{ e.desc }}</p>
-        {% if e.quote %}<figure class="short__quote"><blockquote>قال رسولُ اللهِ ﷺ: «{{ e.quote }}»</blockquote><figcaption>{{ e.quote_src }}</figcaption></figure>{% endif %}
+        {% if e.quote %}<figure class="short__quote"><blockquote>{% if e.quote_src %}قال رسولُ اللهِ ﷺ: {% endif %}«{{ e.quote }}»</blockquote>{% if e.quote_src %}<figcaption>{{ e.quote_src }}</figcaption>{% endif %}</figure>{% endif %}
         <p class="serie__links"><a class="btn btn--soft" href="https://www.youtube.com/shorts/{{ e.id }}" target="_blank" rel="noopener" data-ev="video/{{ s.slug }}/{{ e.n }}/yt">شاهد على يوتيوب</a></p>
       </div>
     </li>

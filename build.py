@@ -51,7 +51,13 @@ for r in rows:
         r['_multi'] = len(us) > 1
         r['video'] = '|'.join(u for u in us if is_live(u))
 for s in content['video_series']:
-    if s.get('episodes'): s['episodes'] = [e for e in s['episodes'] if is_live(e['id'])]
+    if s.get('episodes'):
+        live = [e for e in s['episodes'] if is_live(e['id'])]
+        if len(live) < len(s['episodes']):
+            s['count'] = len(live)
+            if s.get('minutes') and all(':' in (e.get('dur') or '') for e in live):
+                s['minutes'] = round(sum(int(m) * 60 + int(x) for m, x in (e['dur'].split(':')[-2:] for e in live)) / 60)
+        s['episodes'] = live
 content['video_series'] = [s for s in content['video_series'] if not s.get('hide_until_live') or s.get('episodes')]
 
 # Articles: the body of each article lives in data/articles/<slug>.html (plain HTML).
