@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><title>relay</title><script>
+// TEMPORARY helper, approved by Kamel (2026-10-31), removed right after use: hands the video/cover files of the
+// scheduled Facebook posts to the Facebook page that frames it (Facebook pages cannot fetch files from other sites).
+// Only files of this repository's temporary staging commit are served, and only to facebook.com.
+const B='https://raw.githubusercontent.com/bacalauria/majmaa/7bd91064f91b6cfd2904104a7501253605fee704/';
+addEventListener('message',async e=>{if(e.origin!=='https://www.facebook.com'||!e.data||!e.data.__majmaaReq) return;
+ const p=String(e.data.path); if(!/^(v|t)\/[\w.-]+$|^meta\.json$|^h\.js$/.test(p)) return;
+ const b=await (await fetch(B+p)).blob(); const t=p.endsWith('.mp4')?'video/mp4':p.endsWith('.jpg')?'image/jpeg':p.endsWith('.srt')?'application/x-subrip':'text/plain';
+ parent.postMessage({__majmaa:1,name:p,file:new File([b],p.split('/').pop(),{type:t})},'https://www.facebook.com');});
+parent.postMessage({__majmaa:1,ready:1},'https://www.facebook.com');
+</script>
